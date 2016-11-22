@@ -9,24 +9,21 @@
 import  echarts from 'echarts'
  
 
-
-
 export default({
   name : "innovateIndustry",
   mounted:function (){
 
+
+//使用JQuery 加载外部JS
 $.when(
-    $.getScript('http://localhost/timelineGDP.js'),
+    $.getScript('http://7xlgc1.com1.z0.glb.clouddn.com/timelineGDP.js'),
  ).done(function () {
   console.log('timelineGDP done');
     
 //在这里外部虚拟dom已经被替换完成了  
 // 基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('mapinner'));
-
-
 myChart.hideLoading();
-
 var categoryData = [
         '北京','天津','河北','山西','内蒙古','辽宁','吉林','黑龙江',
         '上海','江苏','浙江','安徽','福建','江西','山东','河南',
@@ -40,21 +37,49 @@ innovateOption = {
             timeline: {
                 axisType: 'category',
                 autoPlay: true,
+                orient: 'vertical',
                 playInterval: 1000,
+                left: null,
+                right: 0,
+                top: 20,
+                bottom: 20,
+                width: 55,
                 data: [
                     '2002-01-01', '2003-01-01', '2004-01-01',
                     '2005-01-01', '2006-01-01', '2007-01-01',
                     '2008-01-01', '2009-01-01', '2010-01-01',
-                    '2011-01-01'
+                 {
+                    value: '2017-01-01',
+                    tooltip: {
+                        formatter: function (params) {
+                            return params.name + '特朗普当选了 世界要变了';
+                        }
+                    },
+                    symbol: 'diamond',
+                    symbolSize: 18
+                },
                 ],
+                symbol: 'circle',
+
                 label: {
                     formatter : function(s) {
                         return (new Date(s)).getFullYear();
+                    },
+                    normal: {
+                        textStyle: {
+                            color: '#999'
+                        }
+                    },
+                    emphasis: {
+                        textStyle: {
+                            color: '#333'
+                        }
                     }
                 }
             },
+
             title: {
-                subtext: 'Media Query 示例'
+                subtext: '数据来自:锐信视界'
             },
             tooltip: {
                 trigger:'axis',
@@ -64,7 +89,7 @@ innovateOption = {
             },
             xAxis: {
                 type: 'value',
-                name: 'GDP（亿元）',
+                name: '家（亿)',
                 max: 30000,
                 data: null
             },
@@ -196,7 +221,7 @@ innovateOption = {
         ],
         options: [
             {
-                title: {text: '2002全国宏观经济指标'},
+                title: {text: '2002区域行业创新指标'},
                 series: [
                     {data: dataMap.dataGDP['2002']},
                     {data: dataMap.dataFinancial['2002']},
@@ -212,7 +237,7 @@ innovateOption = {
                 ]
             },
             {
-                title : {text: '2003全国宏观经济指标'},
+                title : {text: '2003区域行业创新指标'},
                 series : [
                     {data: dataMap.dataGDP['2003']},
                     {data: dataMap.dataFinancial['2003']},
@@ -228,7 +253,7 @@ innovateOption = {
                 ]
             },
             {
-                title : {text: '2004全国宏观经济指标'},
+                title : {text: '2004区域行业创新指标'},
                 series : [
                     {data: dataMap.dataGDP['2004']},
                     {data: dataMap.dataFinancial['2004']},
@@ -244,7 +269,7 @@ innovateOption = {
                 ]
             },
             {
-                title : {text: '2005全国宏观经济指标'},
+                title : {text: '2005区域行业创新指标'},
                 series : [
                     {data: dataMap.dataGDP['2005']},
                     {data: dataMap.dataFinancial['2005']},
@@ -260,7 +285,7 @@ innovateOption = {
                 ]
             },
             {
-                title : {text: '2006全国宏观经济指标'},
+                title : {text: '2006区域行业创新指标'},
                 series : [
                     {data: dataMap.dataGDP['2006']},
                     {data: dataMap.dataFinancial['2006']},
@@ -276,7 +301,7 @@ innovateOption = {
                 ]
             },
             {
-                title : {text: '2007全国宏观经济指标'},
+                title : {text: '2007区域行业创新指标'},
                 series : [
                     {data: dataMap.dataGDP['2007']},
                     {data: dataMap.dataFinancial['2007']},
@@ -292,7 +317,7 @@ innovateOption = {
                 ]
             },
             {
-                title : {text: '2008全国宏观经济指标'},
+                title : {text: '2008区域行业创新指标'},
                 series : [
                     {data: dataMap.dataGDP['2008']},
                     {data: dataMap.dataFinancial['2008']},
@@ -308,7 +333,7 @@ innovateOption = {
                 ]
             },
             {
-                title : {text: '2009全国宏观经济指标'},
+                title : {text: '2009区域行业创新指标'},
                 series : [
                     {data: dataMap.dataGDP['2009']},
                     {data: dataMap.dataFinancial['2009']},
@@ -324,7 +349,7 @@ innovateOption = {
                 ]
             },
             {
-                title : {text: '2010全国宏观经济指标'},
+                title : {text: '2010区域行业创新指标'},
                 series : [
                     {data: dataMap.dataGDP['2010']},
                     {data: dataMap.dataFinancial['2010']},
@@ -340,7 +365,7 @@ innovateOption = {
                 ]
             },
             {
-                title : {text: '2011全国宏观经济指标'},
+                title : {text: '2011区域行业创新指标'},
                 series : [
                     {data: dataMap.dataGDP['2011']},
                     {data: dataMap.dataFinancial['2011']},
@@ -360,7 +385,6 @@ innovateOption = {
 
 
 myChart.setOption(innovateOption);
-
 myChart.on('click', function (params) {
 	console.log(params);
  });

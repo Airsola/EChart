@@ -9,6 +9,7 @@ import VueRouter from 'vue-router'
 import  EchartsMaps from './components/echartMap.vue'
 import  ecomomyMap from './components/economyMap.vue'
 import  innovateIndustry from './components/innovateIndustry.vue'
+import  lifeExpectancy from './components/lifeExpectancy.vue'
 
 
 Vue.use(MintUI)
@@ -27,7 +28,7 @@ const router = new VueRouter({
   routes: [
     { path: '/', name: 'recruit', component: EchartsMaps },
     { path: '/economy', name: 'economy', component: ecomomyMap },
-    { path: '/bar', name: 'bar', component: Bar },
+    { path: '/lifeExpectancy', name: 'lifeExpectancy', component: lifeExpectancy },
     { path: '/innovateIndustry', name: 'innovateIndustry', component: innovateIndustry }
 
   ]
@@ -63,8 +64,8 @@ new Vue({
       <ul>
         <li><router-link :to="{ name:'recruit'}">招聘指数</router-link></li>
         <li><router-link :to="{ name:'economy'}">经济指数</router-link></li>
-        <li><router-link :to="{ name: 'bar'}">厦门区划创业</router-link></li>
-        <li><router-link :to="{ name: 'innovateIndustry'}">创新指数区分行业</router-link></li>
+        <li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>
+        <li><router-link :to="{ name: 'innovateIndustry'}">创新指数-区域-行业-最近十年  </router-link></li>
 
       </ul>
       <router-view class="view"></router-view>
