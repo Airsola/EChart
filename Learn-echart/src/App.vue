@@ -11,13 +11,8 @@
 
 
 <script>
-
-
-import  $ from 'jquery'
-
+ 
 export default {
-
-
   name: 'app',
   data () {
     return {
@@ -32,23 +27,21 @@ export default {
 
   mounted:function (){
 
+// 测试AJAX是否生效
  $("p").click(function(){
     $(this).hide();
   });
-   
 
   }
 
-
-
 }
-
 
 
 </script>
 
 <style>
-#app {
+
+#app{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -56,6 +49,16 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.routeArea{
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
 
 h1, h2 {
   font-weight: normal;

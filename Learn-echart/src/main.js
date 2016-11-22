@@ -3,17 +3,21 @@ import App from './App'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import VueRouter from 'vue-router'
-import  TodoList from './todolist'
+
+//import  TodoList from './todolist'
 
 import  EchartsMaps from './components/echartMap.vue'
- 
+import  ecomomyMap from './components/economyMap.vue'
+import  innovateIndustry from './components/innovateIndustry.vue'
+
+
 Vue.use(MintUI)
 Vue.use(VueRouter)
 
 
 const Home = { template:'<div>This is Home</div>' }
 const Foo = { template: '<div>This is Foo</div>' }
-const Bar = { template: '<div>This is Bar {{ $route.params.id }}</div>' }
+const Bar = { template: '<div></div>' }
 
 
 
@@ -21,9 +25,11 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', name: 'home', component: Home },
-    { path: '/foo', name: 'foo', component: Foo },
-    { path: '/bar/:id', name: 'bar', component: Bar }
+    { path: '/', name: 'recruit', component: EchartsMaps },
+    { path: '/economy', name: 'economy', component: ecomomyMap },
+    { path: '/bar', name: 'bar', component: Bar },
+    { path: '/innovateIndustry', name: 'innovateIndustry', component: innovateIndustry }
+
   ]
 })
 
@@ -42,29 +48,29 @@ new Vue({
 // })
 
 //测试 echart
-new Vue({
-  el: '#map',
-  //这里render的只是一个组件而已 传啥就渲染啥
-  render: h => h(EchartsMaps)
-})
-
-
+// new Vue({
+//   el: '#map',
+//   //这里render的只是一个组件而已 传啥就渲染啥
+//   render: h => h(EchartsMaps)
+// })
 
 new Vue({
   router,
   template: `
-    <div id="app">
-      <h1>Named Routes</h1>
+    <div class="routeArea">
+      <h1>区域和产业指数</h1>
       <p>Current route name: {{ $route.name }}</p>
       <ul>
-        <li><router-link :to="{ name: 'home' }">home</router-link></li>
-        <li><router-link :to="{ name: 'foo' }">foo</router-link></li>
-        <li><router-link :to="{ name: 'bar', params: { id: 123 }}">bar</router-link></li>
+        <li><router-link :to="{ name:'recruit'}">招聘指数</router-link></li>
+        <li><router-link :to="{ name:'economy'}">经济指数</router-link></li>
+        <li><router-link :to="{ name: 'bar'}">厦门区划创业</router-link></li>
+        <li><router-link :to="{ name: 'innovateIndustry'}">创新指数区分行业</router-link></li>
+
       </ul>
       <router-view class="view"></router-view>
     </div>
   `
-}).$mount('#app0')
+}).$mount('#route')
 
 // new Vue({
 //   el: '#app',

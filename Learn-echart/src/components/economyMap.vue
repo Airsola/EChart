@@ -184,6 +184,8 @@ app.timeTicket = setInterval(function () {
             data: data
         }]
     }
+
+
     );
 }, 500);
 myChart.setOption(option, true);
@@ -202,9 +204,9 @@ myChart.on('click', function (params) {
 
 </script >
 
-<style >
+<style  scoped>
 #mapinner{
-height: 400px;
+height: 600px;
 width:  600px;
 margin: 0 auto;
 }	
