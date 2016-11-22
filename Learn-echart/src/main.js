@@ -4,6 +4,8 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import VueRouter from 'vue-router'
 import  TodoList from './todolist'
+
+import  EchartsMaps from './components/echartMap.vue'
  
 Vue.use(MintUI)
 Vue.use(VueRouter)
@@ -32,11 +34,18 @@ new Vue({
   render: h => h(App)
 })
 
-//测试Miti UI 使用
+//测试todo 使用
+// new Vue({
+//   el: '#app2',
+//   //这里render的只是一个组件而已 传啥就渲染啥
+//   render: h => h(TodoList)
+// })
+
+//测试 echart
 new Vue({
-  el: '#app2',
+  el: '#map',
   //这里render的只是一个组件而已 传啥就渲染啥
-  render: h => h(TodoList)
+  render: h => h(EchartsMaps)
 })
 
 

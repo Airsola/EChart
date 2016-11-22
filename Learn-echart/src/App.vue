@@ -1,6 +1,7 @@
 <template >
   <div id="app">
     <img src="./assets/logo.png">
+    <p>点击我，我会消失。</p>
     <h1>{{ msg }}</h1>
     <mt-button @click.native="startHacking">Let's do it</mt-button>
   </div>
@@ -10,7 +11,13 @@
 
 
 <script>
+
+
+import  $ from 'jquery'
+
 export default {
+
+
   name: 'app',
   data () {
     return {
@@ -21,7 +28,19 @@ export default {
     startHacking () {
       this.$toast('It Works!')
     }
+  },
+
+  mounted:function (){
+
+ $("p").click(function(){
+    $(this).hide();
+  });
+   
+
   }
+
+
+
 }
 
 
