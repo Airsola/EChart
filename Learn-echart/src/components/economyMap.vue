@@ -25,23 +25,10 @@ var myChart = echarts.init(document.getElementById('mapinner'));
 //var myChart = echarts.init(this.$el);
 
 // 柱状图
-myChart.setOption({
-    title: { text: 'ECharts 入门示例' },
-    tooltip: {},
-    xAxis: {
-        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-    },
-    yAxis: {},
-    series: [{
-        name: '销量',
-        type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
-    }]
-});
-    
 
 
-/*
+
+
 var option = null;
 option = {
     backgroundColor: '#2c343c',
@@ -64,7 +51,7 @@ option = {
 
     series : [
         {
-            name: '访问来源',
+            name: '销量',
             type: 'pie',
             radius: '67%',
             data:[
@@ -92,7 +79,7 @@ option = {
             itemStyle: {
                 normal: {
                 	// 不显示设置颜色那么默认自动随机颜色
-                    // color: '#c23531',
+                    color: '#c23531',
                     shadowBlur: 200,
                     shadowColor: 'rgba(0, 0, 0, 0.5)'
                 },
@@ -109,6 +96,9 @@ option = {
 }
 
 
+myChart.setOption(option, true);
+
+/*
 
 // 异步加载
 
@@ -206,7 +196,7 @@ myChart.on('click', function (params) {
 
 <style  scoped>
 #mapinner{
-height: 600px;
+height: 400px;
 width:  600px;
 margin: 0 auto;
 }	

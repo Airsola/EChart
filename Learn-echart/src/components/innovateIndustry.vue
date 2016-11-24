@@ -81,6 +81,15 @@ innovateOption = {
             title: {
                 subtext: '数据来自:锐信视界'
             },
+  toolbox: {
+        feature: {
+            magicType: {
+                type: ['line','bar','stack', 'tiled']
+            },
+            dataView: {}
+        }
+    },
+            
             tooltip: {
                 trigger:'axis',
                 axisPointer: {

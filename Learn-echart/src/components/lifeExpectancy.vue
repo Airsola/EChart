@@ -1,5 +1,5 @@
 <template >
-  <div id="mapinner">
+  <div id="mapinner2">
   </div>
 </template>
 
@@ -10,17 +10,26 @@ import  echarts from 'echarts'
  
 
 export default({
+
   name : "innovateIndustry",
   mounted:function (){
 
 $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (data) {
 
-	var myChart = echarts.init(document.getElementById('mapinner'));
+	var myChart = echarts.init(document.getElementById('mapinner2'));
+
+    // myChart.resize({
+    //     width:200,
+    //     height:200
+    // }) 
+
+    
 	var option = null;
     myChart.hideLoading();
 
     var itemStyle = {
-        normal: {
+    
+    normal: {
             opacity: 0.8,
             shadowBlur: 10,
             shadowOffsetX: 0,
@@ -33,7 +42,8 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
         var y = Math.sqrt(x / 5e8) + 0.1;
         return y * 80;
     };
-    // Schema:
+
+    // Schema:   这是和鼠标 hover 散点图 展示内容的模板
     var schema = [
         {name: 'Income', index: 0, text: '人均收入', unit: '美元'},
         {name: 'LifeExpectancy', index: 1, text: '人均寿命', unit: '岁'},
@@ -67,6 +77,7 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
                         }
                     }
                 },
+
                 symbol: 'none',
                 lineStyle: {
                     color: '#555'
@@ -88,9 +99,14 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
                         borderColor: '#aaa'
                     }
                 },
+                // 这个时间轴的 baseOption 放空也很有意思 
                 data: []
             },
             backgroundColor: '#404a59',
+            
+
+            // 这些外部 没有明确指向的实际上 是在设置散点图的熟悉 后续可以看到
+            //滚动年份大Logo
             title: [{
                 'text': data.timeline[0],
                 textAlign: 'center',
@@ -101,11 +117,15 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
                     color: 'rgba(255, 255, 255, 0.7)'
                 }
             }],
+
+          
             tooltip: {
                 padding: 5,
                 backgroundColor: '#222',
                 borderColor: '#777',
                 borderWidth: 1,
+
+                // 这里的tip 是具体的散点图的 那，这个obj 的值需要考量
                 formatter: function (obj) {
                     var value = obj.value;
                     return schema[3].text + '：' + value[3] + '<br>'
@@ -118,13 +138,18 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
                 left: '12%',
                 right: '110'
             },
+
+            // 这里的 x y 轴的设定很奇怪 都没有指定 data , type 类型制定了有些可以通过Value直接获得值
             xAxis: {
                 type: 'log',
+                logBase:2,
                 name: '人均收入',
                 max: 100000,
                 min: 300,
                 nameGap: 25,
                 nameLocation: 'middle',
+                // inverse:true,
+                boundaryGap: ['50%', '50%'],
                 nameTextStyle: {
                     fontSize: 18
                 },
@@ -160,6 +185,8 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
                     formatter: '{value} 岁'
                 }
             },
+
+            // 这部分是费解的
             visualMap: [
                 {
                     show: false,
@@ -179,29 +206,36 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
                     }
                 }
             ],
+
+           // 这里应该不用赋值也是行的吧,奇怪这里至少需要预留一个  name 的值
             series: [
                 {
-                    type: 'scatter',
-                    itemStyle: itemStyle,
-                    data: data.series[0],
-                    symbolSize: function(val) {
-                        return sizeFunction(val[2]);
-                    }
+                     type: 'scatter',
+                     // name: 'abd'
+                    // itemStyle: itemStyle,
+                    // data: data.series[0]
+                    // symbolSize: function(val) {
+                    //     return sizeFunction(val[2]);
+                    // }
                 }
             ],
             animationDurationUpdate: 1000,
             animationEasingUpdate: 'quinticInOut'
         },
+
+        //  这里放空 等待后续插入 options 上是单个时间切片的各个维度的
         options: []
     };
 
     for (var n = 0; n < data.timeline.length; n++) {
+
         option.baseOption.timeline.data.push(data.timeline[n]);
         option.options.push({
             title: {
                 show: true,
                 'text': data.timeline[n] + ''
             },
+
             series: {
                 name: data.timeline[n],
                 type: 'scatter',
@@ -235,11 +269,11 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
 
 <style  scoped>
 
-#mapinner{
-height: 700px;
+#mapinner2{
+height: 400px;
 width:  600px;
 margin: 0 auto;
-}	
+};	
 
 </style>
 

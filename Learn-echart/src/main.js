@@ -10,7 +10,14 @@ import  EchartsMaps from './components/echartMap.vue'
 import  ecomomyMap from './components/economyMap.vue'
 import  innovateIndustry from './components/innovateIndustry.vue'
 import  lifeExpectancy from './components/lifeExpectancy.vue'
+import  mapArea from './components/mapArea.vue'
+import  autoPaly from './components/autoPaly.vue'
+import  AnscombeQuartet from './components/AnscombeQuartet.vue'
 
+import  CrossBar from './components/CrossBar.vue'
+import  StackBar from './components/StackBar.vue'
+
+ 
 
 Vue.use(MintUI)
 Vue.use(VueRouter)
@@ -29,7 +36,15 @@ const router = new VueRouter({
     { path: '/', name: 'recruit', component: EchartsMaps },
     { path: '/economy', name: 'economy', component: ecomomyMap },
     { path: '/lifeExpectancy', name: 'lifeExpectancy', component: lifeExpectancy },
-    { path: '/innovateIndustry', name: 'innovateIndustry', component: innovateIndustry }
+    { path: '/innovateIndustry', name: 'innovateIndustry', component: innovateIndustry },
+    { path: '/autoPaly', name: 'autoPaly', component: autoPaly },
+    { path: '/AnscombeQuartet', name: 'AnscombeQuartet', component: AnscombeQuartet },
+    { path: '/mapArea', name: 'mapArea', component: mapArea },
+    { path: '/CrossBar', name: 'CrossBar', component: CrossBar },
+    { path: '/StackBar', name: 'StackBar', component: StackBar },
+
+
+
 
   ]
 })
@@ -62,10 +77,17 @@ new Vue({
       <h1>区域和产业指数</h1>
       <p>Current route name: {{ $route.name }}</p>
       <ul>
-        <li><router-link :to="{ name:'recruit'}">招聘指数</router-link></li>
-        <li><router-link :to="{ name:'economy'}">经济指数</router-link></li>
+        <li><router-link :to="{ name:'recruit'}">直方图</router-link></li>
+        <li><router-link :to="{ name: 'CrossBar'}">CrossBar</router-link></li>
+        <li><router-link :to="{ name: 'StackBar'}">StackBar</router-link></li>
+
+        <li><router-link :to="{ name:'economy'}">南丁格尔图</router-link></li>
         <li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>
         <li><router-link :to="{ name: 'innovateIndustry'}">创新指数-区域-行业-最近十年  </router-link></li>
+        <li><router-link :to="{ name: 'autoPaly'}">autoPaly</router-link></li>
+        <li><router-link :to="{ name: 'AnscombeQuartet'}">AnscombeQuartet</router-link></li>
+        <li><router-link :to="{ name: 'mapArea'}">mapArea</router-link></li>
+
 
       </ul>
       <router-view class="view"></router-view>
