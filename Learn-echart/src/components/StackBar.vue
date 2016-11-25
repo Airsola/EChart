@@ -57,10 +57,10 @@ option = {
         left: 10
     },
     // 区域选择工具
-    brush: {
-        toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
-        xAxisIndex: 0
-    },
+    // brush: {
+    //     toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
+    //     xAxisIndex: 0
+    // },
     // bar  平铺还是堆叠   动态类型切换  非常赞
     toolbox: {
         feature: {
@@ -89,8 +89,8 @@ option = {
     },
     visualMap: {
         // type: 'continuous',
-        // calculable: true,
-        splitNumber: 5,
+        calculable: true,
+        // splitNumber: 5,
 
         dimension: 1,// 这个映射维度的指定好像有问题
         text: ['High', 'Low'],

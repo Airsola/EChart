@@ -4,7 +4,7 @@
 </template>
 
 
-<script>
+<script >
 
 import  echarts from 'echarts'
 
@@ -19,7 +19,7 @@ export default({
     // myChart.resize({
     //     width:200,
     //     height:200
-    // }) 
+    // })
 
 
 	var option = null;
@@ -109,7 +109,7 @@ myChart.setOption(option);
 height: 400px;
 width:  600px;
 margin: 0 auto;
-};	
+};
 
 </style>
 

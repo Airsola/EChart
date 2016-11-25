@@ -1,6 +1,12 @@
 <template >
-  <div id="mapinner2">
+<div>
+    <p> 一共5个维度。分别是 寿命,人均收入,国家,人口总数,以及时间 </p>
+     <p> 时间轴自动切换的形式容易看出变化趋势 </p>
+
+      <div id="mapinner2">
   </div>
+</div>
+
 </template>
 
 
@@ -21,9 +27,7 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
     // myChart.resize({
     //     width:200,
     //     height:200
-    // }) 
-
-    
+    // })     
 	var option = null;
     myChart.hideLoading();
 

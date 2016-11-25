@@ -19,6 +19,20 @@ export default({
     },
   mounted:function (){
 
+
+
+var waterMarkText = '锐信视界';
+var canvas = document.createElement('canvas');
+var ctx = canvas.getContext('2d');
+canvas.width = canvas.height = 200;
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.globalAlpha = 0.2;
+ctx.font="30px Arial";
+ctx.translate(50, 50);
+ctx.rotate(-Math.PI / 4);
+ctx.fillText(waterMarkText, 0, 0);
+
 //在这里外部虚拟dom已经被替换完成了  
 // 基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('mapinner'));
@@ -26,12 +40,18 @@ var myChart = echarts.init(document.getElementById('mapinner'));
 
 // 柱状图
 myChart.setOption({
-    title: { text: 'ECharts 入门示例' },
+    backgroundColor: {
+        type: 'pattern',
+        image: canvas,
+        repeat: 'repeat'
+    },
+    title: { text: '区域招聘热度指数' },
     tooltip: {},
     xAxis: {
-        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        data: ["思明区","湖里区","51区","11区","49区","7区"]
     },
     yAxis: {},
+
     series: [{
         name: '销量',
         type: 'bar',

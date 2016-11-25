@@ -18,10 +18,10 @@ export default({
 
 
 $.when(
-    // 外部接入的map
-    $.get('http://7xlgc1.com1.z0.glb.clouddn.com/chinageo.json'),
+    // 外部接入的map  D3.js 那边搞来的
+    // $.get('http://7xlgc1.com1.z0.glb.clouddn.com/chinageo.json'),
      //百度提供的json
-    // $.get('http://7xlgc1.com1.z0.glb.clouddn.com/china.json'),
+    $.get('http://7xlgc1.com1.z0.glb.clouddn.com/china.json'),
  ).done(function (chinaJson) {
   console.log('chinaMap.js');
  
@@ -225,97 +225,7 @@ var geoCoordMap = {
 };
 
 
-//这里把一个区域的数据与经纬度结合起来
-
-var convertData = function (data) {
-    var res = [];
-    for (var i = 0; i < data.length; i++) {
-        var geoCoord = geoCoordMap[data[i].name];
-        if (geoCoord) {
-            res.push({
-                name: data[i].name,
-                value: geoCoord.concat(data[i].value)
-            });
-        }
-    }
-    return res;
-};
-
-
-option = {
-    backgroundColor: '#404a59',
-    title: {
-        text: '全国主要城市空气质量',
-        subtext: 'data from PM25.in',
-        sublink: 'http://www.pm25.in',
-        x:'center',
-        textStyle: {
-            color: '#fff'
-        }
-    },
-    tooltip: {
-        trigger: 'item',
-        formatter: function (params) {
-            return params.name + ' : ' + params.value[2];
-        }
-    },
-    legend: {
-        orient: 'vertical',
-        y: 'bottom',
-        x:'right',
-        data:['pm2.5','pm5k'],
-        textStyle: {
-            color: '#fff'
-        }
-    },
-
-    visualMap: {
-        min: 0,
-        max: 200,
-        //将离散型的映射给分割了
-        splitNumber: 5,
-        // calculable: true,
-        inRange: {
-            // color: ['#50a3ba', '#eac736', '#d94e5d']
-            color: ['#61a5f8', '#eecb5f', '#e16759']
-        },
-
-        textStyle: {
-            color: '#fff'
-        }
-    },
-    
-    geo: {
-        map: 'china',
-
-        roam: true,
-
-        zoom: 1,
-        label: {
-            emphasis: {
-                show: false
-            }
-        },
-
-        itemStyle: {
-            normal: {
-                areaColor: '#323c48',
-                borderColor: '#111'
-            },
-            emphasis: {
-                areaColor: '#2a333d'
-            }
-        }
-    },
-    
-    series: [
-        {
-            name: 'pm2.5',
-             // 热力图的插值算法有问题，放缩非常卡
-            // type: 'heatmap',
-            type: 'scatter',
-            coordinateSystem: 'geo',
-            data: convertData([
+var data = [
                 {name: "海门", value: 9},
                 {name: "鄂尔多斯", value: 12},
                 {name: "招远", value: 12},
@@ -506,7 +416,108 @@ option = {
                 {name: "合肥", value: 229},
                 {name: "武汉", value: 273},
                 {name: "大庆", value: 279}
-            ]),
+            ]
+
+//这里把一个区域的数据与经纬度结合起来
+
+var convertData = function (data) {
+    var res = [];
+    for (var i = 0; i < data.length; i++) {
+        var geoCoord = geoCoordMap[data[i].name];
+        if (geoCoord) {
+            res.push({
+                name: data[i].name,
+                value: geoCoord.concat(data[i].value)
+            });
+        }
+    }
+    return res;
+};
+
+
+
+var result = convertData(data.sort(function (a, b) {
+                return b.value - a.value;
+            }).slice(0, 10));
+
+
+option = {
+    backgroundColor: '#404a59',
+    title: {
+        text: '全国主要城市空气质量',
+        subtext: 'data from PM25.in',
+        sublink: 'http://www.pm25.in',
+        x:'center',
+        textStyle: {
+            color: '#fff'
+        }
+    },
+    tooltip: {
+        trigger: 'item',
+        formatter: function (params) {
+            return params.name + ' : ' + params.value[2];
+        }
+    },
+    legend: {
+        orient: 'vertical',
+        y: 'bottom',
+        x:'right',
+        data:['pm2.5'],
+        textStyle: {
+            color: '#fff'
+        }
+    },
+
+    visualMap: {
+
+        //这里的最大值 最小值需要提前获得
+        min: 0,
+        max: 300,
+        //将离散型的映射给分割了
+         splitNumber: 5,
+        // calculable: true,
+        inRange: {
+            // color: ['#50a3ba', '#eac736', '#d94e5d']
+            color: ['#61a5f8', '#eecb5f', '#e16759']
+        },
+
+        textStyle: {
+            color: '#fff'
+        }
+    },
+    
+    geo: {
+        map: 'china',
+
+        //地图放缩
+        // roam: true,
+        zoom: 1.3,
+        label: {
+            emphasis: {
+                show: false
+            }
+        },
+
+        itemStyle: {
+            normal: {
+                areaColor: '#323c48',
+                borderColor: '#111'
+            },
+            emphasis: {
+                areaColor: '#2a333d'
+            }
+        }
+    },
+    
+    series: [
+        {
+            // 这里会丢失数据...为啥
+            name: 'pm2.5',
+             // 热力图的插值算法有问题，放缩非常卡
+            // type: 'heatmap',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            data: convertData( data ),
             symbolSize: 12,
             label: {
                 normal: {
@@ -522,6 +533,40 @@ option = {
                     borderWidth: 1
                 }
             }
+        },
+
+        // Top 5 大点
+        {
+            name: 'Top 5',
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            data: convertData(data.sort(function (a, b) {
+                return b.value - a.value;
+            }).slice(0, 5)),
+
+            symbolSize: function (val) {
+                return val[2] / 10;
+            },
+            showEffectOn: 'render',
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            hoverAnimation: true,
+            label: {
+                normal: {
+                    formatter: '{b}',
+                    position: 'right',
+                    show: true
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#f4e925',
+                    shadowBlur: 10,
+                    shadowColor: '#333'
+                }
+            },
+            zlevel: 1
         }
 
 
