@@ -81,13 +81,13 @@ new Vue({
       <p>Current route name: {{ $route.name }}</p>
       <ul>
          <p>
+         <li><router-link :to="{ name: 'AnscombeQuartet'}">AnscombeQuartet</router-link></li>
         <li><router-link :to="{ name:'recruit'}">直方图-水印</router-link></li>
         <li><router-link :to="{ name: 'CrossBar'}">交错直方图</router-link></li>
         <li><router-link :to="{ name: 'StackBar'}">堆叠直方图</router-link></li>
         <li><router-link :to="{ name:'economy'}">南丁格尔图</router-link></li>
         <li><router-link :to="{ name:'Concentriccircles'}">同心圆-分层展开</router-link></li>
         <li><router-link :to="{ name: 'autoPaly'}">模拟自动点击</router-link></li>
-        <li><router-link :to="{ name: 'AnscombeQuartet'}">AnscombeQuartet</router-link></li>
         </p>
         <p>
         <li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>

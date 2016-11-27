@@ -5,13 +5,11 @@
     <h1>{{ msg }}</h1>
     <mt-button @click.native="startHacking">Let's do it</mt-button>
   </div>
-
-
 </template>
 
 
 <script>
- 
+
 export default {
   name: 'app',
   data () {
@@ -19,11 +17,13 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
+
   methods: {
     startHacking () {
       this.$toast('It Works!')
     }
   },
+
 
   mounted:function (){
 

@@ -8,13 +8,13 @@
 
 import  echarts from 'echarts'
 
-export default({
+export default{
 
-  name : "autoPaly",
-  mounted:function (){
-
-  var app = [];
-	var myChart = echarts.init(document.getElementById('mapinner2'));
+  name: "autoPaly",
+  mounted: function () {
+    document.getElementById();
+    var app = [];
+    var myChart = echarts.init(document.getElementById('mapinner2'));
 
     // myChart.resize({
     //     width:200,
@@ -22,77 +22,76 @@ export default({
     // })
 
 
-	var option = null;
+    var option = null;
     myChart.hideLoading();
 
-   option = {
-    title : {
+    option = {
+      title: {
         text: '饼图程序调用高亮示例',
         x: 'center'
-    },
-    tooltip: {
+      },
+      tooltip: {
         trigger: 'item',
         formatter: "{a} <br/>{b} : {c} ({d}%)"
-    },
-    legend: {
+      },
+      legend: {
         orient: 'vertical',
         left: 'left',
-        data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-    },
-    series : [
+        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+      },
+      series: [
         {
-            name: '访问来源',
-            type: 'pie',
-            radius : '55%',
-            center: ['50%', '60%'],
-            data:[
-                {value:335, name:'直接访问'},
-                {value:310, name:'邮件营销'},
-                {value:234, name:'联盟广告'},
-                {value:135, name:'视频广告'},
-                {value:1548, name:'搜索引擎'}
-            ],
-            itemStyle: {
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.7)'
-                }
+          name: '访问来源',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '60%'],
+          data: [
+            {value: 335, name: '直接访问'},
+            {value: 310, name: '邮件营销'},
+            {value: 234, name: '联盟广告'},
+            {value: 135, name: '视频广告'},
+            {value: 1548, name: '搜索引擎'}
+          ],
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.7)'
             }
+          }
         }
-    ]
-};
+      ]
+    };
 
-app.currentIndex = -1;
+    app.currentIndex = -1;
 
-app.timeTicket = setInterval(function () {
-    var dataLen = option.series[0].data.length;
-    // 取消之前高亮的图形
-    myChart.dispatchAction({
+    app.timeTicket = setInterval(function () {
+      var dataLen = option.series[0].data.length;
+      // 取消之前高亮的图形
+      myChart.dispatchAction({
         type: 'downplay',
         seriesIndex: 0,
         dataIndex: app.currentIndex
-    });
-    app.currentIndex = (app.currentIndex + 1) % dataLen;
-    // 高亮当前图形
-    myChart.dispatchAction({
+      });
+      app.currentIndex = (app.currentIndex + 1) % dataLen;
+      // 高亮当前图形
+      myChart.dispatchAction({
         type: 'highlight',
         //seriesIndex: 0,
         dataIndex: app.currentIndex
-    });
-    // 显示 tooltip
-    myChart.dispatchAction({
+      });
+      // 显示 tooltip
+      myChart.dispatchAction({
         type: 'showTip',
         seriesIndex: 0,
         dataIndex: app.currentIndex
-    });
-}, 1000);
+      });
+    }, 1000);
 
-myChart.setOption(option);
-
+    myChart.setOption(option);
 // mounted  end
-    }
-})
+  }
+}
 
 
 

@@ -13,7 +13,6 @@ export default({
   name : "innovateIndustry",
   mounted:function (){
 
-
 //使用JQuery 加载外部JS
 $.when(
     $.getScript('http://7xlgc1.com1.z0.glb.clouddn.com/timelineGDP.js'),
@@ -77,19 +76,17 @@ innovateOption = {
                     }
                 }
             },
-
             title: {
                 subtext: '数据来自:锐信视界'
             },
-  toolbox: {
-        feature: {
-            magicType: {
-                type: ['line','bar','stack', 'tiled']
-            },
-            dataView: {}
-        }
-    },
-            
+  // toolbox: {
+  //       feature: {
+  //           magicType: {
+  //               type: ['line','bar','stack', 'tiled']
+  //           },
+  //           dataView: {}
+  //       }
+  //   },
             tooltip: {
                 trigger:'axis',
                 axisPointer: {
