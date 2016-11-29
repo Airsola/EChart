@@ -19,9 +19,8 @@ import  StackBar from './components/StackBar.vue'
 import  mapAreaSelect from './components/mapAreaSelect.vue'
 import  mapDeep from './components/mapDeep.vue'
 import  Concentriccircles from './components/Concentriccircles.vue'
+import  RecruitIndustry  from './components/RecruitIndustry.vue'
 
-
- 
 Vue.use(MintUI)
 Vue.use(VueRouter)
 
@@ -47,10 +46,15 @@ const router = new VueRouter({
     { path: '/mapAreaSelect', name: 'mapAreaSelect', component: mapAreaSelect },
     { path: '/mapDeep', name: 'mapDeep', component: mapDeep },
     { path: '/Concentriccircles', name: 'Concentriccircles', component: Concentriccircles },
+    { path: '/RecruitIndustry', name: 'RecruitIndustry', component: RecruitIndustry },
+
+
+    { path: '/', name: 'default', component: EchartsMaps },
 
 
   ]
 })
+
 
 //测试Miti UI 使用
 // new Vue({
@@ -73,6 +77,8 @@ const router = new VueRouter({
 //   render: h => h(EchartsMaps)
 // })
 
+
+ // 这里的router引用方式可能并不是主流哦   路由需要一个根组件 要么给全局的 要么给一个 index.html 的挂载点
 new Vue({
   router,
   template: `
@@ -81,7 +87,10 @@ new Vue({
       <p>Current route name: {{ $route.name }}</p>
       <ul>
          <p>
-         <li><router-link :to="{ name: 'AnscombeQuartet'}">AnscombeQuartet</router-link></li>
+         RecruitIndustry
+        
+        <li><router-link :to="{ name: 'RecruitIndustry'}">招聘指数-各行业-Top10</router-link></li>
+        <li><router-link :to="{ name: 'AnscombeQuartet'}">AnscombeQuartet</router-link></li>
         <li><router-link :to="{ name:'recruit'}">直方图-水印</router-link></li>
         <li><router-link :to="{ name: 'CrossBar'}">交错直方图</router-link></li>
         <li><router-link :to="{ name: 'StackBar'}">堆叠直方图</router-link></li>
@@ -98,7 +107,6 @@ new Vue({
         <li><router-link :to="{ name: 'mapAreaSelect'}">地图-区域选择-联动</router-link></li>
         <li><router-link :to="{ name: 'mapDeep'}">地图钻取</router-link></li>
         </p>
-
 
       </ul>
       <router-view class="view"></router-view>
