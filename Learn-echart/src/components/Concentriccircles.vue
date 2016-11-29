@@ -19,7 +19,7 @@ export default({
     },
   mounted:function (){
 
-//在这里外部虚拟dom已经被替换完成了  
+//在这里外部虚拟dom已经被替换完成了
 // 基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('mapinner'));
 //var myChart = echarts.init(this.$el);
@@ -31,7 +31,6 @@ var myChart = echarts.init(document.getElementById('mapinner'));
 
 var option = null;
 
-app.title = '嵌套环形图';
 
 option = {
     tooltip: {
@@ -93,10 +92,10 @@ myChart.setOption(option, true);
 
 // var fetchDate = function(){
 // myChart.setOption(option, true)
-// myChart.hideLoading();	
+// myChart.hideLoading();
 // }
 // myChart.showLoading();
-// setTimeout( fetchDate,3000); 
+// setTimeout( fetchDate,3000);
 
 
 
@@ -169,7 +168,7 @@ app.timeTicket = setInterval(function () {
 }, 500);
 myChart.setOption(option, true);
 */
-// 数据源动态更新，差值比对 end 
+// 数据源动态更新，差值比对 end
 
 myChart.on('click', function (params) {
 	console.log(params);
@@ -188,7 +187,7 @@ myChart.on('click', function (params) {
 height: 400px;
 width:  600px;
 margin: 0 auto;
-}	
+}
 
 </style>
 

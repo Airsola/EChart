@@ -1,12 +1,20 @@
 <template >
-  <div id="mapinner2">
+  <div id="containt">
+    <mianindustry></mianindustry>
+    <div id="mapinner2">
+  </div>
   </div>
 </template>
 
 <script>
   import  echarts from 'echarts'
+  import  mianindustry from  './RecruitMainIndustry.vue'
+
   export default{
     name: "autoPaly",
+    components:{
+      mianindustry
+    },
     mounted: function () {
       var app = [];
       var myChart = echarts.init(document.getElementById('mapinner2'));
@@ -105,8 +113,7 @@
           gridIndex: count
         });
 
-        debugger;
-        yAxes.push({
+         yAxes.push({
 //           data:["abc","bbc"],
           data: Object.keys(SubdivideIndustryValues[count]),
           gridIndex: count
@@ -149,7 +156,6 @@
       });
 
 
-      debugger;
 
       option = {
         title: titles.concat([{
