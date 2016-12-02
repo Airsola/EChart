@@ -1,15 +1,15 @@
 <template>
-  <div id="mapinner2">
+  <div>
+    <p>左上角有区域选择工具,通过圈花区域可以了解该区域更多信息</p>
+    <div id="mapinner2">
+    </div>
   </div>
 </template>
 
-
 <script>
-
   import  echarts from 'echarts'
 
   export default({
-
     name: "mapArea",
     mounted: function () {
 
@@ -26,6 +26,9 @@
         var app = [];
         var option = null;
         myChart.hideLoading();
+
+
+//------------------
 
         var geoCoordMap = {
           "海门": [121.15, 31.89],
@@ -220,7 +223,6 @@
           "大庆": [125.03, 46.58]
         };
 
-
         var data = [
           {name: "海门", value: 9},
           {name: "鄂尔多斯", value: 12},
@@ -412,9 +414,7 @@
           {name: "合肥", value: 229},
           {name: "武汉", value: 273},
           {name: "大庆", value: 279}
-        ]
-
-//这里把一个区域的数据与经纬度结合起来
+        ];
 
         var convertData = function (data) {
           var res = [];
@@ -431,143 +431,313 @@
         };
 
 
-        var result = convertData(data.sort(function (a, b) {
-          return b.value - a.value;
-        }).slice(0, 10));
+        var convertedData = [
+          convertData(data),
+          convertData(data.sort(function (a, b) {
+            return b.value - a.value;
+          }).slice(0, 5))
+        ];
 
 
         option = {
-          backgroundColor: '#404a59',
-          title: {
-            text: '全国主要城市空气质量',
-            subtext: 'data from PM25.in',
-            sublink: 'http://www.pm25.in',
-            x: 'center',
-            textStyle: {
-              color: '#fff'
+//          backgroundColor: '#404a59',
+          backgroundColor: '#827b85',
+
+          animation: true,
+          animationDuration: 1000,
+          animationEasing: 'cubicInOut',
+          animationDurationUpdate: 1000,
+          animationEasingUpdate: 'cubicInOut',
+          title: [
+            {
+              text: '经济指数-地区生产总值',
+              subtext: '锐信视界',
+              sublink: 'http://zx.onlyou.com/zx/index',
+              left: 'center',
+              textStyle: {
+                color: '#fff'
+              }
+            },
+            // 这部分独立设置的目的是啥？
+            {
+              id: 'statistic',
+              right: 120,
+              top: 40,
+              width: 100,
+              textStyle: {
+                color: '#fff',
+                fontSize: 16
+              }
             }
+          ],
+
+            visualMap: {
+               //这里的最大值 最小值需要提前获得
+               min: 0,
+               max: 300,
+               //将离散型的映射给分割了
+                splitNumber: 5,
+               // calculable: true,
+               inRange: {
+                   // color: ['#50a3ba', '#eac736', '#d94e5d']
+                   color: ['#61a5f8', '#eecb5f', '#e16759']
+               },
+               textStyle: {
+                   color: '#fff'
+               }
+           },
+
+//          toolbox: {
+//            iconStyle: {
+//              normal: {
+//                borderColor: '#fff'
+//              },
+//              emphasis: {
+//                borderColor: '#b1e4ff'
+//              }
+//            }
+//          },
+
+          brush: {
+            outOfBrush: {
+              color: '#abc'
+            },
+            brushStyle: {
+              borderWidth: 2,
+              color: 'rgba(0,0,0,0.2)',
+              borderColor: 'rgba(0,0,0,0.5)',
+            },
+            seriesIndex: [0, 1],
+            throttleType: 'debounce',
+            throttleDelay: 300,
+            geoIndex: 0
           },
+//这里是地图布局左侧了
+//          geo: {
+//            map: 'china',
+//            left: '10',
+//            right: '35%',
+//            center: [117.98561551896913, 31.205000490896193],
+//            zoom: 1.5,
+//
+//            label: {
+//              emphasis: {
+//                show: false
+//              }
+//            },
+//            // roam: true,
+//            itemStyle: {
+//              normal: {
+//                areaColor: '#323c48',
+//                borderColor: '#111'
+//              },
+//              emphasis: {
+//                areaColor: '#2a333d'
+//              }
+//            }
+//          },
+
           tooltip: {
-            trigger: 'item',
-            formatter: function (params) {
-              return params.name + ' : ' + params.value[2];
-            }
+            trigger: 'item'
           },
-          legend: {
-            orient: 'vertical',
-            y: 'bottom',
-            x: 'right',
-            data: ['pm2.5'],
-            textStyle: {
-              color: '#fff'
-            }
+          //这里是地图负责的例图
+          grid: {
+            right: 40,
+            top: 100,
+            bottom: 40,
+            width: '30%'
           },
 
-          visualMap: {
-
-            //这里的最大值 最小值需要提前获得
-            min: 0,
-            max: 300,
-            //将离散型的映射给分割了
-            splitNumber: 5,
-            // calculable: true,
-            inRange: {
-              // color: ['#50a3ba', '#eac736', '#d94e5d']
-              color: ['#61a5f8', '#eecb5f', '#e16759']
-            },
-
-            textStyle: {
-              color: '#fff'
-            }
+          xAxis: {
+            type: 'value',
+            scale: true,
+            position: 'top',
+            boundaryGap: false,
+            splitLine: {show: false},
+            axisLine: {show: false},
+            axisTick: {show: false},
+            axisLabel: {margin: 2, textStyle: {color: '#aaa'}},
           },
-
-          geo: {
-            map: 'china',
-
-            //地图放缩
-            // roam: true,
-            zoom: 1.3,
-            label: {
-              emphasis: {
-                show: false
-              }
-            },
-
-            itemStyle: {
-              normal: {
-                areaColor: '#323c48',
-                borderColor: '#111'
-              },
-              emphasis: {
-                areaColor: '#2a333d'
-              }
-            }
+          yAxis: {
+            type: 'category',
+            name: '选中区域 TOP 30',
+            nameGap: 16,
+            axisLine: {show: false, lineStyle: {color: '#ddd'}},
+            axisTick: {show: false, lineStyle: {color: '#ddd'}},
+            axisLabel: {interval: 0, textStyle: {color: '#ddd'}},
+            data: []
           },
-
           series: [
             {
-              // 这里会丢失数据...为啥
               name: 'pm2.5',
-              // 热力图的插值算法有问题，放缩非常卡
-              // type: 'heatmap',
-              type: 'scatter',
-              coordinateSystem: 'geo',
-              data: convertData(data),
-              symbolSize: 12,
-              label: {
-                normal: {
-                  show: false
-                },
-                emphasis: {
-                  show: false
-                }
-              },
-              itemStyle: {
-                emphasis: {
-                  borderColor: '#fff',
-                  borderWidth: 1
-                }
-              }
-            },
+//              type: 'scatter',
+              type: 'map',
+              mapType:'china',
+              left: '10',
+              right: '35%',
+              center: [117.98561551896913, 31.205000490896193],
+              zoom: 1.5,
+              selectedMode: 'single',
 
-            // Top 5 大点
-            {
-              name: 'Top 5',
-              type: 'effectScatter',
-              coordinateSystem: 'geo',
-              data: convertData(data.sort(function (a, b) {
-                return b.value - a.value;
-              }).slice(0, 5)),
-
+//              coordinateSystem: 'geo',
+              data: convertedData[0],
               symbolSize: function (val) {
-                return val[2] / 10;
+                return Math.max(val[2] / 10, 8);
               },
-              showEffectOn: 'render',
-              rippleEffect: {
-                brushType: 'stroke'
-              },
-              hoverAnimation: true,
               label: {
                 normal: {
                   formatter: '{b}',
                   position: 'right',
                   show: true
+                },
+                emphasis: {
+                  show: true
                 }
               },
               itemStyle: {
                 normal: {
-                  color: '#f4e925',
-                  shadowBlur: 10,
-                  shadowColor: '#333'
+                  borderWidth: 0,
+                  borderColor: 'rgb(150, 150, 150)',
+                  shadowColor: 'rgba(0, 0, 0, 0.7)',
+                  shadowBlur: 8
+                },
+                emphasis: { // 也是选中样式
+                  borderWidth: 0,
+                  color: '#32cd32',
+                  shadowColor: 'rgba(0, 0, 0, 0.7)',
+                  shadowBlur: 8
                 }
               },
-              zlevel: 1
+
+
+            },
+//            {
+//              name: 'Top 5',
+//              type: 'effectScatter',
+//              coordinateSystem: 'geo',
+//              data: convertedData[1],
+//              symbolSize: function (val) {
+//                return Math.max(val[2] / 10, 8);
+//              },
+//              showEffectOn: 'emphasis',
+//              rippleEffect: {
+//                brushType: 'stroke'
+//              },
+//              hoverAnimation: true,
+//              label: {
+//                normal: {
+//                  formatter: '{b}',
+//                  position: 'right',
+//                  show: true
+//                }
+//              },
+//              itemStyle: {
+//                normal: {
+//                  color: '#f4e925',
+//                  shadowBlur: 10,
+//                  shadowColor: '#333'
+//                }
+//              },
+//              zlevel: 1
+//            },
+            {
+              id: 'Sabar',
+              zlevel: 2,
+              type: 'bar',
+              symbol: 'none',
+              itemStyle: {
+                normal: {
+                  color: '#ddb926'
+                }
+              },
+              data: []
             }
-
-
           ]
         };
 
+        myChart.on('brushselected', renderBrushed);
+
+        function renderBrushed(params) {
+          var mainSeries = params.batch[0].selected[0];
+
+          var selectedItems = [];
+          var categoryData = [];
+          var barData = [];
+          var maxBar = 30;
+          var sum = 0;
+          var count = 0;
+
+          for (var i = 0; i < mainSeries.dataIndex.length; i++) {
+            var rawIndex = mainSeries.dataIndex[i];
+            var dataItem = convertedData[0][rawIndex];
+            var pmValue = dataItem.value[2];
+
+            sum += pmValue;
+            count++;
+
+            selectedItems.push(dataItem);
+          }
+
+          // 升序
+          selectedItems.sort(function (a, b) {
+            return a.value[2] - b.value[2];
+          });
+
+          // 升序取出前30会有问题
+          for (var i = 0; i < Math.min(selectedItems.length, maxBar); i++) {
+
+            if (selectedItems.length <= maxBar) {
+              categoryData.push(selectedItems[i].name);
+              barData.push(selectedItems[i].value[2]);
+            } else {
+              categoryData.push(selectedItems[i + (selectedItems.length - maxBar)].name);
+              barData.push(selectedItems[i + (selectedItems.length - maxBar)].value[2]);
+            }
+
+          }
+
+          console.log(categoryData.length + categoryData);
+
+          myChart.setOption({
+            yAxis: {
+              data: categoryData
+            },
+            xAxis: {
+              axisLabel: {show: !!count}
+            },
+            title: {
+              id: 'statistic',
+              text: count ? '平均: ' + (sum / count).toFixed(4) : ''
+            },
+            series: {
+              id: 'bar',
+              data: barData
+            }
+          });
+        }
+
+//        点击省区域快
+         myChart.on("mapselectchanged", function (param) {
+             console.log(param);
+
+           myChart.setOption({
+
+             title: {text: param.name + '区域招聘热度指数'},
+             tooltip: {},
+             yAxis: {
+               data: ["思明区", "湖里区", "51区", "11区", "49区", "7区"]
+             },
+             xAxis: {},
+             series: [{
+                 // saber 很重要
+                id: 'Sabar',
+                type: 'bar',
+               data: [5, 20, 36, 10, 10, 20]
+             }]
+           });
+
+
+         });
 
 //------------------------------
         myChart.setOption(option);

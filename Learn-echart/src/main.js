@@ -3,6 +3,7 @@ import App from './App'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import VueRouter from 'vue-router'
+import  VueResource from 'vue-resource'
 
 //import  TodoList from './todolist'
 
@@ -19,10 +20,16 @@ import  StackBar from './components/StackBar.vue'
 import  mapAreaSelect from './components/mapAreaSelect.vue'
 import  mapDeep from './components/mapDeep.vue'
 import  Concentriccircles from './components/Concentriccircles.vue'
+//招聘指数
 import  RecruitIndustry  from './components/RecruitIndustry.vue'
+// 经济指数
+import EconomyAreaGDPIndex from './components/economyAreaGDPIndex.vue'
+
+
 
 Vue.use(MintUI)
 Vue.use(VueRouter)
+Vue.use(VueResource)
 
 
 const Home = { template:'<div>This is Home</div>' }
@@ -47,7 +54,7 @@ const router = new VueRouter({
     { path: '/mapDeep', name: 'mapDeep', component: mapDeep },
     { path: '/Concentriccircles', name: 'Concentriccircles', component: Concentriccircles },
     { path: '/RecruitIndustry', name: 'RecruitIndustry', component: RecruitIndustry },
-
+    { path: '/EconomyAreaGDPIndex', name: 'EconomyAreaGDPIndex', component: EconomyAreaGDPIndex },
 
     { path: '/', name: 'default', component: EchartsMaps },
 
@@ -89,7 +96,8 @@ new Vue({
          <p>
          RecruitIndustry
         
-        <li><router-link :to="{ name: 'RecruitIndustry'}">招聘指数-各行业-Top10</router-link></li>
+        <li><router-link :to="{ name: 'RecruitIndustry'}">招聘指数-各行业-Top10-最近5个月</router-link></li>
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-地区生产总值</router-link></li>
         <li><router-link :to="{ name: 'AnscombeQuartet'}">AnscombeQuartet</router-link></li>
         <li><router-link :to="{ name:'recruit'}">直方图-水印</router-link></li>
         <li><router-link :to="{ name: 'CrossBar'}">交错直方图</router-link></li>

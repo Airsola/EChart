@@ -38,9 +38,7 @@
       }
     },
 
-
     mounted: function () {
-
 // 测试AJAX是否生效
       $("p").click(function () {
         $(this).hide();

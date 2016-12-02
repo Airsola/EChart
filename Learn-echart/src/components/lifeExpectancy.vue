@@ -6,15 +6,12 @@
       <div id="mapinner2">
   </div>
 </div>
-
 </template>
 
 
 <script>
 
 import  echarts from 'echarts'
- 
-
 export default({
 
   name : "innovateIndustry",
@@ -27,12 +24,12 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
     // myChart.resize({
     //     width:200,
     //     height:200
-    // })     
+    // })
 	var option = null;
     myChart.hideLoading();
 
     var itemStyle = {
-    
+
     normal: {
             opacity: 0.8,
             shadowBlur: 10,
@@ -57,7 +54,7 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
 
     option = {
         baseOption: {
-            timeline: {
+          timeline: {
                 axisType: 'category',
                 orient: 'vertical',
                 autoPlay: true,
@@ -103,12 +100,10 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
                         borderColor: '#aaa'
                     }
                 },
-                // 这个时间轴的 baseOption 放空也很有意思 
+                // 这个时间轴的 baseOption 放空也很有意思
                 data: []
             },
             backgroundColor: '#404a59',
-            
-
             // 这些外部 没有明确指向的实际上 是在设置散点图的熟悉 后续可以看到
             //滚动年份大Logo
             title: [{
@@ -122,7 +117,7 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
                 }
             }],
 
-          
+
             tooltip: {
                 padding: 5,
                 backgroundColor: '#222',
@@ -277,7 +272,7 @@ $.get('http://7xlgc1.com1.z0.glb.clouddn.com/life-expectancy.json', function (da
 height: 400px;
 width:  600px;
 margin: 0 auto;
-};	
+};
 
 </style>
 
