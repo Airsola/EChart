@@ -25,6 +25,8 @@ import  RecruitIndustry  from './components/RecruitIndustry.vue'
 // 经济指数
 import EconomyAreaGDPIndex from './components/economyAreaGDPIndex.vue'
 
+import ProvinceGDPTendency from './components/ProvinceGDPTendency.vue'
+
 //创业指数
 import StartupIndexAreaIndustry from './components/StartupIndexAreaIndustry.vue'
 
@@ -58,6 +60,7 @@ const router = new VueRouter({
     {path: '/RecruitIndustry', name: 'RecruitIndustry', component: RecruitIndustry},
     {path: '/EconomyAreaGDPIndex', name: 'EconomyAreaGDPIndex', component: EconomyAreaGDPIndex},
     {path: '/StartupIndexAreaIndustry', name: 'StartupIndexAreaIndustry', component: StartupIndexAreaIndustry},
+    {path: '/ProvinceGDPTendency', name: 'ProvinceGDPTendency', component: ProvinceGDPTendency},
 
 
     {path: '/', name: 'default', component: EchartsMaps},
@@ -102,17 +105,20 @@ new Vue({
        
         </p>
         <p>
-                <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-地区生产总值</router-link></li>
+  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-地区生产总值</router-link></li>
   <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-法人单位数量</router-link></li>
   <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-企业法人单位数量</router-link></li>
   <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-年末总人口</router-link></li>
   <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-在职岗位平均工资</router-link></li>
 
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-地区生产总值季度增长趋势</router-link></li>
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省法人单位数增长趋势</router-link></li>
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省企业法人数增长趋势</router-link></li>
+
 
         </p>
+        <p>
+  <li><router-link :to="{ name: 'ProvinceGDPTendency'}">经济指数-地区生产总值季度增长趋势</router-link></li>
+  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省法人单位数增长趋势</router-link></li>
+  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省企业法人数增长趋势</router-link></li>        
+</p>
         
         <p>
         <li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>

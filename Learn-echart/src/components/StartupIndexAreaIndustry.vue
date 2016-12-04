@@ -814,14 +814,14 @@
             title: {text: param.name + '区域招聘热度指数'},
             tooltip: {},
             yAxis: {
-              data: ["思明区", "湖里区", "51区", "11区", "49区", "7区"]
+              data: ["abc", "bb", "51区", "11区", "49区", "7区"]
             },
             xAxis: {},
             series: [{
               // saber 很重要
               id: 'Sabar',
               type: 'bar',
-              data: [5, 20, 56, 10, 10, 20]
+              data: [50, 2, 78, 100, 10, 20]
             }]
 
 
