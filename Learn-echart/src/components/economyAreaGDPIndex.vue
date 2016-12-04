@@ -31,6 +31,7 @@
 //------------------
 
         var geoCoordMap = {
+
           "海门": [121.15, 31.89],
           "鄂尔多斯": [109.781327, 39.608266],
           "招远": [120.38, 37.35],
@@ -55,6 +56,8 @@
           "威海": [122.1, 37.5],
           "承德": [117.93, 40.97],
           "厦门": [118.1, 24.46],
+          "福建": [118.1, 24.46],
+
           "汕尾": [115.375279, 22.786211],
           "潮州": [116.63, 23.68],
           "丹东": [124.37, 40.13],
@@ -224,6 +227,8 @@
         };
 
         var data = [
+          {name: "福建", value: 200},
+
           {name: "海门", value: 9},
           {name: "鄂尔多斯", value: 12},
           {name: "招远", value: 12},
@@ -438,8 +443,11 @@
           }).slice(0, 5))
         ];
 
+        var dataSourceTree =  {"AreaValue":{"timeline":{"2016":{"福建":"123","浙江":"234","广东":"345"},"2015":{"福建":"123","浙江":"234","广东":"345"},"2014":{"福建":"123","浙江":"234","广东":"345"}}}};
+
 
         option = {
+
 //          backgroundColor: '#404a59',
           backgroundColor: '#827b85',
 
@@ -458,7 +466,8 @@
                 color: '#fff'
               }
             },
-            // 这部分独立设置的目的是啥？
+
+            // 这里预设了一个 title的样式 具体内容后续再复制
             {
               id: 'statistic',
               right: 120,
@@ -473,8 +482,8 @@
 
             visualMap: {
                //这里的最大值 最小值需要提前获得
-               min: 0,
-               max: 300,
+//               min: 0,
+//               max: 3000,
                //将离散型的映射给分割了
                 splitNumber: 5,
                // calculable: true,
@@ -498,20 +507,20 @@
 //            }
 //          },
 
-          brush: {
-            outOfBrush: {
-              color: '#abc'
-            },
-            brushStyle: {
-              borderWidth: 2,
-              color: 'rgba(0,0,0,0.2)',
-              borderColor: 'rgba(0,0,0,0.5)',
-            },
-            seriesIndex: [0, 1],
-            throttleType: 'debounce',
-            throttleDelay: 300,
-            geoIndex: 0
-          },
+//          brush: {
+//            outOfBrush: {
+//              color: '#abc'
+//            },
+//            brushStyle: {
+//              borderWidth: 2,
+//              color: 'rgba(0,0,0,0.2)',
+//              borderColor: 'rgba(0,0,0,0.5)',
+//            },
+//            seriesIndex: [0, 1],
+//            throttleType: 'debounce',
+//            throttleDelay: 300,
+//            geoIndex: 0
+//          },
 //这里是地图布局左侧了
 //          geo: {
 //            map: 'china',
@@ -655,7 +664,7 @@
           ]
         };
 
-        myChart.on('brushselected', renderBrushed);
+//        myChart.on('brushselected', renderBrushed);
 
         function renderBrushed(params) {
           var mainSeries = params.batch[0].selected[0];
