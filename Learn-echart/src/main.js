@@ -25,6 +25,9 @@ import  RecruitIndustry  from './components/RecruitIndustry.vue'
 // 经济指数
 import EconomyAreaGDPIndex from './components/economyAreaGDPIndex.vue'
 
+//创业指数
+import StartupIndexAreaIndustry from './components/StartupIndexAreaIndustry.vue'
+
 
 Vue.use(MintUI)
 Vue.use(VueRouter)
@@ -54,6 +57,8 @@ const router = new VueRouter({
     {path: '/Concentriccircles', name: 'Concentriccircles', component: Concentriccircles},
     {path: '/RecruitIndustry', name: 'RecruitIndustry', component: RecruitIndustry},
     {path: '/EconomyAreaGDPIndex', name: 'EconomyAreaGDPIndex', component: EconomyAreaGDPIndex},
+    {path: '/StartupIndexAreaIndustry', name: 'StartupIndexAreaIndustry', component: StartupIndexAreaIndustry},
+
 
     {path: '/', name: 'default', component: EchartsMaps},
 
@@ -127,7 +132,9 @@ new Vue({
         <li><router-link :to="{ name:'Concentriccircles'}">同心圆-分层展开</router-link></li>
         <li><router-link :to="{ name: 'autoPaly'}">模拟自动点击</router-link></li>
 </p>
-
+<p>
+        <li><router-link :to="{ name: 'StartupIndexAreaIndustry'}">创业指数</router-link></li>
+</p>
       </ul>
       <router-view class="view"></router-view>
     </div>

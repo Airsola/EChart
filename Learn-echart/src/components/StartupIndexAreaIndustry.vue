@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>左上角有区域选择工具,通过圈花区域可以了解该区域更多信息</p>
+    <p>地图 结合 省份区域的点击</p>
     <div id="mapinner2">
     </div>
   </div>
@@ -14,10 +14,13 @@
     mounted: function () {
 
       $.when(
+        // 外部接入的map  D3.js 那边搞来的
         // $.get('http://7xlgc1.com1.z0.glb.clouddn.com/chinageo.json'),
         //百度提供的json
         $.get('http://7xlgc1.com1.z0.glb.clouddn.com/china.json'),
       ).done(function (chinaJson) {
+        console.log('chinaMap.js');
+
         var myChart = echarts.init(document.getElementById('mapinner2'));
         echarts.registerMap('china', chinaJson);
         var app = [];
@@ -26,6 +29,7 @@
 
 
 //------------------
+
         /**
          * 排序数组或者对象
          * by Jinko
@@ -135,7 +139,6 @@
             return sorted;
           }
         } //sort_object
-
 
 
 
@@ -337,6 +340,7 @@
 
         var data = [
           {name: "福建", value: 200},
+
           {name: "海门", value: 9},
           {name: "鄂尔多斯", value: 12},
           {name: "招远", value: 12},
@@ -529,6 +533,29 @@
           {name: "大庆", value: 279}
         ];
 
+        var convertData = function (data) {
+          var res = [];
+          for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name];
+            if (geoCoord) {
+              res.push({
+                name: data[i].name,
+                value: geoCoord.concat(data[i].value)
+              });
+            }
+          }
+          return res;
+        };
+
+
+        var convertedData = [
+          convertData(data),
+          convertData(data.sort(function (a, b) {
+            return b.value - a.value;
+          }).slice(0, 5))
+        ];
+
+
         var dataSourceTree = {
           "AreaValue": {
             "timeline": {
@@ -545,9 +572,9 @@
         var object2SortArry = [];
 
         for(var k in lastYearData) {
-            var obj = new Object();
-            obj.name = k;
-            obj.value = lastYearData[k];
+          var obj = new Object();
+          obj.name = k;
+          obj.value = lastYearData[k];
           object2SortArry.push(obj);
           console.log(k, ':', lastYearData[k]);
         }
@@ -555,32 +582,11 @@
 
         debugger;
 
-//        将地理坐标与值结合起来 对于省级区域似乎只需要一个name就行
-        var convertData = function (data) {
-          var res = [];
-          for (var i = 0; i < data.length; i++) {
-            var geoCoord = geoCoordMap[data[i].name];
-            if (geoCoord) {
-              res.push({
-                name: data[i].name,
-                value: geoCoord.concat(data[i].value)
-              });
-            }
-          }
-          return res;
-        };
-
-        // 原始数据与排序顺序的整合
-        var convertedData = [
-          convertData(data),
-          convertData(data.sort(function (a, b) {
-            return b.value - a.value;
-          }).slice(0, 5))
-        ];
-
         option = {
 
+//         backgroundColor: '#404a59',
           backgroundColor: '#827b85',
+
           animation: true,
           animationDuration: 1000,
           animationEasing: 'cubicInOut',
@@ -611,11 +617,14 @@
           ],
 
           visualMap: {
-              // 获得当你地图数据的最大值 最小值
-            min:100,
-            max:1000,
+            //这里的最大值 最小值需要提前获得
+               min: 0,
+               max: 600,
+            //将离散型的映射给分割了
             splitNumber: 5,
+            // calculable: true,
             inRange: {
+              // color: ['#50a3ba', '#eac736', '#d94e5d']
               color: ['#61a5f8', '#eecb5f', '#e16759']
             },
             textStyle: {
@@ -625,8 +634,6 @@
           tooltip: {
             trigger: 'item'
           },
-//          roam: true,
-
           //这里是地图负责的例图
           grid: {
             right: 40,
@@ -634,6 +641,7 @@
             bottom: 40,
             width: '30%'
           },
+
           xAxis: {
             type: 'value',
             scale: true,
@@ -651,19 +659,20 @@
             axisLine: {show: false, lineStyle: {color: '#ddd'}},
             axisTick: {show: false, lineStyle: {color: '#ddd'}},
             axisLabel: {interval: 0, textStyle: {color: '#ddd'}},
-            data: []
+            data: ["思明区", "湖里区", "51区", "11区", "49区", "7区"]
           },
           series: [
             {
-              type: 'map',
-              mapType: 'china',
-              left: '200',
+               type: 'map',
+              mapType:'china',
+              left: '10',
               right: '35%',
               center: [117.98561551896913, 31.205000490896193],
-              zoom: 1.3,
-              data: convertedData[0],
-//              data:object2SortArry,
+              zoom: 1.5,
               selectedMode: 'single',
+//              coordinateSystem: 'geo',
+//              data: convertedData[0],
+              data: object2SortArry,
               label: {
                 normal: {
                   formatter: '{b}',
@@ -691,21 +700,51 @@
 
 
             },
+//            {
+//              name: 'Top 5',
+//              type: 'effectScatter',
+//              coordinateSystem: 'geo',
+//              data: convertedData[1],
+//              symbolSize: function (val) {
+//                return Math.max(val[2] / 10, 8);
+//              },
+//              showEffectOn: 'emphasis',
+//              rippleEffect: {
+//                brushType: 'stroke'
+//              },
+//              hoverAnimation: true,
+//              label: {
+//                normal: {
+//                  formatter: '{b}',
+//                  position: 'right',
+//                  show: true
+//                }
+//              },
+//              itemStyle: {
+//                normal: {
+//                  color: '#f4e925',
+//                  shadowBlur: 10,
+//                  shadowColor: '#333'
+//                }
+//              },
+//              zlevel: 1
+//            },
             {
               id: 'Sabar',
               zlevel: 2,
               type: 'bar',
-//              symbol: 'none',
+              symbol: 'none',
               itemStyle: {
                 normal: {
                   color: '#ddb926'
                 }
               },
-              data: []
+              data: [5, 20, 56, 10, 10, 20]
             }
           ]
         };
 
+//        myChart.on('brushselected', renderBrushed);
 
         function renderBrushed(params) {
           var mainSeries = params.batch[0].selected[0];
@@ -766,24 +805,7 @@
           });
         }
 
-
-        myChart.setOption({
-
-          title: {text:  '区域招聘热度指数'},
-          tooltip: {},
-          yAxis: {
-            data: ["思明区", "湖里区", "51区", "11区", "49区", "7区"]
-          },
-          xAxis: {},
-          series: [{
-            // saber 很重要
-            id: 'Sabar',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-          }]
-        });
-
-//        点击省区域快
+//      点击省区域快
         myChart.on("mapselectchanged", function (param) {
           console.log(param);
 
@@ -799,14 +821,17 @@
               // saber 很重要
               id: 'Sabar',
               type: 'bar',
-              data: [5, 20, 36, 10, 10, 20]
+              data: [5, 20, 56, 10, 10, 20]
             }]
+
+
           });
 
 
         });
 
 //------------------------------
+
         myChart.setOption(option);
 
 
@@ -824,8 +849,8 @@
 <style scoped>
 
   #mapinner2 {
-    height: 700px;
-    width: 80%;
+    height: 800px;
+    width: 800px;
     margin: 0 auto;
   }
 
