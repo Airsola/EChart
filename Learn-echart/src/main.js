@@ -23,12 +23,12 @@ import  Concentriccircles from './components/Concentriccircles.vue'
 //招聘指数
 import  RecruitIndustry  from './components/RecruitIndustry.vue'
 // 经济指数
-import EconomyAreaGDPIndex from './components/economyAreaGDPIndex.vue'
+import EconomyAreaGDPIndex from './components/EconomyIndex/economyAreaGDPIndex.vue'
 
-import ProvinceGDPTendency from './components/ProvinceGDPTendency.vue'
+import ProvinceGDPTendency from './components/Tendency/ProvinceGDPTendency.vue'
 
 //创业指数
-import StartupIndexAreaIndustry from './components/StartupIndexAreaIndustry.vue'
+import StartupIndexAreaIndustry from './components/StartUpIndex/StartupIndexAreaIndustry.vue'
 
 
 Vue.use(MintUI)
@@ -118,8 +118,7 @@ new Vue({
   <li><router-link :to="{ name: 'ProvinceGDPTendency'}">经济指数-地区生产总值季度增长趋势</router-link></li>
   <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省法人单位数增长趋势</router-link></li>
   <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省企业法人数增长趋势</router-link></li>        
-</p>
-        
+</p> 
         <p>
         <li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>
         <li><router-link :to="{ name: 'innovateIndustry'}">创新指数-区域-行业-最近十年  </router-link></li>

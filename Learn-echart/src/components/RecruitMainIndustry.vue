@@ -12,6 +12,8 @@
   }
   ;
 
+
+  // 测试 Jsonp 获取数据
   export default{
     name: "autoPaly",
 

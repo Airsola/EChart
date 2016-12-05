@@ -559,7 +559,7 @@
         var dataSourceTree = {
           "AreaValue": {
             "timeline": {
-              "2016": {"福建": "123", "浙江": "555", "广东": "345"},
+              "2016": {"福建": "123", "浙江": "555", "广东": "345","北京":"599"},
               "2015": {"福建": "123", "浙江": "234", "广东": "345"},
               "2014": {"福建": "123", "浙江": "234", "广东": "345"}
             }
@@ -568,7 +568,7 @@
 
         var lastYearData = dataSourceTree.AreaValue.timeline[2016];
         //对对象进行降序排序
-        lastYearData = sort_object(lastYearData, '', true);
+        lastYearData = sort_object(lastYearData, '', false);
         var object2SortArry = [];
 
         for(var k in lastYearData) {
@@ -580,13 +580,9 @@
         }
 
 
-        debugger;
-
         option = {
 
-//         backgroundColor: '#404a59',
           backgroundColor: '#827b85',
-
           animation: true,
           animationDuration: 1000,
           animationEasing: 'cubicInOut',
@@ -659,8 +655,10 @@
             axisLine: {show: false, lineStyle: {color: '#ddd'}},
             axisTick: {show: false, lineStyle: {color: '#ddd'}},
             axisLabel: {interval: 0, textStyle: {color: '#ddd'}},
-            data: ["思明区", "湖里区", "51区", "11区", "49区", "7区"]
+            data:Object.keys(lastYearData)
+//      data: ["思明区", "湖里区", "51区", "11区", "49区", "7区"]
           },
+
           series: [
             {
               type: 'map',
@@ -739,96 +737,97 @@
                   color: '#ddb926'
                 }
               },
-              data: [5, 20, 56, 10, 10, 20]
+              data:Object.values(lastYearData)
+//              data: [5, 20, 56, 10, 10, 20]
             }
           ]
         };
 
 //        myChart.on('brushselected', renderBrushed);
 
-        function renderBrushed(params) {
-          var mainSeries = params.batch[0].selected[0];
-
-          var selectedItems = [];
-          var categoryData = [];
-          var barData = [];
-          var maxBar = 30;
-          var sum = 0;
-          var count = 0;
-
-          for (var i = 0; i < mainSeries.dataIndex.length; i++) {
-            var rawIndex = mainSeries.dataIndex[i];
-            var dataItem = convertedData[0][rawIndex];
-            var pmValue = dataItem.value[2];
-
-            sum += pmValue;
-            count++;
-
-            selectedItems.push(dataItem);
-          }
-
-          // 升序
-          selectedItems.sort(function (a, b) {
-            return a.value[2] - b.value[2];
-          });
-
-          // 升序取出前30会有问题
-          for (var i = 0; i < Math.min(selectedItems.length, maxBar); i++) {
-
-            if (selectedItems.length <= maxBar) {
-              categoryData.push(selectedItems[i].name);
-              barData.push(selectedItems[i].value[2]);
-            } else {
-              categoryData.push(selectedItems[i + (selectedItems.length - maxBar)].name);
-              barData.push(selectedItems[i + (selectedItems.length - maxBar)].value[2]);
-            }
-
-          }
-
-          console.log(categoryData.length + categoryData);
-
-          myChart.setOption({
-            yAxis: {
-              data: categoryData
-            },
-            xAxis: {
-              axisLabel: {show: !!count}
-            },
-            title: {
-              id: 'statistic',
-              text: count ? '平均: ' + (sum / count).toFixed(4) : ''
-            },
-            series: {
-              id: 'bar',
-              data: barData
-            }
-          });
-        }
+//        function renderBrushed(params) {
+//          var mainSeries = params.batch[0].selected[0];
+//
+//          var selectedItems = [];
+//          var categoryData = [];
+//          var barData = [];
+//          var maxBar = 30;
+//          var sum = 0;
+//          var count = 0;
+//
+//          for (var i = 0; i < mainSeries.dataIndex.length; i++) {
+//            var rawIndex = mainSeries.dataIndex[i];
+//            var dataItem = convertedData[0][rawIndex];
+//            var pmValue = dataItem.value[2];
+//
+//            sum += pmValue;
+//            count++;
+//
+//            selectedItems.push(dataItem);
+//          }
+//
+//          // 升序
+//          selectedItems.sort(function (a, b) {
+//            return a.value[2] - b.value[2];
+//          });
+//
+//          // 升序取出前30会有问题
+//          for (var i = 0; i < Math.min(selectedItems.length, maxBar); i++) {
+//
+//            if (selectedItems.length <= maxBar) {
+//              categoryData.push(selectedItems[i].name);
+//              barData.push(selectedItems[i].value[2]);
+//            } else {
+//              categoryData.push(selectedItems[i + (selectedItems.length - maxBar)].name);
+//              barData.push(selectedItems[i + (selectedItems.length - maxBar)].value[2]);
+//            }
+//
+//          }
+//
+//          console.log(categoryData.length + categoryData);
+//
+//          myChart.setOption({
+//            yAxis: {
+//              data: categoryData
+//            },
+//            xAxis: {
+//              axisLabel: {show: !!count}
+//            },
+//            title: {
+//              id: 'statistic',
+//              text: count ? '平均: ' + (sum / count).toFixed(4) : ''
+//            },
+//            series: {
+//              id: 'bar',
+//              data: barData
+//            }
+//          });
+//        }
 
 //      点击省区域快
-        myChart.on("mapselectchanged", function (param) {
-          console.log(param);
-
-          myChart.setOption({
-
-            title: {text: param.name + '区域招聘热度指数'},
-            tooltip: {},
-            yAxis: {
-              data: ["abc", "bb", "51区", "11区", "49区", "7区"]
-            },
-            xAxis: {},
-            series: [{
-              // saber 很重要
-              id: 'Sabar',
-              type: 'bar',
-              data: [50, 2, 78, 100, 10, 20]
-            }]
-
-
-          });
-
-
-        });
+//        myChart.on("mapselectchanged", function (param) {
+//          console.log(param);
+//
+//          myChart.setOption({
+//
+//            title: {text: param.name + '区域招聘热度指数'},
+//            tooltip: {},
+//            yAxis: {
+//              data: ["abc", "bb", "51区", "11区", "49区", "7区"]
+//            },
+//            xAxis: {},
+//            series: [{
+//              // saber 很重要
+//              id: 'Sabar',
+//              type: 'bar',
+//              data: [50, 2, 78, 100, 10, 20]
+//            }]
+//
+//
+//          });
+//
+//
+//        });
 
 //------------------------------
 
@@ -850,7 +849,7 @@
 
   #mapinner2 {
     height: 800px;
-    width: 800px;
+    width: 80%;
     margin: 0 auto;
   }
 
