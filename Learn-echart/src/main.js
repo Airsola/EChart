@@ -30,6 +30,9 @@ import ProvinceGDPTendency from './components/Tendency/ProvinceGDPTendency.vue'
 import InnovateIndexPatent from './components/InnovateIndex/InnovateIndexPatent.vue'
 import InnovateIndexCopyright from './components/InnovateIndex/InnovateIndexCopyright.vue'
 
+//产业指数
+import IndustryIndexMacroscopic from './components/IndustryIndex/IndustryIndexMacroscopic.vue'
+
 //创业指数
 import StartupIndexAreaIndustry from './components/StartUpIndex/StartupIndexAreaIndustry.vue'
 
@@ -69,6 +72,8 @@ const router = new VueRouter({
 // 创新指数
     {path: '/InnovateIndexPatent', name: 'InnovateIndexPatent', component: InnovateIndexPatent},
     {path: '/InnovateIndexCopyright', name: 'InnovateIndexCopyright', component: InnovateIndexCopyright},
+// 产业指数
+    {path: '/IndustryIndexMacroscopic', name: 'IndustryIndexMacroscopic', component: IndustryIndexMacroscopic},
 
     // 创业指数
     {path: '/StartupIndexAreaIndustry', name: 'StartupIndexAreaIndustry', component: StartupIndexAreaIndustry},
@@ -134,6 +139,10 @@ new Vue({
          <li><router-link :to="{ name: 'InnovateIndexCopyright'}">创新指数-各省作品著作权</router-link></li>
 
          </p>
+         
+         <p>
+         <li><router-link :to="{ name: 'IndustryIndexMacroscopic'}">产业指数-三大产业综合</router-link></li>
+        </p>
          
         <p>
         <li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>

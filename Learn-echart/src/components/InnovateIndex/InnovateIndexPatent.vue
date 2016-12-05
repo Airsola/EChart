@@ -39,7 +39,6 @@
       var myChart = echarts.init(document.getElementById('mapinner'));
 
       var dataSource = {"AreaValue":{"timeline":{"2016":{"InventPatent":{"福建":"333","浙江":"234","广东":"345"},"NewTypePatent":{"福建":"123","浙江":"234","广东":"345"},"AppearanceDesignPatent":{"福建":"123","浙江":"234","广东":"345"}},"2015":{"InventPatent":{"福建":"123","浙江":"234","广东":"345"},"NewTypePatent":{"福建":"123","浙江":"234","广东":"345"},"AppearanceDesignPatent":{"福建":"123","浙江":"234","广东":"345"}},"2014":{"InventPatent":{"福建":"123","浙江":"234","广东":"345"},"NewTypePatent":{"福建":"123","浙江":"234","广东":"345"},"AppearanceDesignPatent":{"福建":"123","浙江":"234","广东":"345"}}}}};
-      debugger;
 
       var timeLine  = Object.keys(dataSource.AreaValue.timeline).reverse();
 
@@ -56,35 +55,6 @@
 
       return patentProvinceValueArry
       }
-
-      //根据省份名称获得对应数据
-//      function getProvinceDate(dataSourceOUT,provinceName) {
-////       函数直接依赖外部变量不太好那,这里冗余一下
-//        let xAxisTimeInner  = Object.keys(dataSourceOUT.AreaValue.timeline).reverse();
-//        var someProviceValue = [];
-//        for (let i= 0; i < xAxisTime.length ;i++ ){
-//          var quarterData = dataSourceOUT.AreaValue.timeline[xAxisTimeInner[i]];
-//          var currentValue = eval("quarterData."+provinceName)
-//          someProviceValue.push(currentValue) ;
-//        }
-//
-//        return someProviceValue
-//      }
-
-
-      //图标展现的数据格式要求
-//      var  seriesValue = [];
-//      for (let i = 0 ; i < provinceNameArry.length; i++){
-//        let objSere = new  Object();
-//        objSere.name =  provinceNameArry[i];
-//        objSere.type = 'line'
-//        objSere.stack =   '总量'
-//        objSere.areaStyle =  {normal: {}}
-//        objSere.label = {normal:{show:true,position:'top'}}
-//        objSere.data = getProvinceDate(dataSource,provinceNameArry[i]);
-//        seriesValue.push(objSere)
-//      }
-
 
       //-----------
       var option = {
