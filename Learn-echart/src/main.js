@@ -6,19 +6,19 @@ import VueRouter from 'vue-router'
 import  VueResource from 'vue-resource'
 
 
-import  EchartsMaps from './components/echartMap.vue'
-import  ecomomyMap from './components/economyMap.vue'
-import  innovateIndustry from './components/innovateIndustry.vue'
-import  lifeExpectancy from './components/lifeExpectancy.vue'
-import  mapArea from './components/mapArea.vue'
-import  autoPaly from './components/autoPaly.vue'
-import  AnscombeQuartet from './components/AnscombeQuartet.vue'
+import  EchartsMaps from './components/Demo/echartMap.vue'
+import  ecomomyMap from './components/Demo/economyMap.vue'
+import  innovateIndustry from './components/Demo/innovateIndustry.vue'
+import  lifeExpectancy from './components/Demo/lifeExpectancy.vue'
+import  mapArea from './components/Demo/mapArea.vue'
+import  autoPaly from './components/Demo/autoPaly.vue'
+import  AnscombeQuartet from './components/Demo/AnscombeQuartet.vue'
 
-import  CrossBar from './components/CrossBar.vue'
-import  StackBar from './components/StackBar.vue'
-import  mapAreaSelect from './components/mapAreaSelect.vue'
-import  mapDeep from './components/mapDeep.vue'
-import  Concentriccircles from './components/Concentriccircles.vue'
+import  CrossBar from './components/Demo/CrossBar.vue'
+import  StackBar from './components/Demo/StackBar.vue'
+import  mapAreaSelect from './components/Demo/mapAreaSelect.vue'
+import  mapDeep from './components/Demo/mapDeep.vue'
+import  Concentriccircles from './components/Demo/Concentriccircles.vue'
 //招聘指数
 import  RecruitIndustry  from './components/RecruitIndex/RecruitIndustry.vue'
 // 经济指数
@@ -152,7 +152,6 @@ new Vue({
          <p>
          <li><router-link :to="{ name: 'InnovateIndexPatent'}">创新指数-各省专利数量构成</router-link></li>
          <li><router-link :to="{ name: 'InnovateIndexCopyright'}">创新指数-各省作品著作权</router-link></li>
-
          </p>
          <hr>
          <p>

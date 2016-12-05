@@ -80,6 +80,8 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+    text-decoration: none;
+
   }
 
   h1, h2 {
@@ -89,15 +91,21 @@
   ul {
     list-style-type: none;
     padding: 0;
+    text-decoration: none;
+
   }
 
   li {
     display: inline-block;
     margin: 0 10px;
+    text-decoration: none;
+
   }
 
   a {
     color: #42b983;
+    text-decoration: none;
+
   }
 
 
