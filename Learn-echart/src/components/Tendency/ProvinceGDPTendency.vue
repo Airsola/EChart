@@ -21,16 +21,18 @@
 
 
       //数据源准备
-      var dataSource = {"AreaValue":{"timeline":{"2016Q4":{"福建":"234","浙江":"234","广东":"123"},"2016Q3":{"福建":"33","浙江":"234","广东":"345"},"2016Q2":{"福建":"123","浙江":"234","广东":"345"},"2016Q1":{"福建":"985","浙江":"111","广东":"111"},"2015Q4":{"福建":"123","浙江":"234","广东":"345"},}}};
-      var xAxisTime  = Object.keys(dataSource.AreaValue.timeline);
+      var dataSource = {"AreaValue":{"timeline":{"2016Q4":{"福建":"234","浙江":"234","广东":"123"},"2016Q3":{"福建":"33","浙江":"234","广东":"345"},"2016Q2":{"福建":"123","浙江":"234","广东":"345"},"2016Q1":{"福建":"314","浙江":"111","广东":"111"},"2015Q4":{"福建":"123","浙江":"234","广东":"345"},}}};
+     //倒序排列一下
+      var xAxisTime  = Object.keys(dataSource.AreaValue.timeline).reverse();
       var provinceNameArry = Object.keys(dataSource.AreaValue.timeline[xAxisTime[0]])  ;
 
      //根据省份名称获得对应数据
      function getProvinceDate(dataSourceOUT,provinceName) {
-       let xAxisTime  = Object.keys(dataSourceOUT.AreaValue.timeline);
+//       函数直接依赖外部变量不太好那,这里冗余一下
+       let xAxisTimeInner  = Object.keys(dataSourceOUT.AreaValue.timeline).reverse();
        var someProviceValue = [];
        for (let i= 0; i < xAxisTime.length ;i++ ){
-         var quarterData = dataSource.AreaValue.timeline[xAxisTime[i]];
+         var quarterData = dataSourceOUT.AreaValue.timeline[xAxisTimeInner[i]];
          var currentValue = eval("quarterData."+provinceName)
          someProviceValue.push(currentValue) ;
        }
