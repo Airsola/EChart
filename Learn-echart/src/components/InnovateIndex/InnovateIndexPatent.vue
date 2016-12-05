@@ -19,7 +19,6 @@
     },
     mounted: function () {
 
-     var dataSource = {"AreaValue":{"timeline":{"2016":{"InventPatent":{"福建":"123","浙江":"234","广东":"345"},"NewTypePatent":{"福建":"123","浙江":"234","广东":"345"},"AppearanceDesignPatent":{"福建":"123","浙江":"234","广东":"345"}},"2015":{"InventPatent":{"福建":"123","浙江":"234","广东":"345"},"NewTypePatent":{"福建":"123","浙江":"234","广东":"345"},"AppearanceDesignPatent":{"福建":"123","浙江":"234","广东":"345"}},"2014":{"InventPatent":{"福建":"123","浙江":"234","广东":"345"},"NewTypePatent":{"福建":"123","浙江":"234","广东":"345"},"AppearanceDesignPatent":{"福建":"123","浙江":"234","广东":"345"}}}}};
 
 
 
@@ -39,7 +38,55 @@
 // 基于准备好的dom，初始化echarts实例
       var myChart = echarts.init(document.getElementById('mapinner'));
 
+      var dataSource = {"AreaValue":{"timeline":{"2016":{"InventPatent":{"福建":"333","浙江":"234","广东":"345"},"NewTypePatent":{"福建":"123","浙江":"234","广东":"345"},"AppearanceDesignPatent":{"福建":"123","浙江":"234","广东":"345"}},"2015":{"InventPatent":{"福建":"123","浙江":"234","广东":"345"},"NewTypePatent":{"福建":"123","浙江":"234","广东":"345"},"AppearanceDesignPatent":{"福建":"123","浙江":"234","广东":"345"}},"2014":{"InventPatent":{"福建":"123","浙江":"234","广东":"345"},"NewTypePatent":{"福建":"123","浙江":"234","广东":"345"},"AppearanceDesignPatent":{"福建":"123","浙江":"234","广东":"345"}}}}};
+      debugger;
 
+      var timeLine  = Object.keys(dataSource.AreaValue.timeline).reverse();
+
+      var firstItemDate =  dataSource.AreaValue.timeline[timeLine[0]];
+
+      var provinceNameArry = Object.keys(firstItemDate.InventPatent)  ;
+
+      //获得各个专利细项各省数据
+      function patentTypeEachProvinceValue(patentType) {
+        let  timeLine  = Object.keys(dataSource.AreaValue.timeline).reverse();
+        let firstItemDate =  dataSource.AreaValue.timeline[timeLine[0]];
+        let patentObj =  eval("firstItemDate."+patentType)
+        var patentProvinceValueArry = Object.values(patentObj);
+
+      return patentProvinceValueArry
+      }
+
+      //根据省份名称获得对应数据
+//      function getProvinceDate(dataSourceOUT,provinceName) {
+////       函数直接依赖外部变量不太好那,这里冗余一下
+//        let xAxisTimeInner  = Object.keys(dataSourceOUT.AreaValue.timeline).reverse();
+//        var someProviceValue = [];
+//        for (let i= 0; i < xAxisTime.length ;i++ ){
+//          var quarterData = dataSourceOUT.AreaValue.timeline[xAxisTimeInner[i]];
+//          var currentValue = eval("quarterData."+provinceName)
+//          someProviceValue.push(currentValue) ;
+//        }
+//
+//        return someProviceValue
+//      }
+
+
+      //图标展现的数据格式要求
+//      var  seriesValue = [];
+//      for (let i = 0 ; i < provinceNameArry.length; i++){
+//        let objSere = new  Object();
+//        objSere.name =  provinceNameArry[i];
+//        objSere.type = 'line'
+//        objSere.stack =   '总量'
+//        objSere.areaStyle =  {normal: {}}
+//        objSere.label = {normal:{show:true,position:'top'}}
+//        objSere.data = getProvinceDate(dataSource,provinceNameArry[i]);
+//        seriesValue.push(objSere)
+//      }
+
+
+      //-----------
       var option = {
         backgroundColor: {
           type: 'pattern',
@@ -56,7 +103,7 @@
         },
         legend: {
           top: 'bottom' ,
-          data:['直接访问','邮件营销','联盟广告']
+          data:['发明专利有效量','实用新型专利有效量','外观设计专利有效量']
         },
         grid: {
           left: '3%',
@@ -68,7 +115,8 @@
         yAxis : [
           {
             type : 'category',
-            data : ['福建','浙江','广东']
+//            data : ['福建','浙江','广东']
+            data : provinceNameArry
           }
         ],
         xAxis : [
@@ -80,23 +128,23 @@
         ],
         series : [
           {
-            name:'直接访问',
+            name:'发明专利有效量',
             type:'bar',
-            stack: '广告',
+            stack: '专利',
 
-            data:[320, 332, 301 ]
+            data:patentTypeEachProvinceValue("InventPatent")
           },
           {
-            name:'邮件营销',
+            name:'实用新型专利有效量',
             type:'bar',
-            stack: '广告',
-            data:[120, 132, 101 ]
+            stack: '专利',
+            data:patentTypeEachProvinceValue("NewTypePatent")
           },
           {
-            name:'联盟广告',
+            name:'外观设计专利有效量',
             type:'bar',
-            stack: '广告',
-            data:[220, 182, 191 ]
+            stack: '专利',
+            data:patentTypeEachProvinceValue("AppearanceDesignPatent")
           }
         ]
       };

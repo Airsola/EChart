@@ -54,7 +54,6 @@
         seriesValue.push(objSere)
        }
 
-      debugger;
       // 这个得控制一下默认展现
       option = {
         title: {
