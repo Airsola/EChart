@@ -50,8 +50,7 @@
       function patentTypeEachProvinceValue(patentType) {
         let  timeLine  = Object.keys(dataSource.AreaValue.timeline).reverse();
         let firstItemDate =  dataSource.AreaValue.timeline[timeLine[0]];
-        let patentObj =  eval("firstItemDate."+patentType)
-        var patentProvinceValueArry = Object.values(patentObj);
+       var patentProvinceValueArry = Object.values(patentObj);
 
       return patentProvinceValueArry
       }
