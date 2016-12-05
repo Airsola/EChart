@@ -21,11 +21,14 @@ import  mapAreaSelect from './components/mapAreaSelect.vue'
 import  mapDeep from './components/mapDeep.vue'
 import  Concentriccircles from './components/Concentriccircles.vue'
 //招聘指数
-import  RecruitIndustry  from './components/RecruitIndustry.vue'
+import  RecruitIndustry  from './components/RecruitIndex/RecruitIndustry.vue'
 // 经济指数
 import EconomyAreaGDPIndex from './components/EconomyIndex/economyAreaGDPIndex.vue'
 
 import ProvinceGDPTendency from './components/Tendency/ProvinceGDPTendency.vue'
+//创新指数
+import InnovateIndexPatent from './components/InnovateIndex/InnovateIndexPatent.vue'
+import InnovateIndexCopyright from './components/InnovateIndex/InnovateIndexCopyright.vue'
 
 //创业指数
 import StartupIndexAreaIndustry from './components/StartUpIndex/StartupIndexAreaIndustry.vue'
@@ -57,13 +60,21 @@ const router = new VueRouter({
     {path: '/mapAreaSelect', name: 'mapAreaSelect', component: mapAreaSelect},
     {path: '/mapDeep', name: 'mapDeep', component: mapDeep},
     {path: '/Concentriccircles', name: 'Concentriccircles', component: Concentriccircles},
+
+//招聘指数
     {path: '/RecruitIndustry', name: 'RecruitIndustry', component: RecruitIndustry},
+// 经济指数
     {path: '/EconomyAreaGDPIndex', name: 'EconomyAreaGDPIndex', component: EconomyAreaGDPIndex},
-    {path: '/StartupIndexAreaIndustry', name: 'StartupIndexAreaIndustry', component: StartupIndexAreaIndustry},
     {path: '/ProvinceGDPTendency', name: 'ProvinceGDPTendency', component: ProvinceGDPTendency},
+// 创新指数
+    {path: '/InnovateIndexPatent', name: 'InnovateIndexPatent', component: InnovateIndexPatent},
+    {path: '/InnovateIndexCopyright', name: 'InnovateIndexCopyright', component: InnovateIndexCopyright},
+
+    // 创业指数
+    {path: '/StartupIndexAreaIndustry', name: 'StartupIndexAreaIndustry', component: StartupIndexAreaIndustry},
 
 
-    {path: '/', name: 'default', component: EchartsMaps},
+    {path: '/', name: 'default', component: RecruitIndustry},
 
 
   ]
@@ -100,25 +111,30 @@ new Vue({
       <h1>区域和产业指数</h1>
       <p>Current route name: {{ $route.name }}</p>
       <ul>
-         <p>
+        <p>
         <li><router-link :to="{ name: 'RecruitIndustry'}">招聘指数-各行业-Top10-最近5个月</router-link></li>
-       
         </p>
+        
         <p>
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-地区生产总值</router-link></li>
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-法人单位数量</router-link></li>
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-企业法人单位数量</router-link></li>
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-年末总人口</router-link></li>
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-在职岗位平均工资</router-link></li>
-
-
-
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-地区生产总值</router-link></li>
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-法人单位数量</router-link></li>
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-企业法人单位数量</router-link></li>
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-年末总人口</router-link></li>
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-在职岗位平均工资</router-link></li>
         </p>
+        
         <p>
-  <li><router-link :to="{ name: 'ProvinceGDPTendency'}">经济指数-地区生产总值季度增长趋势</router-link></li>
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省法人单位数增长趋势</router-link></li>
-  <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省企业法人数增长趋势</router-link></li>        
-</p> 
+        <li><router-link :to="{ name: 'ProvinceGDPTendency'}">经济指数-地区生产总值季度增长趋势</router-link></li>
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省法人单位数增长趋势</router-link></li>
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省企业法人数增长趋势</router-link></li>        
+        </p>
+         
+         <p>
+         <li><router-link :to="{ name: 'InnovateIndexPatent'}">创新指数-各省专利数量构成</router-link></li>
+         <li><router-link :to="{ name: 'InnovateIndexCopyright'}">创新指数-各省作品著作权</router-link></li>
+
+         </p>
+         
         <p>
         <li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>
         <li><router-link :to="{ name: 'innovateIndustry'}">创新指数-区域-行业-最近十年  </router-link></li>
