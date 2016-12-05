@@ -20,20 +20,8 @@
       var myChart = echarts.init(document.getElementById('mapinner2'));
       var option = null;
       myChart.hideLoading();
-      ///  some effect
-      var easingFuncs = {
-        linear: function (k) {
-          return k;
-        },
-        quadraticIn: function (k) {
-          return k * k;
-        },
-        quadraticIn2: function (k) {
-          return k * k;
-        }
 
-      };
-      ///  some effect  end
+
 
       var N_POINT = 3;
       var grids = [];
@@ -43,8 +31,6 @@
       var titles = [];
       var count = 0;
 
-      var GenealIndustryName = ['总体行业', '制造业', '金融业', '文化娱乐'];
-//      var SubdivideIndustry  = {"制造业":{"飞机制造业1":"23423","骑车制造业2":"111","仪器制造业3":"222"},"金融业":{"银行":"123","保险":"444","证券":"bbb"},"信息业":{"百度":"100","腾讯":"133","阿里":"123","百度":"100","腾讯":"133","阿里":"123","百度":"100","腾讯":"133","阿里":"123"},"通信业":{"百度":"100","腾讯":"133","阿里":"123","百度":"100","腾讯":"133","阿里":"123","百度":"100","腾讯":"133","阿里":"123"}};
       var SubdivideIndustry = {
         "信息业": {
           "细分行sssssssssssdafadfadsf业1": "100",
@@ -81,19 +67,6 @@
         }};
       var SubdivideIndustryNames = Object.keys(SubdivideIndustry);
       var SubdivideIndustryValues = Object.values(SubdivideIndustry);
-
-//      title: {text: '区域招聘热度指数'},
-//      tooltip: {},
-//      yAxis: {
-//        data: ["思明区", "湖里区", "51区", "11区", "49区", "7区"]
-//      },
-//      xAxis: {},
-//      series: [{
-//        name: '销量',
-//        type: 'bar',
-//        data: [5, 20, 36, 10, 10, 20]
-//      }]
-
 
       //批量处理各个行业大类的 数据结构
       for (var i = 0; i < SubdivideIndustryNames.length; i++) {
