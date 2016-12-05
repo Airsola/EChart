@@ -5,7 +5,6 @@ import 'mint-ui/lib/style.css'
 import VueRouter from 'vue-router'
 import  VueResource from 'vue-resource'
 
-//import  TodoList from './todolist'
 
 import  EchartsMaps from './components/echartMap.vue'
 import  ecomomyMap from './components/economyMap.vue'
@@ -32,9 +31,17 @@ import InnovateIndexCopyright from './components/InnovateIndex/InnovateIndexCopy
 
 //产业指数
 import IndustryIndexMacroscopic from './components/IndustryIndex/IndustryIndexMacroscopic.vue'
+import  IndustryIndexPrimaryIndustry from './components/IndustryIndex/IndustryIndexPrimaryIndustry.vue'
+import  IndustryIndexSecondaryIndustry from './components/IndustryIndex/IndustryIndexSecondaryIndustry.vue'
+import  IndustryIndexTertiaryIndustry from './components/IndustryIndex/IndustryIndexTertiaryIndustry.vue'
+
+import  IndustryIndexKeyCityYearEndTotalPopulation from './components/IndustryIndex/IndustryIndexKeyCityYearEndTotalPopulation.vue'
+import  IndustryIndexKeyCityAvgSalary from './components/IndustryIndex/IndustryIndexKeyCityAvgSalary.vue'
 
 //创业指数
 import StartupIndexAreaIndustry from './components/StartUpIndex/StartupIndexAreaIndustry.vue'
+import StartupIndexEstablishNum from './components/StartUpIndex/StartupIndexEstablishNum.vue'
+import StartupKeyCityEstablishNum from './components/StartUpIndex/StartupKeyCityEstablishNum.vue'
 
 
 Vue.use(MintUI)
@@ -74,9 +81,17 @@ const router = new VueRouter({
     {path: '/InnovateIndexCopyright', name: 'InnovateIndexCopyright', component: InnovateIndexCopyright},
 // 产业指数
     {path: '/IndustryIndexMacroscopic', name: 'IndustryIndexMacroscopic', component: IndustryIndexMacroscopic},
+    {path: '/IndustryIndexPrimaryIndustry', name: 'IndustryIndexPrimaryIndustry', component: IndustryIndexPrimaryIndustry},
+    {path: '/IndustryIndexSecondaryIndustry', name: 'IndustryIndexSecondaryIndustry', component: IndustryIndexSecondaryIndustry},
+    {path: '/IndustryIndexTertiaryIndustry', name: 'IndustryIndexTertiaryIndustry', component: IndustryIndexTertiaryIndustry},
+
+    {path: '/IndustryIndexKeyCityYearEndTotalPopulation', name: 'IndustryIndexKeyCityYearEndTotalPopulation', component: IndustryIndexKeyCityYearEndTotalPopulation},
+    {path: '/IndustryIndexKeyCityAvgSalary', name: 'IndustryIndexKeyCityAvgSalary', component: IndustryIndexKeyCityAvgSalary},
 
     // 创业指数
     {path: '/StartupIndexAreaIndustry', name: 'StartupIndexAreaIndustry', component: StartupIndexAreaIndustry},
+    {path: '/StartupIndexEstablishNum', name: 'StartupIndexEstablishNum', component: StartupIndexEstablishNum},
+    {path: '/StartupKeyCityEstablishNum', name: 'StartupKeyCityEstablishNum', component: StartupKeyCityEstablishNum},
 
 
     {path: '/', name: 'default', component: RecruitIndustry},
@@ -119,7 +134,7 @@ new Vue({
         <p>
         <li><router-link :to="{ name: 'RecruitIndustry'}">招聘指数-各行业-Top10-最近5个月</router-link></li>
         </p>
-        
+        <hr>
         <p>
         <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-地区生产总值</router-link></li>
         <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-法人单位数量</router-link></li>
@@ -133,17 +148,32 @@ new Vue({
         <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省法人单位数增长趋势</router-link></li>
         <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-各省企业法人数增长趋势</router-link></li>        
         </p>
-         
+         <hr>
          <p>
          <li><router-link :to="{ name: 'InnovateIndexPatent'}">创新指数-各省专利数量构成</router-link></li>
          <li><router-link :to="{ name: 'InnovateIndexCopyright'}">创新指数-各省作品著作权</router-link></li>
 
          </p>
-         
+         <hr>
          <p>
          <li><router-link :to="{ name: 'IndustryIndexMacroscopic'}">产业指数-三大产业综合</router-link></li>
+         <li><router-link :to="{ name: 'IndustryIndexPrimaryIndustry'}">产业指数-各省第一产业增加值</router-link></li>
+         <li><router-link :to="{ name: 'IndustryIndexSecondaryIndustry'}">产业指数-各省第二产业增加值</router-link></li>
+         <li><router-link :to="{ name: 'IndustryIndexTertiaryIndustry'}">产业指数-各省第三产业增加值</router-link></li>
+         </p>
+
+         <p>
+         <li><router-link :to="{ name: 'IndustryIndexKeyCityYearEndTotalPopulation'}">产业指数-全国重点城市-年末总人口</router-link></li>
+         <li><router-link :to="{ name: 'IndustryIndexKeyCityAvgSalary'}">产业指数-全国重点城市-在岗职工平均工资</router-link></li>
+         </p>
+
+         <hr>
+        <p>
+        <li><router-link :to="{ name: 'StartupIndexEstablishNum'}">创业指数-近年各省成立企业数量分布</router-link></li>
+        <li><router-link :to="{ name: 'StartupKeyCityEstablishNum'}">创业指数-近年重点城市成立企业数量分布</router-link></li>
+        <li><router-link :to="{ name: 'StartupIndexAreaIndustry'}">创业指数-地区成立企业数量行业分布</router-link></li>
         </p>
-         
+         <hr>
         <p>
         <li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>
         <li><router-link :to="{ name: 'innovateIndustry'}">创新指数-区域-行业-最近十年  </router-link></li>
@@ -161,10 +191,8 @@ new Vue({
         <li><router-link :to="{ name:'economy'}">南丁格尔图</router-link></li>
         <li><router-link :to="{ name:'Concentriccircles'}">同心圆-分层展开</router-link></li>
         <li><router-link :to="{ name: 'autoPaly'}">模拟自动点击</router-link></li>
-</p>
-<p>
-        <li><router-link :to="{ name: 'StartupIndexAreaIndustry'}">创业指数</router-link></li>
-</p>
+        </p>
+
       </ul>
       <router-view class="view"></router-view>
     </div>
