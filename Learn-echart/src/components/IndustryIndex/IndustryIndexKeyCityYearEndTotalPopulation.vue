@@ -25,7 +25,6 @@
         //百度提供的json
         $.get('http://7xlgc1.com1.z0.glb.clouddn.com/china.json'),
       ).done(function (chinaJson) {
-        console.log('chinaMap.js');
 
         var myChart = echarts.init(document.getElementById('mapinner2'));
         echarts.registerMap('china', chinaJson);
@@ -444,6 +443,12 @@
           }).slice(0, 5))
         ];
 
+        var  dataSource = {"timeline":{"2016":[{"name":"厦门","value":[118.1,24.46,279]},{"name":"上海","value":[121.48,31.22,273]}],"2015":[{"name":"厦门","value":[118.1,24.46,279]},{"name":"上海","value":[121.48,31.22,273]}]}};
+
+        var timeLine = Object.keys(dataSource.timeline).reverse();
+        var lastYearData = dataSource.timeline[timeLine[0]];
+
+
 
         option = {
           backgroundColor: '#404a59',
@@ -475,23 +480,23 @@
             }
           ],
 
-          //  visualMap: {
+            visualMap: {
 
-          //     //这里的最大值 最小值需要提前获得
-          //     min: 0,
-          //     max: 300,
-          //     //将离散型的映射给分割了
-          //      splitNumber: 5,
-          //     // calculable: true,
-          //     inRange: {
-          //         // color: ['#50a3ba', '#eac736', '#d94e5d']
-          //         color: ['#61a5f8', '#eecb5f', '#e16759']
-          //     },
+               //这里的最大值 最小值需要提前获得
+               min: 0,
+               max: 300,
+               //将离散型的映射给分割了
+                splitNumber: 5,
+               // calculable: true,
+               inRange: {
+                   // color: ['#50a3ba', '#eac736', '#d94e5d']
+                   color: ['#61a5f8', '#eecb5f', '#e16759']
+               },
 
-          //     textStyle: {
-          //         color: '#fff'
-          //     }
-          // },
+               textStyle: {
+                   color: '#fff'
+               }
+           },
 
           toolbox: {
             iconStyle: {
@@ -571,14 +576,11 @@
           },
           series: [
             {
-              name: 'pm2.5',
-//              selectedMode: 'single',
-//              type: 'map',
-//              mapType:'china',
-
+              name: '年末总人口',
               type: 'scatter',
               coordinateSystem: 'geo',
-              data: convertedData[0],
+//              data: convertedData[0],
+              data:lastYearData,
               symbolSize: function (val) {
                 return Math.max(val[2] / 10, 8);
               },
@@ -602,7 +604,8 @@
               name: 'Top 5',
               type: 'effectScatter',
               coordinateSystem: 'geo',
-              data: convertedData[1],
+//              data: convertedData[1],
+              data:lastYearData,
               symbolSize: function (val) {
                 return Math.max(val[2] / 10, 8);
               },
@@ -661,6 +664,7 @@
           });
         }, 0);
 
+
         function renderBrushed(params) {
           console.log( params );
           var mainSeries = params.batch[0].selected[0];
@@ -674,7 +678,8 @@
 
           for (var i = 0; i < mainSeries.dataIndex.length; i++) {
             var rawIndex = mainSeries.dataIndex[i];
-            var dataItem = convertedData[0][rawIndex];
+//            var dataItem = convertedData[0][rawIndex];
+            var dataItem = lastYearData[rawIndex];
             var pmValue = dataItem.value[2];
 
             sum += pmValue;
@@ -702,7 +707,7 @@
           }
 
           console.log(categoryData.length + categoryData);
-
+debugger
           myChart.setOption({
             yAxis: {
               data: categoryData

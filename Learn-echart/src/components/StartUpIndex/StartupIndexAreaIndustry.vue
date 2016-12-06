@@ -161,7 +161,7 @@
         };
 
         var timeLine = Object.keys(dataSourceTree.timeline).reverse();
-        console.log(timeLine[0]);
+
         var lastYearData = dataSourceTree.timeline[timeLine[0]];
 
 
@@ -425,7 +425,7 @@
 
         myChart.setOption(option);
 
-        设置好之后模拟点击福建一下
+//        设置好之后模拟点击福建一下
         myChart.dispatchAction({
           type: 'mapSelect',
           seriesIndex: 0,

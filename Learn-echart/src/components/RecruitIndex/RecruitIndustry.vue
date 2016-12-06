@@ -22,7 +22,6 @@
       myChart.hideLoading();
 
 
-
       var N_POINT = 3;
       var grids = [];
       var xAxes = [];

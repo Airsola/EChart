@@ -95,6 +95,7 @@ const router = new VueRouter({
 
 
     {path: '/', name: 'default', component: RecruitIndustry},
+    {path: '*', name: 'other', component: RecruitIndustry},
 
 
   ]
