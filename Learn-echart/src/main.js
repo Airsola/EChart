@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 import  VueResource from 'vue-resource'
 
 
+
 import  EchartsMaps from './components/Demo/echartMap.vue'
 import  ecomomyMap from './components/Demo/economyMap.vue'
 import  innovateIndustry from './components/Demo/innovateIndustry.vue'
@@ -47,6 +48,7 @@ import StartupKeyCityEstablishNum from './components/StartUpIndex/StartupKeyCity
 Vue.use(MintUI)
 Vue.use(VueRouter)
 Vue.use(VueResource)
+
 
 
 const Home = {template: '<div>This is Home</div>'}
@@ -140,8 +142,8 @@ new Vue({
         <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-地区生产总值</router-link></li>
         <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-法人单位数量</router-link></li>
         <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-企业法人单位数量</router-link></li>
-        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-年末总人口</router-link></li>
-        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-在职岗位平均工资</router-link></li>
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-重点城市年末总人口</router-link></li>
+        <li><router-link :to="{ name: 'EconomyAreaGDPIndex'}">经济指数-重点城市在职岗位平均工资</router-link></li>
         </p>
         
         <p>

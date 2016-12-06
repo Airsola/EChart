@@ -5,24 +5,17 @@
 
 <script>
   import  echarts from 'echarts'
+  import  Config  from '../../Config.js'
 
   // 测试 Jsonp 获取数据
   export default{
-    name: "autoPaly",
+    name: "economy",
 
 
     mounted: function () {
-
-//      this.$http.jsonp('http://172.16.130.208:8080/spider-web/user/sso/pwdSalt').then(function (response) {
-//        this.$set('gridData', response.data)
-//      })
-
-//      this.$http.jsonp('/someUrl', [data], [options]).then(successCallback, errorCallback);
-//      http://api.money.126.net/data/feed/0000001,1399001?callback=abc
-
       var myChart = echarts.init(document.getElementById('recruitMainIndustry'));
       myChart.showLoading();
-      this.$http.get('http://172.16.131.235:8080/spider-web/riviews/gardenindex/recruitIndex')
+      this.$http.get( Config.BASE_URL + '/recruitIndex')
         .then(function (response) {
           myChart.hideLoading();
           debugger;
