@@ -4,7 +4,6 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import VueRouter from 'vue-router'
 import  VueResource from 'vue-resource'
-import Vuex from 'vuex'
 import store from './store'
 
 // Demo
@@ -58,7 +57,6 @@ import StartupKeyCityEstablishNum from './components/StartUpIndex/StartupKeyCity
 Vue.use(MintUI)
 Vue.use(VueRouter)
 Vue.use(VueResource)
-Vue.use(Vuex)
 
 
 
@@ -111,7 +109,6 @@ const router = new VueRouter({
     {path: '/IndustryIndexKeyCityTertiaryIndustry', name: 'IndustryIndexKeyCityTertiaryIndustry', component: IndustryIndexKeyCityTertiaryIndustry},
 
 
-
     // 创业指数
     {path: '/StartupIndexAreaIndustry', name: 'StartupIndexAreaIndustry', component: StartupIndexAreaIndustry},
     {path: '/StartupIndexEstablishNum', name: 'StartupIndexEstablishNum', component: StartupIndexEstablishNum},
@@ -146,7 +143,6 @@ const router = new VueRouter({
 //   //这里render的只是一个组件而已 传啥就渲染啥
 //   render: h => h(EchartsMaps)
 // })
-
 
 // 这里的router引用方式可能并不是主流哦   路由需要一个根组件 要么给全局的 要么给一个 index.html 的挂载点
 // 这里再外挂的生命周期级别的Vue里面注入了一个store,和router

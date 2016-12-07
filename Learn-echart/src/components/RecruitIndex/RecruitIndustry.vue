@@ -64,6 +64,7 @@
           "细分行业8": "133",
           "细分行业9": "123"
         }};
+
       var SubdivideIndustryNames = Object.keys(SubdivideIndustry);
       var SubdivideIndustryValues = Object.values(SubdivideIndustry);
 
@@ -86,7 +87,6 @@
         });
 
          yAxes.push({
-//           data:["abc","bbc"],
           data: Object.keys(SubdivideIndustryValues[count]),
           gridIndex: count
         });
@@ -94,6 +94,12 @@
         series.push({
           name: name,
           type: 'bar',
+          label: {
+            normal: {
+              show: true,
+              position: 'inside'
+            }
+          },
           xAxisIndex: count,
           yAxisIndex: count,
           data: Object.values(SubdivideIndustryValues[count]),
@@ -119,19 +125,19 @@
 
       echarts.util.each(grids, function (grid, idx) {
         grid.left = ((idx % rowNumber) / rowNumber * 100 + 20) + '%';
-        grid.top = (Math.floor(idx / rowNumber) / rowNumber * 100 + 0.5) + 3 + '%';
-        grid.width = (1 / rowNumber * 100 - 20) + '%';
+        grid.top = (Math.floor(idx / rowNumber) / rowNumber * 100 + 0.5) + 4 + '%';
+        grid.width = (1 / rowNumber * 100 - 25) + '%';
         grid.height = (1 / rowNumber * 100 - 10) + '%';
         //控制单个模块子标题
         titles[idx].left = parseFloat(grid.left) + parseFloat(grid.width) / 2 + '%';
-        titles[idx].top = parseFloat(grid.top) - 3 + '%';
+        titles[idx].top = parseFloat(grid.top) - 4 + '%';
       });
 
 
 
       option = {
         title: titles.concat([{
-          text: '招聘-行业-指标',
+          text: '招聘指数-行业-职位需求',
 //          top: 'top',
 //          left: 'center'
         }]),
@@ -155,7 +161,7 @@
 
   #mapinner2{
     height: 1000px;
-    width:  900px;
+    width:  80%;
     margin: 0 auto;
   };
 

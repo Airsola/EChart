@@ -7,11 +7,14 @@
   import  echarts from 'echarts'
   import  Config  from '../../Config.js'
 
-  // 测试 Jsonp 获取数据
-  export default{
-    name: "economy",
 
+   export default{
+    name: "economy",
     mounted: function () {
+
+      console.log(this.$store.state.BASE_URL)
+      console.log('abbb')
+
       var myChart = echarts.init(document.getElementById('recruitMainIndustry'));
       myChart.showLoading();
       this.$http.get( Config.BASE_URL + '/recruitIndex')
@@ -128,7 +131,7 @@
               title: {
                 show: true,
                 'text': '招聘指数'+timelineValues[n] + '主要行业需求人数',
-                'subtext': '锐信视界',
+                'subtext': '数据来源：智联招聘',
                 'sublink': 'http://zx.onlyou.com/zx/index',
 //            left: 'center',
 //            textStyle: {
@@ -138,8 +141,13 @@
               series: {
                 name: timelineValues[n],
                 type: 'bar',
+                label: {
+                  normal: {
+                    show: true,
+                    position: 'inside'
+                  }
+                },
                 data: Object.values(Object.values(datas.timeline)[n].MainIndustry)
-
               }
             });
           }
@@ -163,7 +171,7 @@
 
   #recruitMainIndustry {
     height: 400px;
-    width: 600px;
+    width: 80%;
     margin: 0 auto;
   }
 
