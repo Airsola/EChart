@@ -11,7 +11,6 @@
   export default{
     name: "economy",
 
-
     mounted: function () {
       var myChart = echarts.init(document.getElementById('recruitMainIndustry'));
       myChart.showLoading();
