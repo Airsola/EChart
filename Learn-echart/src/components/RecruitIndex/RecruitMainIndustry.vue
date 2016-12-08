@@ -12,7 +12,6 @@
     name: "economy",
     mounted: function () {
 
-
       var myChart = echarts.init(document.getElementById('recruitMainIndustry'));
       myChart.showLoading();
       this.$http.get(this.$store.state.BASE_URL + '/recruitIndex')
@@ -20,7 +19,7 @@
           myChart.hideLoading();
 
           //这里目前是静态数据后续有历史数据之后需要切换接口进行替换
-          var datas = {"timeline":{"11月":{"MainIndustry":{"信息传输、软件和信息技术服务业":"279729","制造业":"152057","卫生和社会工作":"38587","建筑业":"207765","批发和零售业":"147544","文化、体育和娱乐业":"251387","金融业":"247210"}},"10月":{"MainIndustry":{"信息传输、软件和信息技术服务业":"279729","制造业":"152057","卫生和社会工作":"38587","建筑业":"207765","批发和零售业":"147544","文化、体育和娱乐业":"251387","金融业":"247210"}}}};
+          var datas = {"timeline":{"2016-11":{"MainIndustry":{"信息传输、软件和信息技术服务业":"279729","制造业":"152057","卫生和社会工作":"38587","建筑业":"207765","批发和零售业":"147544","文化、体育和娱乐业":"251387","金融业":"247210"}},"2016-11":{"MainIndustry":{"信息传输、软件和信息技术服务业":"279729","制造业":"152057","卫生和社会工作":"38587","建筑业":"207765","批发和零售业":"147544","文化、体育和娱乐业":"251387","金融业":"247210"}}}};
           var timelineValues = Object.keys(datas.timeline)
 
           var data = null
@@ -42,6 +41,7 @@
           option = {
             baseOption: {
               timeline: {
+                show:false,
                 axisType: 'category',
                 orient: 'vertical',
                 autoPlay: true,
@@ -96,7 +96,7 @@
                 image: canvas,
                 repeat: 'repeat'
               },
-              title: {text: '招聘指数-主要行业'},
+              title: {text: '招聘指数-主要行业-'+timelineValues[0]},
               yAxis: {
 //            这里的行业为固定的七大类行业
                 data: fixIndustry,
@@ -104,7 +104,9 @@
                   show:true
                 },
               },
-              xAxis: {},
+              xAxis: {
+                name: '（人)',
+              },
               // 这里的值是会动态变化的
               series: [{
                 type: 'bar'
@@ -124,7 +126,7 @@
             option.options.push({
               title: {
                 show: true,
-                'text': '招聘指数'+timelineValues[n] + '主要行业需求人数',
+                'text': '招聘指数-'+timelineValues[n] + '主要行业需求人数',
                 'subtext': '数据来源：智联招聘',
                 'sublink': 'http://zx.onlyou.com/zx/index',
 //            left: 'center',

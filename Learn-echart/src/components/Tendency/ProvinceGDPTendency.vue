@@ -62,7 +62,7 @@
 
           option = {
             title: {
-              text: '各地区生产总值季度增长趋势（亿元）'
+              text: '近年各地区生产总值季度增长趋势（亿元）'
             },
             tooltip : {
               trigger: 'axis'

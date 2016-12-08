@@ -34,40 +34,6 @@
           var titles = [];
           var count = 0;
 
-//          var SubdivideIndustry = {
-//            "信息业": {
-//              "细分行sssssssssssdafadfadsf业1": "100",
-//              "细分行业2": "133",
-//              "细分行业3": "123",
-//              "细分行业4": "100",
-//              "细分行业5": "133",
-//              "细分行业6": "123",
-//              "细分行业7": "100",
-//              "细分行业8": "133",
-//              "细分行业9": "123"
-//            },
-//            "通信业": {
-//              "细分行业1": "100",
-//              "细分行业2": "133",
-//              "细分行业3": "123",
-//              "细分行业4": "100",
-//              "细分行业5": "133",
-//              "细分行业6": "123",
-//              "细分行业7": "100",
-//              "细分行业8": "133",
-//              "细分行业9": "123"
-//            },
-//            "金融业": {
-//              "细分行业1": "100",
-//              "细分行业2": "133",
-//              "细分行业3": "123",
-//              "细分行业4": "100",
-//              "细分行业5": "133",
-//              "细分行业6": "123",
-//              "细分行业7": "100",
-//              "细分行业8": "133",
-//              "细分行业9": "123"
-//            }};
 
           var SubdivideIndustry = response.data.SubdivideIndustry
           var SubdivideIndustryNames = Object.keys(SubdivideIndustry);
@@ -92,12 +58,14 @@
 
 //              interval:3,
               splitNumber:3,
+              name: '（人)',
               gridIndex: count
             });
 
             yAxes.push({
                data: Object.keys(SubdivideIndustryValues[count]),
-               gridIndex: count
+
+              gridIndex: count
             });
 
             series.push({

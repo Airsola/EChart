@@ -81,7 +81,7 @@
                 animationEasingUpdate: 'cubicInOut',
                 title: [
                   {
-                    text: '创业指数-各省成立企业数量分布',
+                    text: '创业指数-'+timeLine[0] +'年各省成立企业数量分布',
                     subtext: '锐信视界',
                     sublink: 'http://zx.onlyou.com/zx/index',
                     left: 'center',

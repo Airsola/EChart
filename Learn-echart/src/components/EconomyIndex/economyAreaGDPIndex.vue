@@ -128,6 +128,8 @@
 
                 xAxis: {
                   type: 'value',
+                  name: '(亿元)',
+
                   scale: true,
                   position: 'top',
                   boundaryGap: false,
