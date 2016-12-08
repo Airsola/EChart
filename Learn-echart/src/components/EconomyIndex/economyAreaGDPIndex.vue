@@ -21,7 +21,7 @@
           echarts.registerMap('china', chinaJson.data);
           var app = [];
           var option = null;
-//          prosYearEntEtablishIndex  provincesYearGDPIndex
+
           this.$http.get(this.$store.state.BASE_URL + '/provincesYearGDPIndex')
             .then(function (response) {
 

@@ -68,10 +68,9 @@
 
 
 //          var max1 =  Math.max.apply(null, Object.values(lastYearData))
-          var max2 =  Math.max(...Object.values(lastYearData))
+//          var max2 =  Math.max(...Object.values(lastYearData))
 //          var min1 = Math.min.apply(null, Object.values(lastYearData) )
-          var min2 =Math.min(...Object.values(lastYearData))
-              debugger
+//          var min2 =Math.min(...Object.values(lastYearData))
 
               option = {
                 backgroundColor: '#827b85',
@@ -82,7 +81,7 @@
                 animationEasingUpdate: 'cubicInOut',
                 title: [
                   {
-                    text: '经济指数-地区生产总值(万元)',
+                    text: '创业指数-各省成立企业数量分布',
                     subtext: '锐信视界',
                     sublink: 'http://zx.onlyou.com/zx/index',
                     left: 'center',
@@ -90,7 +89,6 @@
                       color: '#fff'
                     }
                   },
-
                   // 这里预设了一个 title的样式 具体内容后续再复制
                   {
                     id: 'statistic',
