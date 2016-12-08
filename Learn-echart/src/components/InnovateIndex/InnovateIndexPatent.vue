@@ -1,15 +1,11 @@
 <template>
-
   <div id="mapinner">
   </div>
-
 </template>
 
 
 <script>
-
   import  echarts from 'echarts'
-
   export default({
     name: "mpaDeom",
     data () {
@@ -18,9 +14,6 @@
       }
     },
     mounted: function () {
-
-
-
 
       var waterMarkText = '锐信视界';
       var canvas = document.createElement('canvas');
@@ -119,10 +112,7 @@
         ]
       };
 
-
       myChart.setOption(option);
-
-
 
 //end
     }
@@ -131,12 +121,11 @@
 
 </script>
 
-<style>
+<style scoped >
   #mapinner {
-    height: 400px;
-    width: 600px;
+    height: 600px;
+    width: 80%;
     margin: 0 auto;
   }
-
 </style>
 

@@ -12,25 +12,19 @@
     name: "economy",
     mounted: function () {
 
-      console.log(this.$store.state.BASE_URL)
-      console.log('abbb')
 
       var myChart = echarts.init(document.getElementById('recruitMainIndustry'));
       myChart.showLoading();
-      this.$http.get( Config.BASE_URL + '/recruitIndex')
+      this.$http.get(this.$store.state.BASE_URL + '/recruitIndex')
         .then(function (response) {
           myChart.hideLoading();
-          debugger;
-          var datas = {
-            "timeline": {
-              "11月": {"MainIndustry": {"制造业": "123", "金融业": "321"}},
-              "10月": {"MainIndustry": {"制造业": "234", "金融业": "123"}}
-            }
-          };
+
+          //这里目前是静态数据后续有历史数据之后需要切换接口进行替换
+          var datas = {"timeline":{"11月":{"MainIndustry":{"信息传输、软件和信息技术服务业":"279729","制造业":"152057","卫生和社会工作":"38587","建筑业":"207765","批发和零售业":"147544","文化、体育和娱乐业":"251387","金融业":"247210"}},"10月":{"MainIndustry":{"信息传输、软件和信息技术服务业":"279729","制造业":"152057","卫生和社会工作":"38587","建筑业":"207765","批发和零售业":"147544","文化、体育和娱乐业":"251387","金融业":"247210"}}}};
           var timelineValues = Object.keys(datas.timeline)
 
           var data = null
-          var fixIndustry = ["信息传输、软件和信息技术服务业", "湖里区"];
+          var fixIndustry = ["软件和信息技术服务业", "制造业","卫生和社会工作","建筑业","批发和零售业","文化、体育和娱乐业","金融业"];
           var option = null;
 
           var waterMarkText = '锐信视界';
@@ -108,25 +102,25 @@
                 data: fixIndustry,
                 axisLine:{
                   show:true
-                }
-
+                },
               },
-
               xAxis: {},
               // 这里的值是会动态变化的
               series: [{
                 type: 'bar'
-//        data: [5, 20, 36, 10, 10, 20]
-              }],
+               }],
               animationDurationUpdate: 1000,
               animationEasingUpdate: 'quinticInOut'
             },
+            grid:{
+              left :150
+            },
+
             options: []
           }
 
           for (var n = 0; n < timelineValues.length; n++) {
             option.baseOption.timeline.data.push(timelineValues[n]);
-
             option.options.push({
               title: {
                 show: true,
@@ -138,13 +132,21 @@
 //              color: '#fff'
 //            }
               },
+              grid:{
+                left :150
+              },
               series: {
                 name: timelineValues[n],
                 type: 'bar',
+
                 label: {
                   normal: {
                     show: true,
-                    position: 'inside'
+                    position: 'right'
+                  },
+                  emphasis:{
+                    show: true,
+                    position: 'right'
                   }
                 },
                 data: Object.values(Object.values(datas.timeline)[n].MainIndustry)
@@ -170,8 +172,8 @@
 <style scoped>
 
   #recruitMainIndustry {
-    height: 400px;
-    width: 80%;
+    height: 500px;
+    width: 70%;
     margin: 0 auto;
   }
 

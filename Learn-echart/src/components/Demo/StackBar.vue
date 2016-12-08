@@ -197,7 +197,7 @@ myChart.setOption(option);
 height: 400px;
 width:  600px;
 margin: 0 auto;
-};	
+};
 
 </style>
 

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
-import MintUI from 'mint-ui'
-import 'mint-ui/lib/style.css'
+// import MintUI from 'mint-ui'
+// import 'mint-ui/lib/style.css'
 import VueRouter from 'vue-router'
 import  VueResource from 'vue-resource'
 import store from './store'
@@ -54,7 +54,7 @@ import StartupIndexEstablishNum from './components/StartUpIndex/StartupIndexEsta
 import StartupKeyCityEstablishNum from './components/StartUpIndex/StartupKeyCityEstablishNum.vue'
 
 
-Vue.use(MintUI)
+// Vue.use(MintUI)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
@@ -115,8 +115,8 @@ const router = new VueRouter({
     {path: '/StartupKeyCityEstablishNum', name: 'StartupKeyCityEstablishNum', component: StartupKeyCityEstablishNum},
 
 
-    {path: '/', name: 'default', component: RecruitIndustry},
-    {path: '*', name: 'other', component: RecruitIndustry},
+    {path: '/', name: 'default', component: null},
+    {path: '*', name: 'other', component: null},
 
 
   ]

@@ -11,143 +11,160 @@
   import  mianindustry from  './RecruitMainIndustry.vue'
 
   export default{
-    name: "autoPaly",
+    name: "SubdivideIndustry",
     components:{
       mianindustry
     },
+
     mounted: function () {
-      var app = [];
       var myChart = echarts.init(document.getElementById('mapinner2'));
-      var option = null;
-      myChart.hideLoading();
+      myChart.showLoading();
 
+      this.$http.get(this.$store.state.BASE_URL + '/subdivideIndustryIndex')
+        .then( function(response){
+console.log(response.data)
+          myChart.hideLoading();
+          var option = null;
+          var app = [];
+          var N_POINT = 3;
+          var grids = [];
+          var xAxes = [];
+          var yAxes = [];
+          var series = [];
+          var titles = [];
+          var count = 0;
 
-      var N_POINT = 3;
-      var grids = [];
-      var xAxes = [];
-      var yAxes = [];
-      var series = [];
-      var titles = [];
-      var count = 0;
+//          var SubdivideIndustry = {
+//            "信息业": {
+//              "细分行sssssssssssdafadfadsf业1": "100",
+//              "细分行业2": "133",
+//              "细分行业3": "123",
+//              "细分行业4": "100",
+//              "细分行业5": "133",
+//              "细分行业6": "123",
+//              "细分行业7": "100",
+//              "细分行业8": "133",
+//              "细分行业9": "123"
+//            },
+//            "通信业": {
+//              "细分行业1": "100",
+//              "细分行业2": "133",
+//              "细分行业3": "123",
+//              "细分行业4": "100",
+//              "细分行业5": "133",
+//              "细分行业6": "123",
+//              "细分行业7": "100",
+//              "细分行业8": "133",
+//              "细分行业9": "123"
+//            },
+//            "金融业": {
+//              "细分行业1": "100",
+//              "细分行业2": "133",
+//              "细分行业3": "123",
+//              "细分行业4": "100",
+//              "细分行业5": "133",
+//              "细分行业6": "123",
+//              "细分行业7": "100",
+//              "细分行业8": "133",
+//              "细分行业9": "123"
+//            }};
 
-      var SubdivideIndustry = {
-        "信息业": {
-          "细分行sssssssssssdafadfadsf业1": "100",
-          "细分行业2": "133",
-          "细分行业3": "123",
-          "细分行业4": "100",
-          "细分行业5": "133",
-          "细分行业6": "123",
-          "细分行业7": "100",
-          "细分行业8": "133",
-          "细分行业9": "123"
-        },
-        "通信业": {
-          "细分行业1": "100",
-          "细分行业2": "133",
-          "细分行业3": "123",
-          "细分行业4": "100",
-          "细分行业5": "133",
-          "细分行业6": "123",
-          "细分行业7": "100",
-          "细分行业8": "133",
-          "细分行业9": "123"
-        },
-        "金融业": {
-          "细分行业1": "100",
-          "细分行业2": "133",
-          "细分行业3": "123",
-          "细分行业4": "100",
-          "细分行业5": "133",
-          "细分行业6": "123",
-          "细分行业7": "100",
-          "细分行业8": "133",
-          "细分行业9": "123"
-        }};
+          var SubdivideIndustry = response.data.SubdivideIndustry
+          var SubdivideIndustryNames = Object.keys(SubdivideIndustry);
+          var SubdivideIndustryValues = Object.values(SubdivideIndustry);
+          debugger
 
-      var SubdivideIndustryNames = Object.keys(SubdivideIndustry);
-      var SubdivideIndustryValues = Object.values(SubdivideIndustry);
+          //批量处理各个行业大类的 数据结构
+          for (var i = 0; i < SubdivideIndustryNames.length; i++) {
+            grids.push({
+              show: true,
+              borderWidth: 0,
+              backgroundColor: '#fff',
+              shadowColor: 'rgba(0, 0, 0, 0.3)',
+              shadowBlur: 2
+            });
 
-      //批量处理各个行业大类的 数据结构
-      for (var i = 0; i < SubdivideIndustryNames.length; i++) {
-        grids.push({
-          show: true,
-          borderWidth: 0,
-          backgroundColor: '#fff',
-          shadowColor: 'rgba(0, 0, 0, 0.3)',
-          shadowBlur: 2
-        });
-
-        xAxes.push({
+            xAxes.push({
 //          type: 'value',
 //          show: false,
 //          min: 0,
 //          max: 1,
-          gridIndex: count
-        });
 
-         yAxes.push({
-          data: Object.keys(SubdivideIndustryValues[count]),
-          gridIndex: count
-        });
+//              interval:3,
+              splitNumber:3,
+              gridIndex: count
+            });
 
-        series.push({
-          name: name,
-          type: 'bar',
-          label: {
-            normal: {
-              show: true,
-              position: 'inside'
-            }
-          },
-          xAxisIndex: count,
-          yAxisIndex: count,
-          data: Object.values(SubdivideIndustryValues[count]),
+            yAxes.push({
+               data: Object.keys(SubdivideIndustryValues[count]),
+               gridIndex: count
+            });
 
-          showSymbol: false,
-          animationEasing: name,
-          animationDuration: 1000
-        });
+            series.push({
+              name: name,
+              type: 'bar',
+              label: {
+                normal: {
+                  show: true,
+                  position: 'right'
+                }
+              },
+              xAxisIndex: count,
+              yAxisIndex: count,
+              data: Object.values(SubdivideIndustryValues[count]),
 
-        titles.push({
-          textAlign: 'center',
-          text: SubdivideIndustryNames[count],
-          textStyle: {
-            fontSize: 20,
-            fontWeight: 'normal'
+              showSymbol: false,
+              animationEasing: name,
+              animationDuration: 1000
+            });
+
+            titles.push({
+              textAlign: 'center',
+              text: SubdivideIndustryNames[count],
+              textStyle: {
+                fontSize: 20,
+                fontWeight: 'normal'
+              }
+            });
+            //数据
+            count++;
           }
-        });
-        //数据
-        count++;
-      }
 
-      var rowNumber = Math.ceil(Math.sqrt(count));
+          var rowNumber = Math.ceil(Math.sqrt(count));
 
-      echarts.util.each(grids, function (grid, idx) {
-        grid.left = ((idx % rowNumber) / rowNumber * 100 + 20) + '%';
-        grid.top = (Math.floor(idx / rowNumber) / rowNumber * 100 + 0.5) + 4 + '%';
-        grid.width = (1 / rowNumber * 100 - 25) + '%';
-        grid.height = (1 / rowNumber * 100 - 10) + '%';
-        //控制单个模块子标题
-        titles[idx].left = parseFloat(grid.left) + parseFloat(grid.width) / 2 + '%';
-        titles[idx].top = parseFloat(grid.top) - 4 + '%';
-      });
+          echarts.util.each(grids, function (grid, idx) {
+            grid.left = ((idx % rowNumber) / rowNumber * 90 + 15) + '%';
+            grid.top = (Math.floor(idx / rowNumber) / rowNumber * 100 + 0.5) + 6 + '%';
+            grid.width = (1 / rowNumber * 100 - 15) + '%';
+            grid.height = (1 / rowNumber * 100 - 10) + '%';
+            //控制单个模块子标题
+            titles[idx].left = parseFloat(grid.left) + parseFloat(grid.width) / 2 + '%';
+            titles[idx].top = parseFloat(grid.top) - 3 + '%';
+          });
 
 
 
-      option = {
-        title: titles.concat([{
-          text: '招聘指数-行业-职位需求',
+          option = {
+            title: titles.concat([{
+              text: '招聘指数-行业-职位需求(人数)',
 //          top: 'top',
 //          left: 'center'
-        }]),
-        grid: grids,
-        xAxis: xAxes,
-        yAxis: yAxes,
-        series: series
-      };
+            }]),
+            grid: grids,
+            xAxis: xAxes,
+            yAxis: yAxes,
+            series: series
+          };
 
-      myChart.setOption(option);
+          myChart.setOption(option);
+
+
+
+        },function (response) {
+          console.log('error'+response)
+        })
+
+
 
 // mounted  end
     }
@@ -161,9 +178,9 @@
 
   #mapinner2{
     height: 1000px;
-    width:  80%;
+    width:  95%;
     margin: 0 auto;
-  };
+  }
 
 </style>
 

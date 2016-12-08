@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>地图 结合 省份区域的点击</p>
-    <div id="mapinner2">
+    <div id="startup-area-industry">
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@
       ).done(function (chinaJson) {
         console.log('chinaMap.js');
 
-        var myChart = echarts.init(document.getElementById('mapinner2'));
+        var myChart = echarts.init(document.getElementById('startup-area-industry'));
         echarts.registerMap('china', chinaJson);
         var app = [];
         var option = null;
@@ -446,13 +446,11 @@
 
 <style scoped>
 
-  #mapinner2 {
+  #startup-area-industry{
     height: 800px;
-    width: 80%;
+    width: 800px;
     margin: 0 auto;
   }
-
-  ;
 
 </style>
 

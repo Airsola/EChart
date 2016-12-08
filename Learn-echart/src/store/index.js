@@ -13,11 +13,9 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-
   },
 
   getters: {
-
   }
 })
 

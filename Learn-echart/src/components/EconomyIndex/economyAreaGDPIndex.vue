@@ -13,6 +13,12 @@
     name: "mapArea",
     mounted: function () {
 
+      function getMaxValueFromArry() {
+
+      }
+
+
+
       var myChart = echarts.init(document.getElementById('mapinner2'));
       myChart.showLoading();
 
@@ -26,8 +32,8 @@
         var app = [];
         var option = null;
 
-        $.get('http://172.16.131.235:8080/spider-web/riviews/gardenindex/provincesYearGDPIndex', function (jsonataSource) {
-          console.log(jsonataSource)
+        $.get('http://172.16.131.235:8080/spider-web/riviews/gardenindex/provincesYearGDPIndex', function (response) {
+          console.log(response)
            //------------------
           myChart.hideLoading();
           /**
@@ -547,22 +553,33 @@
             }).slice(0, 10))
           ];
 
-          //后续替换为 jsonataSource
-          var dataSource = {
-            "AreaValue": {
-              "timeline": {
-                "2016": {"黑龙江": "123", "浙江": "555", "广东省": "345", "北京": "599"},
-                "2015": {"福建": "123", "浙江": "234", "广东": "345"},
-                "2014": {"福建": "123", "浙江": "234", "广东": "345"}
-              }
-            }
-          };
+          //后续替换为 response
+
+//          var dataSource = {
+//            "AreaValue": {
+//              "timeline": {
+//                "2016": {"黑龙江": "123", "浙江": "555", "广东省": "345", "北京": "599"},
+//                "2015": {"福建": "123", "浙江": "234", "广东": "345"},
+//                "2014": {"福建": "123", "浙江": "234", "广东": "345"}
+//              }
+//            }
+//          };
+
+          var  dataSource = response
+          debugger;
 
           var timeLine = Object.keys(dataSource.AreaValue.timeline).reverse();
 
           var lastYearData = dataSource.AreaValue.timeline[timeLine[0]];
           //对对象进行降序排序
           lastYearData = sort_object(lastYearData, '', false);
+
+         var max1 =  Math.max.apply(null, Object.values(lastYearData))
+          var min1 = Math.min.apply(null, Object.values(lastYearData) )
+          debugger;
+
+
+
           var object2SortArry = [];
 
           for (var k in lastYearData) {
@@ -608,11 +625,11 @@
 
             visualMap: {
               //这里的最大值 最小值需要提前获得
-              min: 0,
-              max: 600,
+              min:  Math.min.apply(null, Object.values(lastYearData)) ,
+              max: Math.max.apply(null, Object.values(lastYearData) ),
               //将离散型的映射给分割了
-              splitNumber: 5,
-              // calculable: true,
+//              splitNumber: 10,
+               calculable: true,
               inRange: {
                 // color: ['#50a3ba', '#eac736', '#d94e5d']
                 color: ['#61a5f8', '#eecb5f', '#e16759']
@@ -725,8 +742,6 @@
     width: 80%;
     margin: 0 auto;
   }
-
-  ;
 
 </style>
 
