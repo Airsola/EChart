@@ -46,8 +46,6 @@ import  IndustryIndexKeyCityPrimaryIndustry from './components/IndustryIndex/Ind
 import  IndustryIndexKeyCitySecondaryIndustry from './components/IndustryIndex/IndustryIndexKeyCitySecondaryIndustry.vue'
 import  IndustryIndexKeyCityTertiaryIndustry from './components/IndustryIndex/IndustryIndexKeyCityTertiaryIndustry.vue'
 
-
-
 //创业指数
 import StartupIndexAreaIndustry from './components/StartUpIndex/StartupIndexAreaIndustry.vue'
 import StartupIndexEstablishNum from './components/StartUpIndex/StartupIndexEstablishNum.vue'
@@ -57,13 +55,6 @@ import StartupKeyCityEstablishNum from './components/StartUpIndex/StartupKeyCity
 // Vue.use(MintUI)
 Vue.use(VueRouter)
 Vue.use(VueResource)
-
-
-
-const Home = {template: '<div>This is Home</div>'}
-const Foo = {template: '<div>This is Foo</div>'}
-const Bar = {template: '<div></div>'}
-
 
 const router = new VueRouter({
   mode: 'history',

@@ -22,6 +22,7 @@
 
       this.$http.get(this.$store.state.BASE_URL + '/subdivideIndustryIndex')
         .then( function(response){
+
 console.log(response.data)
           myChart.hideLoading();
           var option = null;
