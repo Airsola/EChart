@@ -159,8 +159,9 @@
           function (response) {
            // error callback
           console.log(response)
-
-        });
+        }).catch(function (response) {
+        console.log('error' + response)
+      })
 
 // mounted  end
     }

@@ -18,14 +18,12 @@
       var option = null;
       myChart.showLoading();
 
-
       this.$http.get(this.$store.state.BASE_URL + '/provincesQuarterGDPIndex')
         .then(function (response) {
           myChart.hideLoading();
 
           var dataSource = response.data;
           //数据源准备
-//          var dataSource = {"AreaValue":{"timeline":{"2016Q4":{"福建":"234","浙江":"234","广东":"123"},"2016Q3":{"福建":"33","浙江":"234","广东":"345"},"2016Q2":{"福建":"123","浙江":"234","广东":"345"},"2016Q1":{"福建":"314","浙江":"111","广东":"111"},"2015Q4":{"福建":"123","浙江":"234","广东":"345"},}}};
           //倒序排列一下
           var xAxisTime  = Object.keys(dataSource.AreaValue.timeline).reverse();
           var provinceNameArry = Object.keys(dataSource.AreaValue.timeline[xAxisTime[0]])  ;
@@ -43,7 +41,6 @@
             }
             return someProviceValue
           }
-
 
           //图标展现的数据格式要求
           var  seriesValue = [];
@@ -63,9 +60,6 @@
             legendSelectObj[provinceNameArry[i]] = false
           }
 
-           debugger;
-
-          // 这个得控制一下默认展现
           option = {
             title: {
               text: '各地区生产总值季度增长趋势（亿元）'
@@ -104,7 +98,9 @@
 
         }, function (response) {
           console.log('API请求发生异常 ' + response)
-        })
+        }).catch(function (response) {
+        console.log('error' + response)
+      })
 
 
 

@@ -21,7 +21,7 @@
           echarts.registerMap('china', chinaJson.data);
           var app = [];
           var option = null;
-
+//          prosYearEntEtablishIndex  provincesYearGDPIndex
           this.$http.get(this.$store.state.BASE_URL + '/provincesYearGDPIndex')
             .then(function (response) {
 
@@ -78,7 +78,7 @@
                 animationEasingUpdate: 'cubicInOut',
                 title: [
                   {
-                    text: '经济指数-地区生产总值(万元)',
+                    text: '经济指数-'+timeLine[0] +'年各地区生产总值(亿元)',
                     subtext: '锐信视界',
                     sublink: 'http://zx.onlyou.com/zx/index',
                     left: 'center',
@@ -102,8 +102,8 @@
 
                 visualMap: {
                   //这里的最大值 最小值需要提前获得
-                  min: Math.min.apply(null, Object.values(lastYearData)),
-                  max: Math.max.apply(null, Object.values(lastYearData)),
+                  min: Math.min.apply(null, Object.values(lastYearData)) - 100,
+                  max: Math.max.apply(null, Object.values(lastYearData)) + 100,
                   //将离散型的映射给分割了
 //              splitNumber: 10,
                   calculable: true,

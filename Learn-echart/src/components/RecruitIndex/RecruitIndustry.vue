@@ -23,7 +23,6 @@
       this.$http.get(this.$store.state.BASE_URL + '/subdivideIndustryIndex')
         .then( function(response){
 
-console.log(response.data)
           myChart.hideLoading();
           var option = null;
           var app = [];
@@ -162,10 +161,10 @@ console.log(response.data)
 
 
         },function (response) {
-          console.log('error'+response)
-        })
-
-
+          console.log('API请求发生异常'+response)
+        }).catch(function (response) {
+        console.log('error' + response)
+      })
 
 // mounted  end
     }
