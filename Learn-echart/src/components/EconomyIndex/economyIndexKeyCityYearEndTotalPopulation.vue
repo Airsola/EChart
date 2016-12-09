@@ -34,9 +34,39 @@
 //            var  dataSource = {"timeline":{"2016":[{"name":"厦门市","value":[118.1,24.46,279]},{"name":"上海市","value":[121.48,31.22,273]}],"2015":[{"name":"厦门","value":[118.1,24.46,279]},{"name":"上海","value":[121.48,31.22,273]}]}};
               var  dataSource = response.data
               var timeLine = Object.keys(dataSource.timeline).reverse();
-              var lastYearData = dataSource.timeline[timeLine[1]];
-              debugger
+              var lastYearData = dataSource.timeline[timeLine[0]];
 
+
+              function getCurrentYearData(currentYear) {
+                let currentYearData =  dataSource.timeline[currentYear]
+                let values = []
+                for ( let obj of  currentYearData){
+                  let  currentValue = obj.value[2]
+                  values.push(currentValue)
+                }
+
+                  return values
+              }
+
+              function getCurrentYearMaxValue(currentYear) {
+                let   values = getCurrentYearData(currentYear)
+
+                return Math.max.apply(null, values)
+              }
+
+              function getCurrentYearMinValue(currentYear) {
+                let   values = getCurrentYearData(currentYear)
+
+                return Math.min.apply(null, values)
+              }
+
+
+//              var abc=   getCurrentYearData(timeLine[0]);
+//              var max1 =  getCurrentYearMaxValue(timeLine[0])
+//              var min1 =  getCurrentYearMinValue(timeLine[0])
+//                var  min2 = ~~getCurrentYearMinValue(timeLine[0]) -10
+
+debugger
               option = {
                 backgroundColor: '#404a59',
                 animation: true,
@@ -46,7 +76,7 @@
                 animationEasingUpdate: 'cubicInOut',
                 title: [
                   {
-                    text: '经济指数-'+timeLine[0]+'年全国重点城市年末总人口',
+                    text: '经济指数-'+timeLine[0]+'年全国重点城市年末总人口(万人)',
                     subtext: '锐信视界',
                     sublink: 'http://zx.onlyou.com/zx/index',
                     left: 'center',
@@ -67,23 +97,31 @@
                   }
                 ],
 
-                visualMap: {
-
-                  //这里的最大值 最小值需要提前获得
-                  min: 0,
-                  max: 3500,
-                  //将离散型的映射给分割了
-                  splitNumber: 5,
-                  // calculable: true,
-                  inRange: {
-                    // color: ['#50a3ba', '#eac736', '#d94e5d']
-                    color: ['#61a5f8', '#eecb5f', '#e16759']
+                visualMap: [
+                  {
+                    //这里的最大值 最小值需要提前获得
+//                  min:0,
+//                  max:10000,
+                    min:   0,
+                    max:   (~~getCurrentYearMaxValue(timeLine[0]) +10),
+                    //将离散型的映射给分割了
+                    splitNumber: 5,
+                    // calculable: true,
+                    inRange: {
+                      // color: ['#50a3ba', '#eac736', '#d94e5d']
+                      color: ['#61a5f8', '#eecb5f', '#e16759']
+                    },
+                    textStyle: {
+                      color: '#fff'
+                    }
                   },
+//                  {
+//                    min:  0,
+//                    max:   (~~getCurrentYearMaxValue(timeLine[0]) +10),
+//                  }
 
-                  textStyle: {
-                    color: '#fff'
-                  }
-                },
+                ],
+
 
                 toolbox: {
                   iconStyle: {
@@ -132,7 +170,8 @@
                   }
                 },
                 tooltip: {
-                  trigger: 'item'
+                  trigger: 'item',
+                  formatter: '{b}: {c} '
                 },
                 grid: {
                   right: 40,
@@ -142,6 +181,7 @@
                 },
 
                 xAxis: {
+                  min:0,
                   type: 'value',
                   name:'(万人)',
                   scale: true,
@@ -154,7 +194,7 @@
                 },
                 yAxis: {
                   type: 'category',
-                  name: '选中区域 年末总人口排行',
+                  name: '当前选中区域 年末总人口排行',
                   nameGap: 16,
                   axisLine: {show: false, lineStyle: {color: '#ddd'}},
                   axisTick: {show: false, lineStyle: {color: '#ddd'}},
@@ -168,7 +208,7 @@
                     coordinateSystem: 'geo',
                      data:lastYearData,
                     symbolSize: function (val) {
-                      return Math.max(val[2] / 10, 8);
+                      return Math.max(val[2] / 20, 15);
                     },
                     label: {
                       normal: {
@@ -216,7 +256,7 @@
 //                    zlevel: 1
 //                  },
                   {
-                    id: 'bar',
+                      id: 'bar',
                     zlevel: 2,
                     type: 'bar',
                     symbol: 'none',
@@ -288,8 +328,6 @@
                   }
                 }
 
-                console.log(categoryData.length + categoryData);
-debugger;
                 myChart.setOption({
                   yAxis: {
                     data: categoryData
@@ -299,7 +337,7 @@ debugger;
                   },
                   title: {
                     id: 'statistic',
-                    text: count ? '平均: ' + (sum / count).toFixed(4) : ''
+//                    text: count ? '平均: ' + (sum / count).toFixed(4) : ''
                   },
                   series: {
                     id: 'bar',

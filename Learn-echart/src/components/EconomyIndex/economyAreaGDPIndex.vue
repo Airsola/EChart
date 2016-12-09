@@ -61,7 +61,7 @@
               for (let obj  of sortedObjectArry) {
                 provinceNames.push(obj.name)
                 provinceValues.push(obj.value)
-                console.log("After Sorted " + obj.name + obj.value)
+//                console.log("After Sorted " + obj.name + obj.value)
               }
 
 //          var max1 =  Math.max.apply(null, Object.values(lastYearData))
@@ -128,9 +128,11 @@
 
                 xAxis: {
                   type: 'value',
-                  name: '(亿元)',
+//                  name: '(亿元)',
 
                   scale: true,
+                  splitNumber:3,
+
                   position: 'top',
                   boundaryGap: false,
                   splitLine: {show: false},
@@ -188,9 +190,15 @@
                     zlevel: 2,
                     type: 'bar',
                     symbol: 'none',
+                    label: {
+                      normal: {
+                        show: true,
+                        position: 'right'
+                      }
+                    },
                     itemStyle: {
                       normal: {
-                        color: '#ddb926'
+                        color: '#ffa064'
                       }
                     },
                     data: provinceValues

@@ -110,11 +110,9 @@
             titles[idx].top = parseFloat(grid.top) - 3 + '%';
           });
 
-
-
           option = {
             title: titles.concat([{
-              text: '招聘指数-行业-职位需求(人数)',
+            text: '招聘指数-行业-职位需求(人数)',
 //          top: 'top',
 //          left: 'center'
             }]),
@@ -123,10 +121,7 @@
             yAxis: yAxes,
             series: series
           };
-
           myChart.setOption(option);
-
-
 
         },function (response) {
           console.log('API请求发生异常'+response)

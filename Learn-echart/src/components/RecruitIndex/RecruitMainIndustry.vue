@@ -126,7 +126,7 @@
             option.options.push({
               title: {
                 show: true,
-                'text': '招聘指数-'+timelineValues[n] + '主要行业需求人数',
+                'text': '招聘指数-'+ '主要行业需求人数 '+timelineValues[n] +'月',
                 'subtext': '数据来源：智联招聘',
                 'sublink': 'http://zx.onlyou.com/zx/index',
 //            left: 'center',

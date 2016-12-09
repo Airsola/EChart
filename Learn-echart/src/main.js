@@ -100,7 +100,6 @@ const router = new VueRouter({
     {path: '/IndustryIndexKeyCitySecondaryIndustry', name: 'IndustryIndexKeyCitySecondaryIndustry', component: IndustryIndexKeyCitySecondaryIndustry},
     {path: '/IndustryIndexKeyCityTertiaryIndustry', name: 'IndustryIndexKeyCityTertiaryIndustry', component: IndustryIndexKeyCityTertiaryIndustry},
 
-
     // 创业指数
     {path: '/StartupIndexAreaIndustry', name: 'StartupIndexAreaIndustry', component: StartupIndexAreaIndustry},
     {path: '/StartupIndexEstablishNum', name: 'StartupIndexEstablishNum', component: StartupIndexEstablishNum},
@@ -109,7 +108,6 @@ const router = new VueRouter({
 
     {path: '/', name: 'default', component: null},
     {path: '*', name: 'other', component: null},
-
 
   ]
 })
@@ -191,24 +189,24 @@ new Vue({
         </p>
         <hr>
         
-        <!--<p>-->
-        <!--<li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>-->
-        <!--<li><router-link :to="{ name: 'innovateIndustry'}">创新指数-区域-行业-最近十年  </router-link></li>-->
-        <!--</p>-->
-        <!--<p>-->
-        <!--<li><router-link :to="{ name: 'mapArea'}">地图-散点-Top5</router-link></li>-->
-        <!--<li><router-link :to="{ name: 'mapAreaSelect'}">地图-区域选择-联动</router-link></li>-->
-        <!--<li><router-link :to="{ name: 'mapDeep'}">地图钻取</router-link></li>-->
-        <!--</p>-->
-        <!--<p>-->
-         <!--<li><router-link :to="{ name: 'AnscombeQuartet'}">AnscombeQuartet</router-link></li>-->
-        <!--<li><router-link :to="{ name:'recruit'}">直方图-水印</router-link></li>-->
-        <!--<li><router-link :to="{ name: 'CrossBar'}">交错直方图</router-link></li>-->
-        <!--<li><router-link :to="{ name: 'StackBar'}">堆叠直方图</router-link></li>-->
-        <!--<li><router-link :to="{ name:'economy'}">南丁格尔图</router-link></li>-->
-        <!--<li><router-link :to="{ name:'Concentriccircles'}">同心圆-分层展开</router-link></li>-->
-        <!--<li><router-link :to="{ name: 'autoPaly'}">模拟自动点击</router-link></li>-->
-        <!--</p>-->
+        <p>
+        <li><router-link :to="{ name: 'lifeExpectancy'}">时间轴-散点图</router-link></li>
+        <li><router-link :to="{ name: 'innovateIndustry'}">创新指数-区域-行业-最近十年  </router-link></li>
+        </p>
+        <p>
+        <li><router-link :to="{ name: 'mapArea'}">地图-散点-Top5</router-link></li>
+        <li><router-link :to="{ name: 'mapAreaSelect'}">地图-区域选择-联动</router-link></li>
+        <li><router-link :to="{ name: 'mapDeep'}">地图钻取</router-link></li>
+        </p>
+        <p>
+         <li><router-link :to="{ name: 'AnscombeQuartet'}">AnscombeQuartet</router-link></li>
+        <li><router-link :to="{ name:'recruit'}">直方图-水印</router-link></li>
+        <li><router-link :to="{ name: 'CrossBar'}">交错直方图</router-link></li>
+        <li><router-link :to="{ name: 'StackBar'}">堆叠直方图</router-link></li>
+        <li><router-link :to="{ name:'economy'}">南丁格尔图</router-link></li>
+        <li><router-link :to="{ name:'Concentriccircles'}">同心圆-分层展开</router-link></li>
+        <li><router-link :to="{ name: 'autoPaly'}">模拟自动点击</router-link></li>
+        </p>
 
       </ul>
       <router-view class="view"></router-view>

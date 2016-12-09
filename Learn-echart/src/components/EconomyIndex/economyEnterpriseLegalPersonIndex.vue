@@ -1,13 +1,220 @@
 <template>
-    <div>
-
+  <div>
+    <div id="mapinner2">
     </div>
+  </div>
 </template>
-<style scoped>
-    body{
-        background-color:#ff0000;
-    }
-</style>
-<script>
 
+<script>
+  import  echarts from 'echarts'
+
+  export default({
+    name: "mapArea",
+    mounted: function () {
+
+      var myChart = echarts.init(document.getElementById('mapinner2'));
+      myChart.showLoading();
+
+      this.$http.get(this.$store.state.CHINA_MAP_JSON)
+        .then(function (chinaJson) {
+
+          echarts.registerMap('china', chinaJson.data);
+          var app = [];
+          var option = null;
+
+          this.$http.get(this.$store.state.BASE_URL + '/enterpriseCorpCompIndex')
+            .then(function (response) {
+
+              //------------------
+              myChart.hideLoading();
+
+              //后续替换为 response
+
+              var dataSource = response.data
+              var timeLine = Object.keys(dataSource.AreaValue.timeline).reverse();
+              var lastYearData = dataSource.AreaValue.timeline[timeLine[0]];
+
+              var bigObject2ObjectArry = [];
+              for (var k in lastYearData) {
+                var obj = new Object();
+                obj.name = k;
+                obj.value = lastYearData[k];
+                bigObject2ObjectArry.push(obj);
+              }
+
+              //对对象进行降序排序
+              var sortedObjectArry = bigObject2ObjectArry.sort(function (a, b) {
+                return a.value - b.value;
+              })
+
+              var provinceNames = [];
+              var provinceValues = [];
+              for (let obj  of sortedObjectArry) {
+                provinceNames.push(obj.name)
+                provinceValues.push(obj.value)
+              }
+
+              option = {
+                backgroundColor: '#827b85',
+                animation: true,
+                animationDuration: 1000,
+                animationEasing: 'cubicInOut',
+                animationDurationUpdate: 1000,
+                animationEasingUpdate: 'cubicInOut',
+                title: [
+                  {
+                    text: '经济指数-'+timeLine[0] +'年企业法人单位数量(家)',
+                    subtext: '锐信视界',
+                    sublink: 'http://zx.onlyou.com/zx/index',
+                    left: 'center',
+                    textStyle: {
+                      color: '#fff'
+                    }
+                  },
+
+                  // 这里预设了一个 title的样式 具体内容后续再复制
+                  {
+                    id: 'statistic',
+                    right: 120,
+                    top: 40,
+                    width: 100,
+                    textStyle: {
+                      color: '#fff',
+                      fontSize: 16
+                    }
+                  }
+                ],
+
+                visualMap: {
+                  //这里的最大值 最小值需要提前获得
+                  min: Math.min.apply(null, Object.values(lastYearData)) - 100,
+                  max: Math.max.apply(null, Object.values(lastYearData)) + 100,
+                  //将离散型的映射给分割了
+//              splitNumber: 10,
+                  calculable: true,
+                  inRange: {
+                    color: ['#61a5f8', '#eecb5f', '#e16759']
+                  },
+                  textStyle: {
+                    color: '#fff'
+                  }
+                },
+                tooltip: {
+                  trigger: 'item',
+                  formatter: "{b}:{c}"
+                },
+                //这里是地图负责的例图
+                grid: {
+                  right: 40,
+                  top: 100,
+                  bottom: 40,
+                  width: '30%'
+                },
+
+                xAxis: {
+                  splitNumber:3,
+                  type: 'value',
+//                  name: '(亿元)',
+                  scale: true,
+                  position: 'top',
+                  boundaryGap: false,
+                  splitLine: {show: false},
+                  axisLine: {show: false},
+                  axisTick: {show: false},
+                  axisLabel: {margin: 2, textStyle: {color: '#aaa'}},
+                },
+                yAxis: {
+                  type: 'category',
+                  name: '各地区生产总值排行',
+                  nameGap: 16,
+                  axisLine: {show: false, lineStyle: {color: '#ddd'}},
+                  axisTick: {show: false, lineStyle: {color: '#ddd'}},
+                  axisLabel: {interval: 0, textStyle: {color: '#ddd'}},
+                  data: provinceNames //这里需要使用倒序排列后的数据
+                },
+
+                series: [
+                  {
+                    type: 'map',
+                    mapType: 'china',
+                    left: '10',
+                    right: '35%',
+                    center: [117.98561551896913, 31.205000490896193],
+                    zoom: 1.5,
+                    data: sortedObjectArry,
+                    roam: "move",
+                    label: {
+                      normal: {
+                        formatter: '{b}',
+                        position: 'right',
+                        show: true
+                      },
+                      emphasis: {
+                        show: true
+                      }
+                    },
+                    itemStyle: {
+                      normal: {
+                        borderWidth: 0,
+                        borderColor: 'rgb(150, 150, 150)',
+                        shadowColor: 'rgba(0, 0, 0, 0.7)',
+                        shadowBlur: 8
+                      },
+                      emphasis: { // 也是选中样式
+                        borderWidth: 0,
+                        color: '#32cd32',
+                        shadowColor: 'rgba(0, 0, 0, 0.7)',
+                        shadowBlur: 8
+                      }
+                    },
+                  },
+                  {
+                    id: 'Sabar',
+                    zlevel: 2,
+                    type: 'bar',
+                    label: {
+                      normal: {
+                        show: true,
+                        position: 'right'
+                      }
+                    },
+                    symbol: 'none',
+                    itemStyle: {
+                      normal: {
+                        color: '#ffa064'
+                      }
+                    },
+                    data: provinceValues
+                  }
+                ]
+              };
+              myChart.setOption(option);
+              //------------------------------
+            }, function (response) {
+              console.log('API请求发生异常 ' + response)
+            })
+            .catch(function (response) {
+              console.log('error' + response)
+            })
+
+        }, function (response) {
+          console.log('API请求发生异常 ' + response)
+        })
+        .catch(function (response) {
+          console.log('error' + response)
+        })
+// mounted  end
+    }
+  })
 </script>
+
+
+<style scoped>
+  #mapinner2 {
+    height: 800px;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+</style>
+
