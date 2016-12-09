@@ -108,7 +108,8 @@
 //              splitNumber: 10,
                   calculable: true,
                   inRange: {
-                    color: ['#61a5f8', '#eecb5f', '#e16759']
+                    color: ['#48adfe', '#268ddf', '#0e6fbc']
+//                    color: ['#61a5f8', '#eecb5f', '#e16759']
                   },
                   textStyle: {
                     color: '#fff'
@@ -172,18 +173,19 @@
                     },
                     itemStyle: {
                       normal: {
-                        borderWidth: 0,
-                        borderColor: 'rgb(150, 150, 150)',
-                        shadowColor: 'rgba(0, 0, 0, 0.7)',
-                        shadowBlur: 8
+                        borderWidth: 1,
+                        borderColor: '#22557d',
                       },
                       emphasis: { // 也是选中样式
-                        borderWidth: 0,
-                        color: '#32cd32',
-                        shadowColor: 'rgba(0, 0, 0, 0.7)',
-                        shadowBlur: 8
+                        borderWidth: 1,
+                        color: '#fff',
+                        backgroundColor:'#fffc00',
+                        borderColor: '#fffc00',
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
+                        shadowBlur: 8,
                       }
                     },
+
                   },
                   {
                     id: 'Sabar',

@@ -1,13 +1,127 @@
-<template>
-    <div>
-
-    </div>
+<template >
+  <div id="mapinner2">
+  </div>
 </template>
-<style scoped>
-    body{
-        background-color:#ff0000;
-    }
-</style>
+
+
 <script>
 
-</script>
+  import  echarts from 'echarts'
+
+  export default({
+
+    name : "autoPaly",
+    mounted:function (){
+
+      var app = [];
+      var myChart = echarts.init(document.getElementById('mapinner2'));
+      var option = null;
+      myChart.showLoading();
+
+      this.$http.get(this.$store.state.BASE_URL + '/corporationCompIndex')
+        .then(function (response) {
+          myChart.hideLoading();
+
+          var dataSource = response.data;
+          //数据源准备
+          //倒序排列一下
+          var xAxisTime  = Object.keys(dataSource.AreaValue.timeline);
+          var provinceNameArry = Object.keys(dataSource.AreaValue.timeline[xAxisTime[0]])  ;
+
+
+          //根据省份名称获得对应数据
+          function getProvinceDate(dataSourceOUT,provinceName) {
+//       函数直接依赖外部变量不太好那,这里冗余一下
+            let xAxisTimeInner  = Object.keys(dataSourceOUT.AreaValue.timeline);
+            var someProviceValue = [];
+            for (let i= 0; i < xAxisTime.length ;i++ ){
+              var quarterData = dataSourceOUT.AreaValue.timeline[xAxisTimeInner[i]];
+              var currentValue = eval("quarterData."+provinceName)
+              someProviceValue.push(currentValue) ;
+            }
+            return someProviceValue
+          }
+
+          //图标展现的数据格式要求
+          var  seriesValue = [];
+          for (let i = 0 ; i < provinceNameArry.length; i++){
+            let objSere = new  Object();
+            objSere.name =  provinceNameArry[i];
+            objSere.type = 'line'
+            objSere.stack =   '总量'
+            objSere.areaStyle =  {normal: {}}
+            objSere.label = {normal:{show:true,position:'top'}}
+            objSere.data = getProvinceDate(dataSource,provinceNameArry[i]);
+            seriesValue.push(objSere)
+          }
+          //控制一下默认选中的图例
+          var legendSelectObj =  new Object()
+          for( let i = 5;i<provinceNameArry.length;i++ ){
+            legendSelectObj[provinceNameArry[i]] = false
+          }
+
+          option = {
+            title: {
+              text: '经济指数-各省法人单位数增长趋势'
+            },
+            tooltip : {
+              trigger: 'axis'
+            },
+            legend: {
+              data:provinceNameArry,
+              top:'5%',
+              selected: legendSelectObj
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              top:'12%',
+              bottom: '3%',
+              containLabel: true
+            },
+            xAxis : [
+              {
+                type : 'category',
+                boundaryGap : false,
+                data :  xAxisTime
+              }
+            ],
+            yAxis : [
+              {
+                type : 'value'
+              }
+            ],
+            series :seriesValue
+          };
+          myChart.setOption(option);
+
+
+        }, function (response) {
+          console.log('API请求发生异常 ' + response)
+        }).catch(function (response) {
+        console.log('error' + response)
+      })
+
+
+
+
+
+// mounted  end
+    }
+  })
+
+
+</script >
+
+
+
+<style  scoped>
+
+  #mapinner2{
+    height: 800px;
+    width:  80%;
+    margin: 0 auto;
+  };
+
+</style>
+

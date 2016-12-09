@@ -1,227 +1,235 @@
 <template>
-
-  <div id="mapinner">
+  <div>
+    <div id="mapinner2">
+    </div>
   </div>
-
 </template>
 
-
 <script>
-
   import  echarts from 'echarts'
 
   export default({
-    name: "mpaDeom",
-    data () {
-      return {
-        msg: 'Welcome Map'
-      }
-    },
+    name: "mapArea",
     mounted: function () {
 
+      var myChart = echarts.init(document.getElementById('mapinner2'));
+      myChart.showLoading();
 
-      var waterMarkText = '锐信视界';
-      var canvas = document.createElement('canvas');
-      var ctx = canvas.getContext('2d');
-      canvas.width = canvas.height = 200;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.globalAlpha = 0.2;
-      ctx.font = "30px Arial";
-      ctx.translate(50, 50);
-      ctx.rotate(-Math.PI / 4);
-      ctx.fillText(waterMarkText, 0, 0);
+      this.$http.get(this.$store.state.CHINA_MAP_JSON)
+        .then(function (chinaJson) {
 
-//在这里外部虚拟dom已经被替换完成了
-// 基于准备好的dom，初始化echarts实例
-      var myChart = echarts.init(document.getElementById('mapinner'));
-//var myChart = echarts.init(this.$el);
+          echarts.registerMap('china', chinaJson.data);
+          var app = [];
+          var option = null;
 
-// 柱状图
-      myChart.setOption({
-        backgroundColor: {
-          type: 'pattern',
-          image: canvas,
-          repeat: 'repeat'
-        },
-        title: {text: '区域招聘热度指数'},
-        tooltip: {},
-        yAxis: {
-          data: ["思明区", "湖里区", "51区", "11区", "49区", "7区"]
-        },
-        xAxis: {},
-        series: [{
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }]
-      });
+          this.$http.get(this.$store.state.BASE_URL + '/copyrightIndex')
+            .then(function (response) {
 
+              //------------------
+              myChart.hideLoading();
 
-      /*
-       var option = null;
-       option = {
-       backgroundColor: '#2c343c',
+              //后续替换为 response
+//          var dataSource = {
+//            "AreaValue": {
+//              "timeline": {
+//                "2016": {"黑龙江": "123", "浙江": "555", "广东省": "345", "北京": "599"},
+//                "2015": {"福建": "123", "浙江": "234", "广东": "345"},
+//                "2014": {"福建": "123", "浙江": "234", "广东": "345"}
+//              }
+//            }
+//          };
 
-       // 数值的大小映射到明暗度
-       visualMap: {
-       show: false,
-       min: 80,
-       max: 600,
-       inRange: {
-       colorLightness: [0, 1]
-       }
-       },
-       title: {
-       text: 'ECharts 入门示例'
-       },
-       legend: {
-       data:['销量']
-       },
+              var dataSource = response.data
+              var timeLine = Object.keys(dataSource.AreaValue.timeline).reverse();
+              var lastYearData = dataSource.AreaValue.timeline[timeLine[0]];
 
-       series : [
-       {
-       name: '访问来源',
-       type: 'pie',
-       radius: '67%',
-       data:[
-       {value:235, name:'视频广告'},
-       {value:274, name:'联盟广告'},
-       {value:310, name:'邮件营销'},
-       {value:335, name:'直接访问'},
-       {value:400, name:'搜索引擎'}
-       ],
-       roseType: 'angle',
-       label: {
-       normal: {
-       textStyle: {
-       color: 'rgba(255, 255, 255, 0.3)'
-       }
-       }
-       },
-       labelLine: {
-       normal: {
-       lineStyle: {
-       color: 'rgba(255, 255, 255, 0.3)'
-       }
-       }
-       },
-       itemStyle: {
-       normal: {
-       // 不显示设置颜色那么默认自动随机颜色
-       // color: '#c23531',
-       shadowBlur: 200,
-       shadowColor: 'rgba(0, 0, 0, 0.5)'
-       },
-       emphasis:{
-       color: '#c23531',
-       shadowBlur: 200,
-       shadowColor: 'rgba(0, 0, 0, 0.8)'
+              var bigObject2ObjectArry = [];
+              for (var k in lastYearData) {
+                var obj = new Object();
+                obj.name = k;
+                obj.value = lastYearData[k];
+                bigObject2ObjectArry.push(obj);
+              }
 
-       }
+              //对对象进行降序排序
+              var sortedObjectArry = bigObject2ObjectArry.sort(function (a, b) {
+                return a.value - b.value;
+              })
 
-       }
-       }
-       ]
-       }
+              var provinceNames = [];
+              var provinceValues = [];
+              for (let obj  of sortedObjectArry) {
+                provinceNames.push(obj.name)
+                provinceValues.push(obj.value)
+//                console.log("After Sorted " + obj.name + obj.value)
+              }
 
+//          var max1 =  Math.max.apply(null, Object.values(lastYearData))
+//          var max2 =  Math.max(...Object.values(lastYearData))
+//          var min1 = Math.min.apply(null, Object.values(lastYearData) )
+//          var min2 =Math.min(...Object.values(lastYearData))
+              option = {
+                backgroundColor: '#827b85',
+                animation: true,
+                animationDuration: 1000,
+                animationEasing: 'cubicInOut',
+                animationDurationUpdate: 1000,
+                animationEasingUpdate: 'cubicInOut',
+                title: [
+                  {
+                    text: '创新指数-'+timeLine[0] +'年各省作品著作权(件)',
+                    subtext: '锐信视界',
+                    sublink: 'http://zx.onlyou.com/zx/index',
+                    left: 'center',
+                    textStyle: {
+                      color: '#fff'
+                    }
+                  },
 
+                  // 这里预设了一个 title的样式 具体内容后续再复制
+                  {
+                    id: 'statistic',
+                    right: 120,
+                    top: 40,
+                    width: 100,
+                    textStyle: {
+                      color: '#fff',
+                      fontSize: 16
+                    }
+                  }
+                ],
 
-       // 异步加载
+                visualMap: {
+                  //这里的最大值 最小值需要提前获得
+                  min: Math.min.apply(null, Object.values(lastYearData)) - 100,
+                  max: Math.max.apply(null, Object.values(lastYearData)) + 100,
+                  //将离散型的映射给分割了
+//              splitNumber: 10,
+                  calculable: true,
+                  inRange: {
+                    color: ['#48adfe', '#268ddf', '#0e6fbc']
+//                    color: ['#61a5f8', '#eecb5f', '#e16759']
+                  },
+                  textStyle: {
+                    color: '#fff'
+                  }
+                },
+                tooltip: {
+                  trigger: 'item',
+                  formatter: "{b}:{c}"
+                },
+                //这里是地图负责的例图
+                grid: {
+                  right: 40,
+                  top: 100,
+                  bottom: 40,
+                  width: '30%'
+                },
 
-       // var fetchDate = function(){
-       // myChart.setOption(option, true)
-       // myChart.hideLoading();
-       // }
-       // myChart.showLoading();
-       // setTimeout( fetchDate,3000);
+                xAxis: {
+                  type: 'value',
+//                  name: '(亿元)',
+                  scale: true,
+                  splitNumber:3,
 
+                  position: 'top',
+                  boundaryGap: false,
+                  splitLine: {show: false},
+                  axisLine: {show: false},
+                  axisTick: {show: false},
+                  axisLabel: {margin: 2, textStyle: {color: '#aaa'}},
+                },
+                yAxis: {
+                  type: 'category',
+                  name: '各地区生产总值排行',
+                  nameGap: 16,
+                  axisLine: {show: false, lineStyle: {color: '#ddd'}},
+                  axisTick: {show: false, lineStyle: {color: '#ddd'}},
+                  axisLabel: {interval: 0, textStyle: {color: '#ddd'}},
+                  data: provinceNames //这里需要使用倒序排列后的数据
+                },
 
+                series: [
+                  {
+                    type: 'map',
+                    mapType: 'china',
+                    left: '10',
+                    right: '35%',
+                    center: [117.98561551896913, 31.205000490896193],
+                    zoom: 1.5,
+                    data: sortedObjectArry,
+                    roam: "move",
+                    label: {
+                      normal: {
+                        formatter: '{b}',
+                        position: 'right',
+                        show: true
+                      },
+                      emphasis: {
+                        show: true
+                      }
+                    },
+                    itemStyle: {
+                      normal: {
+                        borderWidth: 1,
+                        borderColor: '#22557d',
+                      },
+                      emphasis: { // 也是选中样式
+                        borderWidth: 1,
+                        color: '#fff',
+                        backgroundColor:'#fffc00',
+                        borderColor: '#fffc00',
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
+                        shadowBlur: 8,
+                      }
+                    },
 
-       // 数据源动态更新，差值比对
+                  },
+                  {
+                    id: 'Sabar',
+                    zlevel: 2,
+                    type: 'bar',
+                    symbol: 'none',
+                    label: {
+                      normal: {
+                        show: true,
+                        position: 'right'
+                      }
+                    },
+                    itemStyle: {
+                      normal: {
+                        color: '#ffa064'
+                      }
+                    },
+                    data: provinceValues
+                  }
+                ]
+              };
+              myChart.setOption(option);
+              //------------------------------
+            }, function (response) {
+              console.log('API请求发生异常 ' + response)
+            })
+            .catch(function (response) {
+              console.log('error' + response)
+            })
 
-       var base = +new Date(2014, 9, 3);
-       var oneDay = 24 * 3600 * 1000;
-       var date = [];
-
-       var data = [Math.random() * 150];
-       var now = new Date(base);
-
-       function addData(shift) {
-       now = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/');
-       date.push(now);
-       data.push((Math.random() - 0.4) * 10 + data[data.length - 1]);
-
-       if (shift) {
-       date.shift();
-       data.shift();
-       }
-
-       now = new Date(+new Date(now) + oneDay);
-       }
-
-       for (var i = 1; i < 100; i++) {
-       addData();
-       }
-
-
-       option = {
-       xAxis: {
-       type: 'category',
-       boundaryGap: false,
-       data: date
-       },
-       yAxis: {
-       boundaryGap: [0, '50%'],
-       type: 'value'
-       },
-       series: [
-       {
-       name:'成交',
-       type:'line',
-       smooth:true,
-       symbol: 'none',
-       stack: 'a',
-       areaStyle: {
-       normal: {}
-       },
-       data: data
-       }
-       ]
-       };
-
-       app.timeTicket = setInterval(function () {
-       addData(true);
-       myChart.setOption({
-       xAxis: {
-       data: date
-       },
-       series: [{
-       name:'成交',
-       data: data
-       }]
-       }
-       );
-       }, 500);
-       myChart.setOption(option, true);
-       */
-// 数据源动态更新，差值比对 end
-
-      myChart.on('click', function (params) {
-        console.log(params);
-      });
-
-//end
+        }, function (response) {
+          console.log('API请求发生异常 ' + response)
+        })
+        .catch(function (response) {
+          console.log('error' + response)
+        })
+// mounted  end
     }
   })
-
-
 </script>
 
-<style>
-  #mapinner {
-    height: 400px;
-    width: 600px;
+
+<style scoped>
+  #mapinner2 {
+    height: 800px;
+    width: 80%;
     margin: 0 auto;
   }
 
