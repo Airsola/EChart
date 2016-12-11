@@ -29,17 +29,17 @@
               myChart.hideLoading();
 
               //后续替换为 response
-          var dataSource = {
-            "AreaValue": {
-              "timeline": {
-                "2016": {"黑龙江": "123", "浙江": "555", "广东省": "345", "北京": "599"},
-                "2015": {"福建": "123", "浙江": "234", "广东": "345"},
-                "2014": {"福建": "123", "浙江": "234", "广东": "345"}
-              }
-            }
-          };
+//          var dataSource = {
+//            "AreaValue": {
+//              "timeline": {
+//                "2016": {"黑龙江": "123", "浙江": "555", "广东省": "345", "北京": "599"},
+//                "2015": {"福建": "123", "浙江": "234", "广东": "345"},
+//                "2014": {"福建": "123", "浙江": "234", "广东": "345"}
+//              }
+//            }
+//          };
 
-//              var dataSource = response.data
+              var dataSource = response.data
               var timeLine = Object.keys(dataSource.AreaValue.timeline).reverse();
               var lastYearData = dataSource.AreaValue.timeline[timeLine[0]];
 

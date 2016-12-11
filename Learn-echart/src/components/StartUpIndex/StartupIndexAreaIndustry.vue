@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>目前测试环境只有北京、天津有数据,可以点击查看</h2>
     <div id="startup-area-industry">
     </div>
   </div>
@@ -52,7 +53,7 @@
               var dataSourceTree = response.data
 
               var timeLine = Object.keys(dataSourceTree.timeLine).reverse();
-              var lastYearData = dataSourceTree.timeLine[timeLine[0]];
+              var lastYearData = dataSourceTree.timeLine[timeLine[3]];
               var provinceNames = Object.keys(lastYearData);
 
               //根据地域名称获得对应的行业数值
@@ -117,23 +118,20 @@
                   }
                 ],
 
-                visualMap: {
-                  //这里的最大值 最小值需要提前获得
-//                  min: Math.min.apply(null, Object.values(lastYearData)) - 100,
-//                  max: Math.max.apply(null, Object.values(lastYearData)) + 100,
-                  min:0,
-                  max:600,
-                  //将离散型的映射给分割了
-                  splitNumber: 8,
-                  show: false,
-//            calculable: true,
-                  inRange: {
-                     color: ['#61a5f8', '#eecb5f', '#e16759'],
-                  },
-                  textStyle: {
-                    color: '#fff'
-                  }
-                },
+//                visualMap: {
+//                  //这里的最大值 最小值需要提前获得
+//                  min:getMinValueByAreaName(provinceNames[0]) - 100,
+//                  max:getMaxValueByAreaName(provinceNames[0]) + 100,
+//                  //将离散型的映射给分割了
+////                  splitNumber: 100,
+//                  show: false,
+//                  inRange: {
+//                    color: ['#e3935d','#9570e5','#7ecf51','#61a5f8', '#eecb5f', '#e16759'],
+//                  },
+//                  textStyle: {
+//                    color: '#fff'
+//                  }
+//                },
 //          tooltip: {
 //            trigger: 'item'
 //          },
@@ -189,12 +187,20 @@
                     center: ['75%', '40%'],
                     radius: '30%',
                     symbol: 'none',
-                    roseType: 'angle',
+                  roseType: 'angle',
                     itemStyle: {
                       normal: {
-                        color: '#ddb926'
+                        // 不显示设置颜色那么默认自动随机颜色
+                        // color: '#c23531',
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                      },
+                      emphasis: {
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.8)'
                       }
                     },
+
                     data: getDataByAreaName(provinceNames[0]),
                   }
                 ]
@@ -203,28 +209,25 @@
               myChart.on("mapselectchanged",
                 function  (param) {
 
-                let abc =   getMinValueByAreaName(param.name)
-                let bbc =  getMaxValueByAreaName(param.name)
-                  debugger
                   //根据不同的区域名称来绘制不同区域的饼图
                   myChart.setOption({
                     title: {text: '创业指数-'+timeLine[0] +'年-'+param.name+'-成立企业行业分布'
                     },
 
-                    visualMap: {
-                      //这里的最大值需要更觉
-                      min:getMinValueByAreaName(param.name),
-                      max:getMaxValueByAreaName(param.name),
-                      //将离散型的映射给分割了
-                      splitNumber: 20,
-                      show: false,
-                      inRange: {
-                        color: ['#7ecf51','#61a5f8', '#eecb5f', '#e16759'],
-                      },
-                      textStyle: {
-                        color: '#fff'
-                      }
-                    },
+//                    visualMap: {
+//                      //这里的最大值需要更觉
+//                      min:getMinValueByAreaName(param.name),
+//                      max:getMaxValueByAreaName(param.name),
+//                      //将离散型的映射给分割了
+////                      splitNumber: 20,
+//                      show: false,
+//                      inRange: {
+//                        color: ['#e3935d','#9570e5','#7ecf51','#61a5f8', '#eecb5f', '#e16759'],
+//                      },
+//                      textStyle: {
+//                        color: '#fff'
+//                      }
+//                    },
 
 //            tooltip: {
 ////              triggerOn:'click',
@@ -324,7 +327,7 @@
 
   #startup-area-industry{
     height: 800px;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
   }
 
