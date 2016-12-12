@@ -31,49 +31,39 @@
 
               //后续替换为 response
 
-
-            var dataSource = {"ProvincePackAndEnterpriseNum":{"timeline":{"2016":[{"name":"福建","value":[5,1000]},{"name":"上海","value":[20,30000]},{"name":"浙江","value":[4,30000]}],"2015":[{"name":"福建","value":[12,12345]},{"name":"上海","value":[22,44432]},{"name":"浙江","value":[4,30000]}]}}};
+            var dataSource = {"ProvincePackAndEnterpriseNum":{"timeline":{"2016":[{"name":"福建","value":[1000,23]},{"name":"上海","value":[30000,36]},{"name":"浙江","value":[30000,49]}],"2015":[{"name":"福建","value":[12,12345]},{"name":"上海","value":[22,44432]},{"name":"浙江","value":[4,30000]}]}}};
 //            var dataSource = response.data
               var timeLine = Object.keys(dataSource.ProvincePackAndEnterpriseNum.timeline).reverse();
               var lastYearDataArry = dataSource.ProvincePackAndEnterpriseNum.timeline[timeLine[0]];
 
 
-
-//              var bigObject2ObjectArry = [];
-//              for (var k in lastYearData) {
-//                var obj = new Object();
-//                obj.name = k;
-//                obj.value = lastYearData[k];
-//                bigObject2ObjectArry.push(obj);
-//              }
-
-              //对对象进行降序排序
-              var sortedObjectArry = lastYearDataArry.sort(function (a, b) {
-                  return a.value[0] - b.value[0];
+               var sortedObjectArry = lastYearDataArry.sort(function (a, b) {
+                  return a.value[1] - b.value[1];
               })
 
-//            lastYearDataArry = lastYearDataArry.sort(function (a, b) {
-//              return a.value - b.value;
-//            })
 
-
-
-
-              var provinceNames = [];
-              var provinceValues = [];
+            var provinceNames = [];
+            var provincePackNumValues = [];
+            var provincePackEnterpriseNumValues = [];
 
               for (let obj  of sortedObjectArry) {
                 provinceNames.push(obj.name)
-                provinceValues.push(obj.value)
-               }
+                provincePackEnterpriseNumValues.push(obj.value[0])
+                provincePackNumValues.push(obj.value[1]);
+
+              }
 
  //          var max1 =  Math.max.apply(null, Object.values(lastYearData))
 //          var max2 =  Math.max(...Object.values(lastYearData))
 //          var min1 = Math.min.apply(null, Object.values(lastYearData) )
 //          var min2 =Math.min(...Object.values(lastYearData))
 
-            function getCurrentAreaPackEnterpriseNum(str) {
-              return 'qaq'+str;
+            function getCurrentAreaPackEnterpriseNum(dataIndex) {
+              return provincePackEnterpriseNumValues[dataIndex]
+            }
+
+            function getCurrentAreaPackNum(dataIndex) {
+              return provincePackNumValues[dataIndex]
             }
 
               option = {
@@ -85,7 +75,7 @@
                 animationEasingUpdate: 'cubicInOut',
                 title: [
                   {
-                    text: '经济指数-'+timeLine[0] +'年各地区生产总值(亿元)',
+                    text: '创业指数-'+timeLine[0] +'年各省园区数量及入驻企业数量',
                     subtext: '锐信视界',
                     sublink: 'http://zx.onlyou.com/zx/index',
                     left: 'center',
@@ -108,24 +98,34 @@
 
                 visualMap: {
                   //这里的最大值 最小值需要提前获得
-//                  min: Math.min.apply(null, Object.values(lastYearData)) - 100,
-//                  max: Math.max.apply(null, Object.values(lastYearData)) + 100,
-                  min:0,
-                  max:3000,
-                  //将离散型的映射给分割了
+                  min: Math.min.apply(null,provincePackNumValues) ,
+                  max: Math.max.apply(null, provincePackNumValues ) ,
+                  text:['高','低'],
 //              splitNumber: 10,
                   calculable: true,
                   inRange: {
-                    color: ['#48adfe', '#268ddf', '#0e6fbc']
-//                    color: ['#61a5f8', '#eecb5f', '#e16759']
-                  },
+                     color: ['#61a5f8', '#eecb5f', '#e16759']
+//                    color: ['#48adfe', '#268ddf', '#0e6fbc']
+                   },
                   textStyle: {
                     color: '#fff'
                   }
                 },
                 tooltip: {
+
                   trigger: 'item',
-                  formatter: "{b}:{c}"
+
+                  formatter:function (params, ticket, callback) {
+                      if(typeof(params.data)== "undefined" ){
+                          return
+                      }
+                    var resultStr
+                    if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
+                      resultStr = params.data.name+':'+ params.data.value[1]+'个园区'
+                    }
+                    return resultStr
+                  }
+
                 },
                 //这里是地图负责的例图
                 grid: {
@@ -134,7 +134,6 @@
                   bottom: 40,
                   width: '30%'
                 },
-
                 xAxis: {
                   type: 'value',
 //                  name: '(亿元)',
@@ -149,12 +148,12 @@
                 },
                 yAxis: {
                   type: 'category',
-                  name: '各地区生产总值排行',
+                  name: '各省园区数量排行',
                   nameGap: 16,
                   axisLine: {show: false, lineStyle: {color: '#ddd'}},
                   axisTick: {show: false, lineStyle: {color: '#ddd'}},
                   axisLabel: {interval: 0, textStyle: {color: '#ddd'}},
-                  data: provinceNames //这里需要使用倒序排列后的数据
+                  data: provinceNames //
                 },
 
                 series: [
@@ -202,8 +201,6 @@
                       normal: {
                         show: true,
                         position: 'right',
-                        formatter: 'abc {b} '
-
                       }
                     },
                     itemStyle: {
@@ -212,26 +209,19 @@
                       }
                     },
 
-//                    label: {
-//                      normal: {
-//                        formatter: '最大值'
-//                      },
-//                      emphasis: {
-//                        formatter: '最大值'
-//                      },
-//                    },
 
                     tooltip: {
-//                       trigger: 'axis',
                       formatter:function (params, ticket, callback) {
-
-                        return  getCurrentAreaPackEnterpriseNum(params.name) ;
+                        if(typeof(params.data)== "undefined" ){
+                          return
+                        }
+                        var resultStr
+                           resultStr = params.name+'<br/>'+ params.data+'个园区<br/>'+getCurrentAreaPackEnterpriseNum(params.dataIndex)+'家入驻企业'
+                        return resultStr
                       }
-
                       },
 
-                    data: [123,334,344]
-//                    data: provinceValues
+                     data: provincePackNumValues
                   },
 
 

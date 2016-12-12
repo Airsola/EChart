@@ -51,6 +51,7 @@ import StartupIndexAreaIndustry from './components/StartUpIndex/StartupIndexArea
 import StartupIndexEstablishNum from './components/StartUpIndex/StartupIndexEstablishNum.vue'
 import StartupKeyCityEstablishNum from './components/StartUpIndex/StartupKeyCityEstablishNum.vue'
 import StartupIndexPackNum  from './components/StartUpIndex/StartupIndexPackNum.vue'
+import StartupKeyCityPackNum from './components/StartUpIndex/StartupKeyCityPackNum.vue'
 
 // Vue.use(MintUI)
 Vue.use(VueRouter)
@@ -104,7 +105,11 @@ const router = new VueRouter({
     {path: '/StartupIndexAreaIndustry', name: 'StartupIndexAreaIndustry', component: StartupIndexAreaIndustry},
     {path: '/StartupIndexEstablishNum', name: 'StartupIndexEstablishNum', component: StartupIndexEstablishNum},
     {path: '/StartupKeyCityEstablishNum', name: 'StartupKeyCityEstablishNum', component: StartupKeyCityEstablishNum},
+
     {path: '/StartupIndexPackNum', name: 'StartupIndexPackNum', component: StartupIndexPackNum},
+    {path: '/StartupKeyCityPackNum', name: 'StartupKeyCityPackNum', component: StartupKeyCityPackNum},
+
+
 
     {path: '/', name: 'default', component: null},
     {path: '*', name: 'other', component: null},
@@ -191,6 +196,7 @@ new Vue({
         
         <p>
         <li><router-link :to="{ name: 'StartupIndexPackNum'}">创业指数-各省园区数量-园区入驻企业 </router-link></li>
+        <li><router-link :to="{ name: 'StartupKeyCityPackNum'}">创业指数-重点城市园区数量-园区入驻企业 </router-link></li>
         </p>
         
         <!--<hr>-->
