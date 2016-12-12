@@ -22,6 +22,8 @@
         .then(function (response) {
           myChart.hideLoading();
 
+
+
           var dataSource = response.data;
           //数据源准备
           //倒序排列一下

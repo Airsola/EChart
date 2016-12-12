@@ -22,52 +22,59 @@
           var app = [];
           var option = null;
 
-          this.$http.get(this.$store.state.BASE_URL + '/provincesYearGDPIndex')
-             .then(function (response) {
+//          this.$http.get(this.$store.state.BASE_URL + '/provincesYearGDPIndex')
+          this.$http.get(this.$store.state.CHINA_MAP_JSON )
+          .then(function (response) {
 
               //------------------
               myChart.hideLoading();
 
               //后续替换为 response
-//          var dataSource = {
-//            "AreaValue": {
-//              "timeline": {
-//                "2016": {"黑龙江": "123", "浙江": "555", "广东省": "345", "北京": "599"},
-//                "2015": {"福建": "123", "浙江": "234", "广东": "345"},
-//                "2014": {"福建": "123", "浙江": "234", "广东": "345"}
+
+
+            var dataSource = {"ProvincePackAndEnterpriseNum":{"timeline":{"2016":[{"name":"福建","value":[5,1000]},{"name":"上海","value":[20,30000]},{"name":"浙江","value":[4,30000]}],"2015":[{"name":"福建","value":[12,12345]},{"name":"上海","value":[22,44432]},{"name":"浙江","value":[4,30000]}]}}};
+//            var dataSource = response.data
+              var timeLine = Object.keys(dataSource.ProvincePackAndEnterpriseNum.timeline).reverse();
+              var lastYearDataArry = dataSource.ProvincePackAndEnterpriseNum.timeline[timeLine[0]];
+
+
+
+//              var bigObject2ObjectArry = [];
+//              for (var k in lastYearData) {
+//                var obj = new Object();
+//                obj.name = k;
+//                obj.value = lastYearData[k];
+//                bigObject2ObjectArry.push(obj);
 //              }
-//            }
-//          };
-
-              var dataSource = response.data
-              var timeLine = Object.keys(dataSource.AreaValue.timeline).reverse();
-              var lastYearData = dataSource.AreaValue.timeline[timeLine[0]];
-
-              var bigObject2ObjectArry = [];
-              for (var k in lastYearData) {
-                var obj = new Object();
-                obj.name = k;
-                obj.value = lastYearData[k];
-                bigObject2ObjectArry.push(obj);
-              }
 
               //对对象进行降序排序
-              var sortedObjectArry = bigObject2ObjectArry.sort(function (a, b) {
-                return a.value - b.value;
+              var sortedObjectArry = lastYearDataArry.sort(function (a, b) {
+                  return a.value[0] - b.value[0];
               })
 
-              debugger
+//            lastYearDataArry = lastYearDataArry.sort(function (a, b) {
+//              return a.value - b.value;
+//            })
+
+
+
+
               var provinceNames = [];
               var provinceValues = [];
+
               for (let obj  of sortedObjectArry) {
                 provinceNames.push(obj.name)
                 provinceValues.push(obj.value)
-              }
+               }
 
-//          var max1 =  Math.max.apply(null, Object.values(lastYearData))
+ //          var max1 =  Math.max.apply(null, Object.values(lastYearData))
 //          var max2 =  Math.max(...Object.values(lastYearData))
 //          var min1 = Math.min.apply(null, Object.values(lastYearData) )
 //          var min2 =Math.min(...Object.values(lastYearData))
+
+            function getCurrentAreaPackEnterpriseNum(str) {
+              return 'qaq'+str;
+            }
 
               option = {
                 backgroundColor: '#827b85',
@@ -86,7 +93,6 @@
                       color: '#fff'
                     }
                   },
-
                   // 这里预设了一个 title的样式 具体内容后续再复制
                   {
                     id: 'statistic',
@@ -102,8 +108,10 @@
 
                 visualMap: {
                   //这里的最大值 最小值需要提前获得
-                  min: Math.min.apply(null, Object.values(lastYearData)) - 100,
-                  max: Math.max.apply(null, Object.values(lastYearData)) + 100,
+//                  min: Math.min.apply(null, Object.values(lastYearData)) - 100,
+//                  max: Math.max.apply(null, Object.values(lastYearData)) + 100,
+                  min:0,
+                  max:3000,
                   //将离散型的映射给分割了
 //              splitNumber: 10,
                   calculable: true,
@@ -130,10 +138,8 @@
                 xAxis: {
                   type: 'value',
 //                  name: '(亿元)',
-
                   scale: true,
                   splitNumber:3,
-
                   position: 'top',
                   boundaryGap: false,
                   splitLine: {show: false},
@@ -195,7 +201,9 @@
                     label: {
                       normal: {
                         show: true,
-                        position: 'right'
+                        position: 'right',
+                        formatter: 'abc {b} '
+
                       }
                     },
                     itemStyle: {
@@ -203,8 +211,30 @@
                         color: '#ffa064'
                       }
                     },
-                    data: provinceValues
-                  }
+
+//                    label: {
+//                      normal: {
+//                        formatter: '最大值'
+//                      },
+//                      emphasis: {
+//                        formatter: '最大值'
+//                      },
+//                    },
+
+                    tooltip: {
+//                       trigger: 'axis',
+                      formatter:function (params, ticket, callback) {
+
+                        return  getCurrentAreaPackEnterpriseNum(params.name) ;
+                      }
+
+                      },
+
+                    data: [123,334,344]
+//                    data: provinceValues
+                  },
+
+
                 ]
               };
               myChart.setOption(option);
@@ -212,9 +242,9 @@
             }, function (response) {
               console.log('API请求发生异常 ' + response)
             })
-            .catch(function (response) {
-              console.log('error' + response)
-            })
+//            .catch(function (response) {
+//              console.log('error' + response)
+//            })
 
         }, function (response) {
           console.log('API请求发生异常 ' + response)

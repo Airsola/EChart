@@ -299,21 +299,12 @@
 //              console.log('error' + response)
 //            })
 
-
         }, function (response) {
           console.log('API请求发生异常 ' + response)
         })
         .catch(function (response) {
           console.log('error' + response)
         })
-
-
-
-
-
-
-
-
 
 // mounted  end
     }
