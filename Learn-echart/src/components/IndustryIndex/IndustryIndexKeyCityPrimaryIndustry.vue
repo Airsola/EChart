@@ -98,9 +98,7 @@
 
                   visualMap: [
                     {
-                      //这里的最大值 最小值需要提前获得
-//                  min:0,
-//                  max:10000,
+
                       min:   0,
                       max:   (~~getCurrentYearMaxValue(timeLine[0]) +10),
                       //将离散型的映射给分割了
@@ -114,13 +112,7 @@
                         color: '#fff'
                       }
                     },
-//                  {
-//                    min:  0,
-//                    max:   (~~getCurrentYearMaxValue(timeLine[0]) +10),
-//                  }
-
                   ],
-
 
                   toolbox: {
                     iconStyle: {
@@ -170,7 +162,7 @@
                   },
                   tooltip: {
                     trigger: 'item',
-                    formatter: '{b}: {c} '
+                    formatter: '{b}: {c}'
                   },
                   grid: {
                     right: 40,

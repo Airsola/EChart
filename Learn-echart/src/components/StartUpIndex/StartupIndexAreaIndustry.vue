@@ -68,7 +68,10 @@
                   pieObj.value = industryValues[i];
                   dataArry.push(pieObj)
                 }
-                return dataArry
+                 let sortedArry = dataArry.sort(function (a,b) {
+                    return a.value - b.value
+                })
+                 return sortedArry
               }
 
               function getMaxValueByAreaName(areaName) {
@@ -214,31 +217,6 @@
                     title: {text: '创业指数-'+timeLine[0] +'年-'+param.name+'-成立企业行业分布'
                     },
 
-//                    visualMap: {
-//                      //这里的最大值需要更觉
-//                      min:getMinValueByAreaName(param.name),
-//                      max:getMaxValueByAreaName(param.name),
-//                      //将离散型的映射给分割了
-////                      splitNumber: 20,
-//                      show: false,
-//                      inRange: {
-//                        color: ['#e3935d','#9570e5','#7ecf51','#61a5f8', '#eecb5f', '#e16759'],
-//                      },
-//                      textStyle: {
-//                        color: '#fff'
-//                      }
-//                    },
-
-//            tooltip: {
-////              triggerOn:'click',
-//              trigger: 'item',
-//              formatter: "{b} : {c} ({d}%)"
-//            },
-//            legend: {
-//              left:'right',
-//              top:'bottom',
-//              data: getDataByAreaName(param.name)
-//            },
                     series: [{
                       // saber 很重要
                       id: 'Sabar',
