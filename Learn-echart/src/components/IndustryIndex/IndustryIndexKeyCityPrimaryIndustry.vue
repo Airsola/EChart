@@ -66,8 +66,7 @@
 //              var min1 =  getCurrentYearMinValue(timeLine[0])
 //                var  min2 = ~~getCurrentYearMinValue(timeLine[0]) -10
 
-                debugger
-                option = {
+                 option = {
                   backgroundColor: '#404a59',
                   animation: true,
                   animationDuration: 1000,

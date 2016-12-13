@@ -38,7 +38,6 @@
           var SubdivideIndustry = response.data.SubdivideIndustry
           var SubdivideIndustryNames = Object.keys(SubdivideIndustry);
           var SubdivideIndustryValues = Object.values(SubdivideIndustry);
-          debugger
 
           //批量处理各个行业大类的 数据结构
           for (var i = 0; i < SubdivideIndustryNames.length; i++) {

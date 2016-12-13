@@ -32,7 +32,7 @@ module.exports = {
       // webpack 使用 jQuery，如果是自行下载的
       // 'jquery': path.resolve(__dirname, '../src/assets/libs/jquery/jquery.min'),
       // 如果使用NPM安装的jQuery
-      'jquery': 'jquery' 
+      // 'jquery': 'jquery'
     }
   },
   resolveLoader: {
@@ -79,13 +79,13 @@ module.exports = {
         browsers: ['last 2 versions']
       })
     ]
-  },  
+  },
   // 增加一个plugins
   plugins: [
-      new webpack.ProvidePlugin({
-          $: "jquery",
-          jQuery: "jquery"
-      })
+      // new webpack.ProvidePlugin({
+      //     $: "jquery",
+      //     jQuery: "jquery"
+      // })
    ]
 
 }

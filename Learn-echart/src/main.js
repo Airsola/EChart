@@ -6,19 +6,6 @@ import VueRouter from 'vue-router'
 import  VueResource from 'vue-resource'
 import store from './store'
 
-// Demo
-import  EchartsMaps from './components/Demo/echartMap.vue'
-import  ecomomyMap from './components/Demo/economyMap.vue'
-import  innovateIndustry from './components/Demo/innovateIndustry.vue'
-import  lifeExpectancy from './components/Demo/lifeExpectancy.vue'
-import  mapArea from './components/Demo/mapArea.vue'
-import  autoPaly from './components/Demo/autoPaly.vue'
-import  AnscombeQuartet from './components/Demo/AnscombeQuartet.vue'
-import  CrossBar from './components/Demo/CrossBar.vue'
-import  StackBar from './components/Demo/StackBar.vue'
-import  mapAreaSelect from './components/Demo/mapAreaSelect.vue'
-import  mapDeep from './components/Demo/mapDeep.vue'
-import  Concentriccircles from './components/Demo/Concentriccircles.vue'
 
 //招聘指数
 import  RecruitIndustry  from './components/RecruitIndex/RecruitIndustry.vue'
@@ -61,19 +48,6 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-
-    {path: '/', name: 'recruit', component: EchartsMaps},
-    {path: '/economy', name: 'economy', component: ecomomyMap},
-    {path: '/lifeExpectancy', name: 'lifeExpectancy', component: lifeExpectancy},
-    {path: '/innovateIndustry', name: 'innovateIndustry', component: innovateIndustry},
-    {path: '/autoPaly', name: 'autoPaly', component: autoPaly},
-    {path: '/AnscombeQuartet', name: 'AnscombeQuartet', component: AnscombeQuartet},
-    {path: '/mapArea', name: 'mapArea', component: mapArea},
-    {path: '/CrossBar', name: 'CrossBar', component: CrossBar},
-    {path: '/StackBar', name: 'StackBar', component: StackBar},
-    {path: '/mapAreaSelect', name: 'mapAreaSelect', component: mapAreaSelect},
-    {path: '/mapDeep', name: 'mapDeep', component: mapDeep},
-    {path: '/Concentriccircles', name: 'Concentriccircles', component: Concentriccircles},
 
 //招聘指数
     {path: '/RecruitIndustry', name: 'RecruitIndustry', component: RecruitIndustry},

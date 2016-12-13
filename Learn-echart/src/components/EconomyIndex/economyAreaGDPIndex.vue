@@ -56,8 +56,7 @@
                 return a.value - b.value;
               })
 
-              debugger
-              var provinceNames = [];
+               var provinceNames = [];
               var provinceValues = [];
               for (let obj  of sortedObjectArry) {
                 provinceNames.push(obj.name)

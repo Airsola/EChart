@@ -1,23 +1,6 @@
 <template>
 
   <div id="app">
-    <img src="./assets/logo.png">
-    <p>点击我，我会消失。</p>
-    <h1>{{ msg }}</h1>
-    <mt-button @click.native="startHacking">Let's do it</mt-button>
-
-    <div class="tab">
-      <div class="tab-item">
-        商品
-      </div>
-      <div class="tab-item">
-        评论
-      </div>
-      <div class="tab-item">
-        商家
-      </div>
-    </div>
-
   </div>
 </template>
 

@@ -35,8 +35,8 @@
                 var timeLine = Object.keys(dataSource.timeline).reverse();
                 var lastYearData = dataSource.timeline[timeLine[0]];
 
-
                 function getCurrentYearData(currentYear) {
+
                   let currentYearData =  dataSource.timeline[currentYear]
                   let values = []
                   for ( let obj of  currentYearData){
@@ -349,9 +349,10 @@
               function (response) {
                 // error callback
                 console.log(response)
-              }).catch(function (response) {
-            console.log('error' + response)
-          })
+              })
+//            .catch(function (response) {
+//            console.log('error' + response)
+//          })
 
         }, function (response) {
           console.log('API请求发生异常 ' + response)
