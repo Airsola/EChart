@@ -1,7 +1,7 @@
 {
-  "name": "my-first-project",
+  "name": "PackIndex",
   "version": "1.0.0",
-  "description": "first Demo",
+  "description": "a serise index aboud Pack",
   "author": "Sola <airsolakey@icloud.com>",
   "private": true,
   "scripts": {
