@@ -149,7 +149,11 @@ new Vue({
       <h1>区域和产业指数</h1>
       <!--<p>Current route name: {{ $route.name }}</p>-->
       <ul>
-      
+              <p>
+        <li><router-link :to="{ name: 'StartupIndexPackNum'}">创业指数-各省园区数量-园区入驻企业 </router-link></li>
+        <li><router-link :to="{ name: 'StartupKeyCityPackNum'}">创业指数-重点城市园区数量-园区入驻企业及省内排行 </router-link></li>
+        </p>
+        <hr/>
         <p>
         <li><router-link :to="{ name: 'RecruitIndustry'}">招聘指数-各行业-Top10-最近5个月</router-link></li>
         </p>
@@ -194,10 +198,7 @@ new Vue({
         <li><router-link :to="{ name: 'StartupIndexAreaIndustry'}">创业指数-地区成立企业数量行业分布</router-link></li>
         </p>
         
-        <p>
-        <li><router-link :to="{ name: 'StartupIndexPackNum'}">创业指数-各省园区数量-园区入驻企业 </router-link></li>
-        <li><router-link :to="{ name: 'StartupKeyCityPackNum'}">创业指数-重点城市园区数量-园区入驻企业 </router-link></li>
-        </p>
+
         
         <!--<hr>-->
         <!--<p>-->

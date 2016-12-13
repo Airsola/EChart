@@ -250,7 +250,7 @@
                   },
                   yAxis: {
                     type: 'category',
-                    name: '当前选中区域 年末总人口排行',
+                    name: '当前选中区域 园区数量排行',
                     nameGap: 16,
                     axisLine: {show: false, lineStyle: {color: '#ddd'}},
                     axisTick: {show: false, lineStyle: {color: '#ddd'}},
@@ -350,25 +350,46 @@
 
                   let provinceOption = {
                     yAxis: {
-                      data: packNames
+                      data: packNames,
+                      name: parameter.name+'-园区入驻企业数排行',
                     },
                     xAxis: {
 //                      axisLabel: {show: !!count}
                     },
+                    label: {
+                      normal: {
+                        formatter: '{c}',
+                        position: 'right',
+                        show: true
+                      },
+                      emphasis: {
+                        formatter: '{c}',
+                        position: 'right',
+                        show: true                      }
+                    },
+
+                    tooltip: {
+                      formatter:function (params, ticket, callback) {
+
+                        if(typeof(params.data)== "undefined" ){
+                          return
+                        }
+                        var resultStr
+                        if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
+                          resultStr = params.name+'<br/>'+ params.data.value[3]+'个园区<br/>'+getCurrentAreaPackEnterpriseNum(timeLine[0],params.dataIndex)+'家入驻企业'
+                        }else{
+                          resultStr = params.name+'有'+params.value+'家企业入驻'
+                        }
+                        return resultStr
+                      }
+                    },
+
 //                    tooltip: {
 //                      formatter:function (params, ticket, callback) {
-//                        if(typeof(params.data)== "undefined" ){
-//                          return
-//                        }
-//                        var resultStr
-//                        if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
-//                          resultStr = params.name+'<br/>'+ params.data.value[3]+'个园区<br/>'+getCurrentAreaPackEnterpriseNum(timeLine[0],params.dataIndex)+'家入驻企业'
-//                        }else{
-//                          resultStr = params.name+'<br/>'+ params.data+'个园区<br/>'+getCurrentAreaPackEnterpriseNum(timeLine[0],params.dataIndex)+'家入驻企业'
-//                        }
-//                        return resultStr
+//                        return params.name+'有'+params.value+'家企业入驻'
 //                      }
 //                    },
+
                     series: {
                       id: 'bar',
                       data: packValues
@@ -430,6 +451,7 @@
 
                   myChart.setOption({
                     yAxis: {
+                      name: '当前选中区域 园区数量排行',
                       data: categoryData
                     },
                     xAxis: {
@@ -438,7 +460,17 @@
                     title: {
                       id: 'statistic',
                      },
-
+                    label: {
+                      normal: {
+                        formatter: '{c}',
+                        position: 'right',
+                        show: true
+                      },
+                      emphasis: {
+                        formatter: '{c}',
+                        position: 'right',
+                        show: true                      }
+                    },
                     tooltip: {
                       formatter:function (params, ticket, callback) {
                           if(typeof(params.data)== "undefined" ){
