@@ -22,9 +22,8 @@
           var app = [];
           var option = null;
 
-//          this.$http.get(this.$store.state.BASE_URL + '/provincesYearGDPIndex')
-          this.$http.get(this.$store.state.CHINA_MAP_JSON )
-          .then(function (response) {
+          this.$http.get(this.$store.state.BASE_URL + '/provincesYearGDPIndex')
+           .then(function (response) {
 
               //------------------
               myChart.hideLoading();

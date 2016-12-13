@@ -27,8 +27,7 @@
           var app = [];
           var option = null;
 
-//          this.$http.get(this.$store.state.BASE_URL + '/yearEndTolPopulateIndex')
-          this.$http.get(this.$store.state.CHINA_MAP_JSON)
+          this.$http.get(this.$store.state.BASE_URL + '/yearEndTolPopulateIndex')
             .then(function (response) {
                 myChart.hideLoading();
 

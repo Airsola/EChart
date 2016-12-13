@@ -121,7 +121,7 @@ new Vue({
   template: `
     <div class="routeArea">
       <h1>区域和产业指数</h1>
-      <!--<p>Current route name: {{ $route.name }}</p>-->
+      <p>Current route name: {{ $route.name }}</p>
       <ul>
               <p>
         <li><router-link :to="{ name: 'StartupIndexPackNum'}">创业指数-各省园区数量-园区入驻企业 </router-link></li>
