@@ -32,12 +32,61 @@
             .then(function (response) {
                 myChart.hideLoading();
 
+                var topRankDate = {"ProvincePackTopRank":{"timeline":{"2016":{"福建":{"(厦门)-湖里高新技术开发区":"123","福州-闽侯大学城软件园":"1234","厦门-软件园二期":"125"},"浙江":{"杭州-西湖一区":"123","温州-温岭一区":"2345","乌镇-乌镇一区":"321"}},"2015":{"福建":{"(厦门)湖里高新技术开发区":"1234","(福州)闽侯大学城软件园":"234","(厦门)软件园二期":"34124"},"浙江":{"(杭州)西湖一区":"123","(温州)温岭一区":"2345"}}}}};
+                var topRankTimeLine = Object.keys(topRankDate.ProvincePackTopRank.timeline).reverse();
+                var topRankLastYearData =  topRankDate.ProvincePackTopRank.timeline[topRankTimeLine[0]];
+
+                function getTopRankSortDate(provinceName) {
+
+                  let currentProvinceDate = topRankLastYearData[provinceName]
+                  let packNames = Object.keys(currentProvinceDate)
+                  let enterpriseNum = Object.values(currentProvinceDate)
+                  let currentProvinceDataArry = []
+
+                  for ( let packName  of packNames  ){
+                      let obj = new Object()
+                      obj.name = packName
+                    obj.value = currentProvinceDate[packName]
+                    currentProvinceDataArry.push(obj)
+                   }
+
+                  let sortedDate = currentProvinceDataArry.sort(function (a, b) {
+                     return a.value - b.value;
+                  });
+
+                  return  sortedDate
+                }
+
+                function getTopRankNameByProvinceName(provinceName) {
+                  let packNames = []
+                 var currentProvinceDateSortedArry =  getTopRankSortDate(provinceName)
+                  for (  var obj of currentProvinceDateSortedArry ) {
+                    packNames.push(obj.name)
+                  }
+                  return packNames
+                 }
+
+
+                function getTopRankValuesByProvinceName(provinceName) {
+                  let  packValues = []
+                   var currentProvinceDateSortedArry =  getTopRankSortDate(provinceName)
+                  for (  var obj of currentProvinceDateSortedArry ) {
+                    packValues.push(obj.value)
+                  }
+
+                  return packValues
+                }
+
+                getTopRankValuesByProvinceName('福建')
+                getTopRankNameByProvinceName('福建')
+
+
+
 //            var  dataSource = {"timeline":{"2016":[{"name":"厦门市","value":[118.1,24.46,279]},{"name":"上海市","value":[121.48,31.22,273]}],"2015":[{"name":"厦门","value":[118.1,24.46,279]},{"name":"上海","value":[121.48,31.22,273]}]}};
-                 var dataSource = {"KeyCityPackAndEnterpriseNum":{"timeline":{"2016":[{"name":"厦门","value":[118.1,24.46,1000,8]},{"name":"上海","value":[121.48,31.22,40000,37]},{"name":"杭州","value":[120.19,30.26,30000,20]}],"2015":[{"name":"厦门","value":[111.88,31,1000,8]},{"name":"上海","value":[111.82,30.11,40000,37]},{"name":"杭州","value":[111.83,32.32,30000,20]}]}}};
+                 var dataSource = {"KeyCityPackAndEnterpriseNum":{"timeline":{"2016":[  {"name":"厦门","value":[118.1,24.46,1000,8]}, {"name":"福州","value":[119.3,26.08,998,6]}  ,{"name":"上海","value":[121.48,31.22,40000,37]},{"name":"杭州","value":[120.19,30.26,30000,20]}],"2015":[{"name":"厦门","value":[111.88,31,1000,8]},{"name":"上海","value":[111.82,30.11,40000,37]},{"name":"杭州","value":[111.83,32.32,30000,20]}]}}};
                  //var  dataSource = response.data
                 var timeLine = Object.keys(dataSource.KeyCityPackAndEnterpriseNum.timeline).reverse();
                 var lastYearData = dataSource.KeyCityPackAndEnterpriseNum.timeline[timeLine[0]];
-              debugger;
 
                 function getCurrentYearPackNumData(currentYear) {
                   let currentYearData =  dataSource.KeyCityPackAndEnterpriseNum.timeline[currentYear]
@@ -59,9 +108,6 @@
                   return values
                 }
 
-
-
-
                 function getCurrentYearMaxValue(currentYear) {
                   let   values = getCurrentYearPackNumData(currentYear)
                   return Math.max.apply(null, values)
@@ -72,13 +118,11 @@
                   return Math.min.apply(null, values)
                 }
 
-
                 function getCurrentAreaPackEnterpriseNum(currentYear,dataIndex) {
                   let  values =  getCurrentYearPackEnterpriseNumData(currentYear)
                   return values[dataIndex]
 
                 }
-
 
 //              var abc=   getCurrentYearData(timeLine[0]);
 //              var max1 =  getCurrentYearMaxValue(timeLine[0])
@@ -94,7 +138,7 @@
                   animationEasingUpdate: 'cubicInOut',
                   title: [
                     {
-                      text: '经济指数-'+timeLine[0]+'年全国重点城市年末总人口(万人)',
+                      text: '创业指数-'+timeLine[0]+'年重点城市园区数及入驻企业数量',
                       subtext: '锐信视界',
                       sublink: 'http://zx.onlyou.com/zx/index',
                       left: 'center',
@@ -117,9 +161,7 @@
 
                   visualMap: [
                     {
-                      //这里的最大值 最小值需要提前获得
-//                  min:0,
-//                  max:10000,
+
                       min:   0,
                       max:   (~~getCurrentYearMaxValue(timeLine[0]) +10),
                       //将离散型的映射给分割了
@@ -133,10 +175,6 @@
                         color: '#fff'
                       }
                     },
-//                  {
-//                    min:  0,
-//                    max:   (~~getCurrentYearMaxValue(timeLine[0]) +10),
-//                  }
 
                   ],
 
@@ -166,6 +204,7 @@
                     geoIndex: 0
                   },
                   geo: {
+                    selectedMode: 'single',
                     map: 'china',
                     left: '10',
                     right: '35%',
@@ -197,7 +236,6 @@
                     bottom: 40,
                     width: '30%'
                   },
-
                   xAxis: {
                     min:0,
                     type: 'value',
@@ -288,7 +326,6 @@
                   ]
                 };
 
-                myChart.on('brushselected', renderBrushed);
 
                 // 模拟的画出了几个区域事件
                 setTimeout(function () {
@@ -304,10 +341,59 @@
                   });
                 }, 0);
 
+                myChart.on('brushselected', renderBrushed);
+                myChart.on("geoselectchanged",mapProvinceClick);
+
+                function mapProvinceClick (parameter) {
+                  let  packNames = getTopRankNameByProvinceName(parameter.name)
+                  let  packValues = getTopRankValuesByProvinceName(parameter.name)
+
+                  let provinceOption = {
+                    yAxis: {
+                      data: packNames
+                    },
+                    xAxis: {
+//                      axisLabel: {show: !!count}
+                    },
+//                    tooltip: {
+//                      formatter:function (params, ticket, callback) {
+//                        if(typeof(params.data)== "undefined" ){
+//                          return
+//                        }
+//                        var resultStr
+//                        if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
+//                          resultStr = params.name+'<br/>'+ params.data.value[3]+'个园区<br/>'+getCurrentAreaPackEnterpriseNum(timeLine[0],params.dataIndex)+'家入驻企业'
+//                        }else{
+//                          resultStr = params.name+'<br/>'+ params.data+'个园区<br/>'+getCurrentAreaPackEnterpriseNum(timeLine[0],params.dataIndex)+'家入驻企业'
+//                        }
+//                        return resultStr
+//                      }
+//                    },
+                    series: {
+                      id: 'bar',
+                      data: packValues
+                    }
+
+                  };
+
+
+                  myChart.setOption(provinceOption);
+
+                }
+
+
+
 
                 function renderBrushed(params) {
-                  console.log( params );
+
+//                 没有选中城市则改变 辅助图形绘制
+                  if(params.batch[0].selected[0].dataIndex.length === 0) {
+                        return
+                    }
+
+
                   var mainSeries = params.batch[0].selected[0];
+
 
                   var selectedItems = [];
                   var categoryData = [];
@@ -318,8 +404,7 @@
 
                   for (var i = 0; i < mainSeries.dataIndex.length; i++) {
                     var rawIndex = mainSeries.dataIndex[i];
-//            var dataItem = convertedData[0][rawIndex];
-                    var dataItem = lastYearData[rawIndex];
+                     var dataItem = lastYearData[rawIndex];
                     var pmValue = dataItem.value[3];
 
                     sum += pmValue;
@@ -352,22 +437,28 @@
                     },
                     title: {
                       id: 'statistic',
-//                    text: count ? '平均: ' + (sum / count).toFixed(4) : ''
-                    },
+                     },
+
                     tooltip: {
                       formatter:function (params, ticket, callback) {
-                        if(typeof(params.data)== "undefined" ){
+                          if(typeof(params.data)== "undefined" ){
                           return
                         }
                         var resultStr
-                        resultStr = params.name+'<br/>'+ params.data+'个园区<br/>'+getCurrentAreaPackEnterpriseNum(timeLine[0],params.dataIndex)+'家入驻企业'
+                        if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
+                          resultStr = params.name+'<br/>'+ params.data.value[3]+'个园区<br/>'+getCurrentAreaPackEnterpriseNum(timeLine[0],params.dataIndex)+'家入驻企业'
+                        }else{
+                          resultStr = params.name+'<br/>'+ params.data+'个园区<br/>'+getCurrentAreaPackEnterpriseNum(timeLine[0],params.dataIndex)+'家入驻企业'
+                        }
                         return resultStr
                       }
                     },
+
                     series: {
                       id: 'bar',
                       data: barData
                     }
+
                   });
                 }
 

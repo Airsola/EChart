@@ -276,17 +276,9 @@
                   ]
                 };
 
-//                myChart.on('brushselected', renderBrushed);
+                myChart.on('brushselected', renderBrushed);
 
 
-
-//            myChart.on("mapselectchanged",somePlaceClick);
-              myChart.on("geoselectchanged",somePlaceClick);
-
-                function somePlaceClick (parameter) {
-                  console.log(parameter)
-
-                }
 
 
 
