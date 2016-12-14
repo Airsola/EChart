@@ -1,7 +1,27 @@
 <template>
-
   <div id="app">
-  </div>
+    <!--<my-header :seller="seller"></my-header>-->
+    <h2>区域和产业指数</h2>
+    <div class="tab border-1px">
+      <div class="tab-item">
+        <router-link :to="{ name: 'Economy'}">经济指数</router-link>
+       </div>
+      <div class="tab-item">
+        <router-link :to="{ name: 'Industry'}">产业指数</router-link>
+      </div>
+      <div class="tab-item">
+        <router-link :to="{ name: 'Innovate'}">创新指数</router-link>
+      </div>
+      <div class="tab-item">
+        <router-link :to="{ name: 'StartUp'}">创业指数</router-link>
+      </div>
+      <div class="tab-item">
+      <router-link :to="{ name: 'Recruit'}">招聘指数</router-link>
+    </div>
+    </div>
+
+       <router-view ></router-view>
+   </div>
 </template>
 
 
@@ -16,16 +36,10 @@
     },
 
     methods: {
-      startHacking () {
-        this.$toast('It Works!')
-      }
+
     },
 
     mounted: function () {
-// 测试AJAX是否生效
-      $("p").click(function () {
-        $(this).hide();
-      });
 
     }
 
@@ -90,6 +104,5 @@
     text-decoration: none;
 
   }
-
 
 </style>

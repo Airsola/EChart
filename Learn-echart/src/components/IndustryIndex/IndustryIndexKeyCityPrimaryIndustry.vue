@@ -27,6 +27,7 @@
           var app = [];
           var option = null;
 
+          debugger
           this.$http.get(this.$store.state.BASE_URL + '/impCityFirInduAddedIndex')
             .then(function (response) {
                 myChart.hideLoading();
@@ -348,9 +349,10 @@
               function (response) {
                 // error callback
                 console.log(response)
-              }).catch(function (response) {
-            console.log('error' + response)
-          })
+              })
+//            .catch(function (response) {
+//            console.log('error' + response)
+//          })
 
         }, function (response) {
           console.log('API请求发生异常 ' + response)
@@ -369,7 +371,7 @@
 
 <style scoped>
 
-  #mapinner2 {
+  #mapinner2{
     height: 750px;
     width: 80%;
     margin: 0 auto;

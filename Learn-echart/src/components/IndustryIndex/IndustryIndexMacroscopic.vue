@@ -1,5 +1,5 @@
 <template >
-  <div id="mapinner">
+  <div id="mapinner2">
   </div>
 </template>
 
@@ -13,7 +13,7 @@
     name : "innovateIndustry",
     mounted:function (){
 
-        var myChart = echarts.init(document.getElementById('mapinner'));
+        var myChart = echarts.init(document.getElementById('mapinner2'));
         myChart.showLoading();
 
         this.$http.get(this.$store.state.BASE_URL + '/prosAllIndustryAddedIndex')
@@ -259,7 +259,7 @@
 
 
 <style  scoped>
-  #mapinner{
+  #mapinner2{
     height: 750px;
     width:  80%;
     margin: 0 auto;
