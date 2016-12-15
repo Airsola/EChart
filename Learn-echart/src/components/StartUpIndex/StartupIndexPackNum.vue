@@ -22,7 +22,7 @@
           var app = [];
           var option = null;
 
-          this.$http.get(this.$store.state.BASE_URL + '/provincesYearGDPIndex')
+          this.$http.get(this.$store.state.BASE_URL + '/prosParkEntsIndex')
            .then(function (response) {
 
               //------------------
@@ -30,8 +30,10 @@
 
               //后续替换为 response
 
-            var dataSource = {"ProvincePackAndEnterpriseNum":{"timeline":{"2016":[{"name":"福建","value":[1000,23]},{"name":"上海","value":[30000,36]},{"name":"浙江","value":[30000,49]}],"2015":[{"name":"福建","value":[12,12345]},{"name":"上海","value":[22,44432]},{"name":"浙江","value":[4,30000]}]}}};
-//            var dataSource = response.data
+
+
+//          var dataSource = {"ProvincePackAndEnterpriseNum":{"timeline":{"2016":[{"name":"福建","value":[1000,23]},{"name":"上海","value":[30000,36]},{"name":"浙江","value":[30000,49]}],"2015":[{"name":"福建","value":[12,12345]},{"name":"上海","value":[22,44432]},{"name":"浙江","value":[4,30000]}]}}};
+            var dataSource = response.data
               var timeLine = Object.keys(dataSource.ProvincePackAndEnterpriseNum.timeline).reverse();
               var lastYearDataArry = dataSource.ProvincePackAndEnterpriseNum.timeline[timeLine[0]];
 
@@ -74,7 +76,7 @@
                 animationEasingUpdate: 'cubicInOut',
                 title: [
                   {
-                    text: '创业指数-'+timeLine[0] +'年各省园区数量及入驻企业数量',
+                    text: '创业指数-'+timeLine[0].slice(0,4)+'年'+timeLine[0].slice(4)+'月各省园区数量及入驻企业数量',
                     subtext: '锐信视界',
                     sublink: 'http://zx.onlyou.com/zx/index',
                     left: 'center',

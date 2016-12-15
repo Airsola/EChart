@@ -28,7 +28,7 @@ import EnterpriseLegalPersonTendency from './components/Tendency/EnterpriseLegal
 import Innovate from './components/InnovateIndex/Innovate.vue'
 import InnovateIndexPatent from './components/InnovateIndex/InnovateIndexPatent.vue'
 import InnovateIndexCopyright from './components/InnovateIndex/InnovateIndexCopyright.vue'
-
+import  InnovateIndexKeyCityInvisibleAssets from './components/InnovateIndex/InnovateIndexKeyCityInvisibleAssets.vue'
 
 //产业指数
 import Industry from './components/IndustryIndex/Industry.vue'
@@ -65,7 +65,7 @@ const router = new VueRouter({
     {path: '/Economy', name: 'Economy', component: Economy,
       children: [
         // { path: '', component: Economy },
-        { path: 'EconomyAreaGDPIndex', name: 'EconomyAreaGDPIndex', component: EconomyAreaGDPIndex },
+        {path: 'EconomyAreaGDPIndex', name: 'EconomyAreaGDPIndex', component: EconomyAreaGDPIndex },
         {path: 'EconomyLegalPersonIndex', name: 'EconomyLegalPersonIndex', component: EconomyLegalPersonIndex},
         {path: 'EconomyEnterpriseLegalPersonIndex', name: 'EconomyEnterpriseLegalPersonIndex', component: EconomyEnterpriseLegalPersonIndex},
         {path: 'economyIndexKeyCityYearEndTotalPopulation', name: 'economyIndexKeyCityYearEndTotalPopulation', component: economyIndexKeyCityYearEndTotalPopulation},
@@ -98,6 +98,8 @@ const router = new VueRouter({
       children: [
         {path: 'InnovateIndexPatent', name: 'InnovateIndexPatent', component: InnovateIndexPatent},
         {path: 'InnovateIndexCopyright', name: 'InnovateIndexCopyright', component: InnovateIndexCopyright},
+        {path: 'InnovateIndexKeyCityInvisibleAssets', name: 'InnovateIndexKeyCityInvisibleAssets', component: InnovateIndexKeyCityInvisibleAssets},
+
       ]
     } ,
 
@@ -120,7 +122,7 @@ const router = new VueRouter({
     } ,
 
 
-    // {path: '/', name: 'default', component: null},
+    {path: '/', name: 'default', component: EconomyAreaGDPIndex},
     // {path: '*', name: 'other', component: null},
 
   ]
