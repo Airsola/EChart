@@ -34,6 +34,8 @@
                 myChart.hideLoading();
 
                 var topRankDate = {"ProvincePackTopRank":{"timeline":{"2016":{"福建":{"(厦门)-湖里高新技术开发区":"123","福州-闽侯大学城软件园":"1234","厦门-软件园二期":"125"},"浙江":{"杭州-西湖一区":"123","温州-温岭一区":"2345","乌镇-乌镇一区":"321"}},"2015":{"福建":{"(厦门)湖里高新技术开发区":"1234","(福州)闽侯大学城软件园":"234","(厦门)软件园二期":"34124"},"浙江":{"(杭州)西湖一区":"123","(温州)温岭一区":"2345"}}}}};
+//                var topRankDate =  {"ProvincePackInvisibleAssetsTop":{"timeline":{"2016":{"福建":{"(厦门)湖里高新技术开发区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":3423},"(福州)闽侯大学城软件园":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(厦门)软件园二期":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333}},"浙江":{"(杭州)西湖一区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(温州)温岭一区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(乌镇)乌镇一区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333}}},"2015":{"福建":{"(厦门)湖里高新技术开发区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(福州)闽侯大学城软件园":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(厦门)软件园二期":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333}},"浙江":{"(杭州)西湖一区":{"InventPatent":"123","NewTypePatent":"12","AppearanceDesignPatent":"123","Copyright":"12","Trademark":"331","Software":"234","Total":"44444"},"(温州)温岭一区":{"InventPatent":"123","NewTypePatent":"12","AppearanceDesignPatent":"123","Copyright":"12","Trademark":"331","Software":"234","Total":"44444"},"(乌镇)乌镇一区":{"InventPatent":"123","NewTypePatent":"12","AppearanceDesignPatent":"123","Copyright":"12","Trademark":"331","Software":"234","Total":"44444"}}}}}};
+
                 var topRankTimeLine = Object.keys(topRankDate.ProvincePackTopRank.timeline).reverse();
                 var topRankLastYearData =  topRankDate.ProvincePackTopRank.timeline[topRankTimeLine[0]];
 
@@ -77,10 +79,6 @@
 
                   return packValues
                 }
-
-                getTopRankValuesByProvinceName('福建')
-                getTopRankNameByProvinceName('福建')
-
 
 
                 var dataSource = {"KeyCityPackInvisibleAssetsNum":{"timeline":{"2016":[{"name":"厦门","value":[111.88,31,800]},{"name":"上海","value":[111.82,30.11,37]},{"name":"杭州","value":[111.83,32.32,20]}],"2015":[{"name":"厦门","value":[111.88,31,8]},{"name":"上海","value":[111.82,30.11,37]},{"name":"杭州","value":[111.83,32.32,20]}]}}};
@@ -139,7 +137,7 @@ debugger
                   animationEasingUpdate: 'cubicInOut',
                   title: [
                     {
-                      text: '创业指数-'+timeLine[0]+'年无形资产分布',
+                      text: '创业指数-'+timeLine[0]+'年区域无形资产分布',
                       subtext: '锐信视界',
                       sublink: 'http://zx.onlyou.com/zx/index',
                       left: 'center',
@@ -352,7 +350,7 @@ debugger
                   let provinceOption = {
                     yAxis: {
                       data: packNames,
-                      name: parameter.name+'-园区入驻企业数排行',
+                      name: parameter.name+'-园区无形资产数分部',
                     },
                     xAxis: {
 //                      axisLabel: {show: !!count}
@@ -392,7 +390,7 @@ debugger
 //                    },
 
                     series: {
-                      id: 'bar',
+                      id: 'pie',
                       data: packValues
                     }
 

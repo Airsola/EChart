@@ -15,11 +15,9 @@
     name: "mapArea",
     mounted: function () {
 
-
       var myChart = echarts.init(document.getElementById('mapinner2'));
 
       myChart.showLoading()
-
       this.$http.get(this.$store.state.CHINA_MAP_JSON)
         .then(function (chinaJson) {
 
@@ -27,16 +25,31 @@
           var app = [];
           var option = null;
 
-          this.$http.get(this.$store.state.BASE_URL + '/yearEndTolPopulateIndex')
+          this.$http.get(this.$store.state.BASE_URL + '/impCitysParkEntsIndex')
             .then(function (response) {
                 myChart.hideLoading();
 
-                var topRankDate = {"ProvincePackTopRank":{"timeline":{"2016":{"福建":{"(厦门)-湖里高新技术开发区":"123","福州-闽侯大学城软件园":"1234","厦门-软件园二期":"125"},"浙江":{"杭州-西湖一区":"123","温州-温岭一区":"2345","乌镇-乌镇一区":"321"}},"2015":{"福建":{"(厦门)湖里高新技术开发区":"1234","(福州)闽侯大学城软件园":"234","(厦门)软件园二期":"34124"},"浙江":{"(杭州)西湖一区":"123","(温州)温岭一区":"2345"}}}}};
-                var topRankTimeLine = Object.keys(topRankDate.ProvincePackTopRank.timeline).reverse();
-                var topRankLastYearData =  topRankDate.ProvincePackTopRank.timeline[topRankTimeLine[0]];
+//               var topRankDate = {"ProvincePackTopRank":{"timeline":{"2016":{"福建":{"(厦门)-湖里高新技术开发区":"123","福州-闽侯大学城软件园":"1234","厦门-软件园二期":"125"},"浙江":{"杭州-西湖一区":"123","温州-温岭一区":"2345","乌镇-乌镇一区":"321"}},"2015":{"福建":{"(厦门)湖里高新技术开发区":"1234","(福州)闽侯大学城软件园":"234","(厦门)软件园二期":"34124"},"浙江":{"(杭州)西湖一区":"123","(温州)温岭一区":"2345"}}}}};
+
+                // 为了减少等待时间 这部分接口就异步走了
+                var  topRankDate = []
+                var topRankTimeLine  =[]
+                var topRankLastYearData = []
+                this.$http.get(this.$store.state.BASE_URL + '/provincePackTopRank')
+                  .then(function (response) {
+                      topRankDate = response.data
+                       topRankTimeLine = Object.keys(topRankDate.ProvincePackTopRank.timeline).reverse();
+                      topRankLastYearData =  topRankDate.ProvincePackTopRank.timeline[topRankTimeLine[0]];
+                    },
+                    function (response) {
+                      // error callback
+                      console.log(response)
+                    })
+
+//                var topRankTimeLine = Object.keys(topRankDate.ProvincePackTopRank.timeline).reverse();
+//                var topRankLastYearData =  topRankDate.ProvincePackTopRank.timeline[topRankTimeLine[0]];
 
                 function getTopRankSortDate(provinceName) {
-
                   let currentProvinceDate = topRankLastYearData[provinceName]
                   let packNames = Object.keys(currentProvinceDate)
                   let enterpriseNum = Object.values(currentProvinceDate)
@@ -76,14 +89,11 @@
                   return packValues
                 }
 
-                getTopRankValuesByProvinceName('福建')
-                getTopRankNameByProvinceName('福建')
 
 
 
-//            var  dataSource = {"timeline":{"2016":[{"name":"厦门市","value":[118.1,24.46,279]},{"name":"上海市","value":[121.48,31.22,273]}],"2015":[{"name":"厦门","value":[118.1,24.46,279]},{"name":"上海","value":[121.48,31.22,273]}]}};
-                 var dataSource = {"KeyCityPackAndEnterpriseNum":{"timeline":{"2016":[  {"name":"厦门","value":[118.1,24.46,1000,8]}, {"name":"福州","value":[119.3,26.08,998,6]}  ,{"name":"上海","value":[121.48,31.22,40000,37]},{"name":"杭州","value":[120.19,30.26,30000,20]}],"2015":[{"name":"厦门","value":[111.88,31,1000,8]},{"name":"上海","value":[111.82,30.11,40000,37]},{"name":"杭州","value":[111.83,32.32,30000,20]}]}}};
-                 //var  dataSource = response.data
+//                 var dataSource = {"KeyCityPackAndEnterpriseNum":{"timeline":{"2016":[  {"name":"厦门","value":[118.1,24.46,1000,8]}, {"name":"福州","value":[119.3,26.08,998,6]}  ,{"name":"上海","value":[121.48,31.22,40000,37]},{"name":"杭州","value":[120.19,30.26,30000,20]}],"2015":[{"name":"厦门","value":[111.88,31,1000,8]},{"name":"上海","value":[111.82,30.11,40000,37]},{"name":"杭州","value":[111.83,32.32,30000,20]}]}}};
+                var  dataSource = response.data
                 var timeLine = Object.keys(dataSource.KeyCityPackAndEnterpriseNum.timeline).reverse();
                 var lastYearData = dataSource.KeyCityPackAndEnterpriseNum.timeline[timeLine[0]];
 
@@ -137,7 +147,7 @@
                   animationEasingUpdate: 'cubicInOut',
                   title: [
                     {
-                      text: '创业指数-'+timeLine[0]+'年重点城市园区数及入驻企业数量',
+                      text: '创业指数-'+timeLine[0].slice(0,4)+'年'+timeLine[0].slice(4)+'月重点城市园区数及入驻企业数量',
                       subtext: '锐信视界',
                       sublink: 'http://zx.onlyou.com/zx/index',
                       left: 'center',
@@ -207,8 +217,8 @@
                     map: 'china',
                     left: '10',
                     right: '35%',
-                    center: [117.98561551896913, 31.205000490896193],
-                    zoom: 2.5,
+                    center: [117.98561551896913, 32.205000490896193],
+                    zoom: 1.75,
                     label: {
                       emphasis: {
                         show: false
@@ -238,7 +248,7 @@
                   xAxis: {
                     min:0,
                     type: 'value',
-                    name:'(万人)',
+//                    name:'(万人)',
                     scale: true,
                     position: 'top',
                     boundaryGap: false,
@@ -263,7 +273,7 @@
                       coordinateSystem: 'geo',
                       data:lastYearData,
                       symbolSize: function (val) {
-                        return Math.max(val[3] / 20, 15);
+                        return Math.max(val[3] / 0.98, 12);
                       },
                       label: {
                         normal: {
