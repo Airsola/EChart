@@ -10,8 +10,6 @@
 
   import  echarts from 'echarts'
 
-
-
   export default({
 
     name: "mapArea",
@@ -347,59 +345,6 @@
                  myChart.on("geoselectchanged",mapProvinceClick);
 
                 function mapProvinceClick (parameter) {
-
-//                  let  packNames = getTopRankNameByProvinceName(parameter.name)
-//                  let  packValues = getTopRankValuesByProvinceName(parameter.name)
-
-//                  let provinceOption = {
-//                    yAxis: {
-//                      data: packNames,
-//                      name: parameter.name+'-园区无形资产数分部',
-//                    },
-//                    xAxis: {
-////                      axisLabel: {show: !!count}
-//                    },
-//                    label: {
-//                      normal: {
-//                        formatter: '{c}',
-//                        position: 'right',
-//                        show: true
-//                      },
-//                      emphasis: {
-//                        formatter: '{c}',
-//                        position: 'right',
-//                        show: true                      }
-//                    },
-//
-//                    tooltip: {
-//                      formatter:function (params, ticket, callback) {
-//
-//                        if(typeof(params.data)== "undefined" ){
-//                          return
-//                        }
-//                        var resultStr
-//                        if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
-//                          resultStr = params.name+'<br/>'+ params.data.value[3]+'个园区<br/>'+getCurrentAreaPackInvisibleAsset(topRankTimeLine[0],params.dataIndex)+'家入驻企业'
-//                        }else{
-//                          resultStr = params.name+'有'+params.value+'家企业入驻'
-//                        }
-//                        return resultStr
-//                      }
-//                    },
-//
-////                    tooltip: {
-////                      formatter:function (params, ticket, callback) {
-////                        return params.name+'有'+params.value+'家企业入驻'
-////                      }
-////                    },
-//
-//                    series: {
-//                      id: 'pie',
-//                      data: packValues
-//                    }
-//
-//                  };
-
 
                   let provinceOption = {
                     title: {text: '创新指数-'+topRankTimeLine[0]+'年'+ parameter.name+'范围内园区专利数量构成'},

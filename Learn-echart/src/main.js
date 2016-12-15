@@ -7,9 +7,11 @@ import  VueResource from 'vue-resource'
 import store from './store'
 
 //招聘指数
-
 import  Recruit  from './components/RecruitIndex/Recruit.vue'
 import  RecruitIndustry  from './components/RecruitIndex/RecruitIndustry.vue'
+import  RecruiteIndexEduBackground  from './components/RecruitIndex/RecruiteIndexEduBackground.vue'
+import  RecruiteIndexYearsOfWorked  from './components/RecruitIndex/RecruiteIndexYearsOfWorked.vue'
+
 // 经济指数
 import Economy from './components/EconomyIndex/Economy.vue'
 
@@ -30,6 +32,7 @@ import InnovateIndexPatent from './components/InnovateIndex/InnovateIndexPatent.
 import InnovateIndexCopyright from './components/InnovateIndex/InnovateIndexCopyright.vue'
 import  InnovateIndexKeyCityInvisibleAssets from './components/InnovateIndex/InnovateIndexKeyCityInvisibleAssets.vue'
 import  InnovateIndexProvinceAreaInvisibleAssets from './components/InnovateIndex/InnovateIndexProvinceAreaInvisibleAssets.vue'
+
 
 //产业指数
 import Industry from './components/IndustryIndex/Industry.vue'
@@ -108,6 +111,8 @@ const router = new VueRouter({
     //招聘指数
     {path: '/Recruit', name: 'Recruit', component: Recruit,
       children: [
+        {path: 'RecruiteIndexEduBackground', name: 'RecruiteIndexEduBackground', component: RecruiteIndexEduBackground},
+        {path: 'RecruiteIndexYearsOfWorked', name: 'RecruiteIndexYearsOfWorked', component: RecruiteIndexYearsOfWorked},
         {path: 'RecruitIndustry', name: 'RecruitIndustry', component: RecruitIndustry},
       ]
     } ,
@@ -123,9 +128,7 @@ const router = new VueRouter({
       ]
     } ,
 
-
     {path: '/', name: 'default', component: EconomyAreaGDPIndex},
-    // {path: '*', name: 'other', component: null},
 
   ]
 })

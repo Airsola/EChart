@@ -11,7 +11,9 @@ const store = new Vuex.Store({
     // BASE_URL : 'http://172.16.123.73:8881/spider-web/riviews/gardenindex',
     CHINA_MAP_JSON :'http://7xlgc1.com1.z0.glb.clouddn.com/china.json',
     AssetsTypeArry:["InventPatent","NewTypePatent","AppearanceDesignPatent","Copyright","Trademark","Software"],
-    AssetsTypeDisplayNameArry:  ['发明专利有效量','实用新型专利有效量','外观设计专利有效量','作品著作权','商标','软件著作权']
+    AssetsTypeDisplayNameArry:  ['发明专利有效量','实用新型专利有效量','外观设计专利有效量','作品著作权','商标','软件著作权'],
+    RecruiteEduBackgroundTypeArry :['其他','初中','高中','中技','中专','大专','本科','硕士','博士']
+
 
   },
 
