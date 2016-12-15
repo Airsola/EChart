@@ -109,7 +109,7 @@
                 animationEasingUpdate: 'cubicInOut',
                 title: [
                   {
-                    text: '经济指数'+timeLine[0] +'年-'+provinceNames[0]+'-成立企业数量行业分布',
+                    text: '创业指数'+timeLine[0] +'年-'+provinceNames[0]+'-成立企业数量行业分布',
                     subtext: '锐信视界',
                     sublink: 'http://zx.onlyou.com/zx/index',
 //                    left: '70%',
