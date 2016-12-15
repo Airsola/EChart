@@ -29,6 +29,7 @@ import Innovate from './components/InnovateIndex/Innovate.vue'
 import InnovateIndexPatent from './components/InnovateIndex/InnovateIndexPatent.vue'
 import InnovateIndexCopyright from './components/InnovateIndex/InnovateIndexCopyright.vue'
 import  InnovateIndexKeyCityInvisibleAssets from './components/InnovateIndex/InnovateIndexKeyCityInvisibleAssets.vue'
+import  InnovateIndexProvinceAreaInvisibleAssets from './components/InnovateIndex/InnovateIndexProvinceAreaInvisibleAssets.vue'
 
 //产业指数
 import Industry from './components/IndustryIndex/Industry.vue'
@@ -99,6 +100,7 @@ const router = new VueRouter({
         {path: 'InnovateIndexPatent', name: 'InnovateIndexPatent', component: InnovateIndexPatent},
         {path: 'InnovateIndexCopyright', name: 'InnovateIndexCopyright', component: InnovateIndexCopyright},
         {path: 'InnovateIndexKeyCityInvisibleAssets', name: 'InnovateIndexKeyCityInvisibleAssets', component: InnovateIndexKeyCityInvisibleAssets},
+        {path: 'InnovateIndexProvinceAreaInvisibleAssets', name: 'InnovateIndexProvinceAreaInvisibleAssets', component: InnovateIndexProvinceAreaInvisibleAssets},
 
       ]
     } ,

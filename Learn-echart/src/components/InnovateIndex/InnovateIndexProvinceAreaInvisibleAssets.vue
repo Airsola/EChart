@@ -33,6 +33,52 @@
             .then(function (response) {
                 myChart.hideLoading();
 
+                var topRankDate = {"ProvincePackTopRank":{"timeline":{"2016":{"福建":{"(厦门)-湖里高新技术开发区":"123","福州-闽侯大学城软件园":"1234","厦门-软件园二期":"125"},"浙江":{"杭州-西湖一区":"123","温州-温岭一区":"2345","乌镇-乌镇一区":"321"}},"2015":{"福建":{"(厦门)湖里高新技术开发区":"1234","(福州)闽侯大学城软件园":"234","(厦门)软件园二期":"34124"},"浙江":{"(杭州)西湖一区":"123","(温州)温岭一区":"2345"}}}}};
+//                var topRankDate =  {"ProvincePackInvisibleAssetsTop":{"timeline":{"2016":{"福建":{"(厦门)湖里高新技术开发区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":3423},"(福州)闽侯大学城软件园":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(厦门)软件园二期":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333}},"浙江":{"(杭州)西湖一区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(温州)温岭一区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(乌镇)乌镇一区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333}}},"2015":{"福建":{"(厦门)湖里高新技术开发区":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(福州)闽侯大学城软件园":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333},"(厦门)软件园二期":{"InventPatent":123,"NewTypePatent":12,"AppearanceDesignPatent":123,"Copyright":12,"Trademark":331,"Software":234,"Total":333333}},"浙江":{"(杭州)西湖一区":{"InventPatent":"123","NewTypePatent":"12","AppearanceDesignPatent":"123","Copyright":"12","Trademark":"331","Software":"234","Total":"44444"},"(温州)温岭一区":{"InventPatent":"123","NewTypePatent":"12","AppearanceDesignPatent":"123","Copyright":"12","Trademark":"331","Software":"234","Total":"44444"},"(乌镇)乌镇一区":{"InventPatent":"123","NewTypePatent":"12","AppearanceDesignPatent":"123","Copyright":"12","Trademark":"331","Software":"234","Total":"44444"}}}}}};
+
+                var topRankTimeLine = Object.keys(topRankDate.ProvincePackTopRank.timeline).reverse();
+                var topRankLastYearData =  topRankDate.ProvincePackTopRank.timeline[topRankTimeLine[0]];
+
+                function getTopRankSortDate(provinceName) {
+
+                  let currentProvinceDate = topRankLastYearData[provinceName]
+                  let packNames = Object.keys(currentProvinceDate)
+                  let enterpriseNum = Object.values(currentProvinceDate)
+                  let currentProvinceDataArry = []
+
+                  for ( let packName  of packNames  ){
+                    let obj = new Object()
+                    obj.name = packName
+                    obj.value = currentProvinceDate[packName]
+                    currentProvinceDataArry.push(obj)
+                  }
+
+                  let sortedDate = currentProvinceDataArry.sort(function (a, b) {
+                    return a.value - b.value;
+                  });
+
+                  return  sortedDate
+                }
+
+                function getTopRankNameByProvinceName(provinceName) {
+                  let packNames = []
+                  var currentProvinceDateSortedArry =  getTopRankSortDate(provinceName)
+                  for (  var obj of currentProvinceDateSortedArry ) {
+                    packNames.push(obj.name)
+                  }
+                  return packNames
+                }
+
+
+                function getTopRankValuesByProvinceName(provinceName) {
+                  let  packValues = []
+                  var currentProvinceDateSortedArry =  getTopRankSortDate(provinceName)
+                  for (  var obj of currentProvinceDateSortedArry ) {
+                    packValues.push(obj.value)
+                  }
+
+                  return packValues
+                }
 
 
                 var dataSource = {"KeyCityPackInvisibleAssetsNum":{"timeline":{"2016":[{"name":"厦门","value":[111.88,31,800]},{"name":"上海","value":[111.82,30.11,37]},{"name":"杭州","value":[111.83,32.32,20]}],"2015":[{"name":"厦门","value":[111.88,31,8]},{"name":"上海","value":[111.82,30.11,37]},{"name":"杭州","value":[111.83,32.32,20]}]}}};
@@ -50,6 +96,16 @@
                   return values
                 }
 
+//                function getCurrentYearPackEnterpriseNumData(currentYear) {
+//                  let currentYearData =  dataSource.KeyCityPackInvisibleAssetsNum.timeline[currentYear]
+//                  let values = []
+//                  for ( let obj of  currentYearData){
+//                    let  currentValue = obj.value[2]
+//                    values.push(currentValue)
+//                  }
+//                  return values
+//                }
+
                 function getCurrentYearMaxValue(currentYear) {
                   let   values = getCurrentYearPackInvisibleAsset(currentYear)
                   return Math.max.apply(null, values)
@@ -66,7 +122,10 @@
 
                 }
 
-
+//              var abc=   getCurrentYearData(timeLine[0]);
+//              var max1 =  getCurrentYearMaxValue(timeLine[0])
+//              var min1 =  getCurrentYearMinValue(timeLine[0])
+//              var  min2 = ~~getCurrentYearMinValue(timeLine[0]) -10
 
                 option = {
                   backgroundColor: '#404a59',
@@ -143,7 +202,8 @@
                     geoIndex: 0
                   },
                   geo: {
-                     map: 'china',
+                    selectedMode: 'single',
+                    map: 'china',
                     left: '10',
                     right: '35%',
                     center: [117.98561551896913, 31.205000490896193],
@@ -165,20 +225,9 @@
                     }
                   },
                   tooltip: {
-                    formatter:function (params, ticket, callback) {
-                      if(typeof(params.data)== "undefined" ){
-                        return
-                      }
-                      var resultStr
-                      if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
-                        resultStr = params.name+'<br/>'+ params.data.value[2]+'件无形资产<br/>'
-                      }else{
-                        resultStr = params.name+'<br/>'+ params.value+'件无形资产<br/>'
-                      }
-                      return resultStr
-                    }
+                    trigger: 'item',
+                    formatter: '{b}: {c} '
                   },
-
                   grid: {
                     right: 40,
                     top: 100,
@@ -199,7 +248,7 @@
                   },
                   yAxis: {
                     type: 'category',
-                    name: '当前选中区域 无形资产数量排行',
+                    name: '当前选中区域 园区数量排行',
                     nameGap: 16,
                     axisLine: {show: false, lineStyle: {color: '#ddd'}},
                     axisTick: {show: false, lineStyle: {color: '#ddd'}},
@@ -214,7 +263,7 @@
                       coordinateSystem: 'geo',
                       data:lastYearData,
                       symbolSize: function (val) {
-                        return Math.max(val[2] / 10, 15);
+                        return Math.max(val[3] / 20, 15);
                       },
                       label: {
                         normal: {
@@ -273,7 +322,27 @@
                       },
                       data: []
                     },
-
+//                    {
+//                      id: 'abc1',
+//                      zlevel: 3,
+//                      type: 'bar',
+//
+//                      data: []
+//                    },
+//                    {
+//                      id: 'abc2',
+//                      zlevel: 3,
+//                      type: 'bar',
+//
+//                      data: []
+//                    },
+//                    {
+//                      id: 'abc3',
+//                      zlevel: 3,
+//                      type: 'bar',
+//
+//                      data: []
+//                    },
                   ]
                 };
 
@@ -293,14 +362,187 @@
                 }, 0);
 
                 myChart.on('brushselected', renderBrushed);
+//                myChart.on("geoselectchanged",mapProvinceClick);
+
+                function mapProvinceClick (parameter) {
+
+                  let  packNames = getTopRankNameByProvinceName(parameter.name)
+                  let  packValues = getTopRankValuesByProvinceName(parameter.name)
+
+//                  let provinceOption = {
+//                    yAxis: {
+//                      data: packNames,
+//                      name: parameter.name+'-园区无形资产数分部',
+//                    },
+//                    xAxis: {
+////                      axisLabel: {show: !!count}
+//                    },
+//                    label: {
+//                      normal: {
+//                        formatter: '{c}',
+//                        position: 'right',
+//                        show: true
+//                      },
+//                      emphasis: {
+//                        formatter: '{c}',
+//                        position: 'right',
+//                        show: true                      }
+//                    },
+//
+//                    tooltip: {
+//                      formatter:function (params, ticket, callback) {
+//
+//                        if(typeof(params.data)== "undefined" ){
+//                          return
+//                        }
+//                        var resultStr
+//                        if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
+//                          resultStr = params.name+'<br/>'+ params.data.value[3]+'个园区<br/>'+getCurrentAreaPackInvisibleAsset(timeLine[0],params.dataIndex)+'家入驻企业'
+//                        }else{
+//                          resultStr = params.name+'有'+params.value+'家企业入驻'
+//                        }
+//                        return resultStr
+//                      }
+//                    },
+//
+////                    tooltip: {
+////                      formatter:function (params, ticket, callback) {
+////                        return params.name+'有'+params.value+'家企业入驻'
+////                      }
+////                    },
+//
+//                    series: {
+//                      id: 'pie',
+//                      data: packValues
+//                    }
+//
+//                  };
+
+
+
+                  let provinceOption = {
+
+                    title: {text: '创新指数-'+timeLine[0]+'年各省专利数量构成'},
+                    backgroundColor:'#B9D0DD',
+
+//
+//                    grid: {
+//                      right: 400,
+//                      top: 100,
+//                      bottom: 40,
+//                      width: '30%',
+//                      borderWidth:70,
+//                      borderColor:'#B9D0DD',
+//                      backgroundColor:'#B9D0DD',
+//                    },
+
+//                    visualMap: [
+//                      {
+// //                         min:   0,
+////                        max:   50,
+//                        //将离散型的映射给分割了
+////                        splitNumber: 5,
+//                        // calculable: true,
+//                        inRange: {
+//                           color: ['#50a3ba', '#d94e5d']
+////                          color: ['#61a5f8', '#eecb5f', '#e16759']
+//                        },
+//                        textStyle: {
+//                          color: '#fff'
+//                        }
+//                      },
+//
+//                    ],
+
+                    tooltip : {
+
+                      formatter:function (params, ticket, callback) {
+
+                        if(typeof(params.data)== "undefined" ){
+                          return
+                        }
+                        var resultStr
+                        if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
+                          resultStr = params.name+'<br/>'+ params.data.value[3]+'个园区<br/>'+getCurrentAreaPackInvisibleAsset(timeLine[0],params.dataIndex)+'家入驻企业'
+                        }else{
+                          resultStr = params.name+'有'+params.value+'家企业入驻'
+                        }
+                        return 'aaaab'
+                      }
+
+
+                    },
+                    legend: {
+                      top: 'bottom' ,
+                      left: 'right',
+                      data:['发明专利有效量','实用新型专利有效量','外观设计专利有效量']
+                    },
+
+                    yAxis : [
+                      {
+                        type : 'category',
+//                        data : provinceNameArry
+                        data:['福建','浙江']
+
+                      }
+                    ],
+                    xAxis : [
+                      {
+                        position: 'top',
+
+                        type : 'value'
+                      }
+                    ],
+                    series : [
+                      {
+//                        id:'abc1',
+                        name:'发明专利有效量',
+                        type:'bar',
+                        stack: '专利',
+//                        data:patentTypeEachProvinceValue("InventPatent")
+                        data:[123,11]
+
+                      },
+                      {
+//                        id:'abc2',
+
+                        name:'实用新型专利有效量',
+                        type:'bar',
+                        stack: '专利',
+//                        data:patentTypeEachProvinceValue("NewTypePatent")
+                        data:[13,110]
+
+                      },
+                      {
+//                        id:'abc3',
+                        name:'外观设计专利有效量',
+                        type:'bar',
+                        stack: '专利',
+//                        data:patentTypeEachProvinceValue("AppearanceDesignPatent")
+                        data:[13,231]
+                      }
+                    ]
+                  };
+
+
+
+                  myChart.setOption(provinceOption);
+
+                }
+
+
+
 
                 function renderBrushed(params) {
+
 //                 没有选中城市则改变 辅助图形绘制
                   if(params.batch[0].selected[0].dataIndex.length === 0) {
                     return
                   }
 
+
                   var mainSeries = params.batch[0].selected[0];
+
 
                   var selectedItems = [];
                   var categoryData = [];
@@ -313,14 +555,17 @@
                     var rawIndex = mainSeries.dataIndex[i];
                     var dataItem = lastYearData[rawIndex];
                     var pmValue = dataItem.value[2];
+
                     sum += pmValue;
                     count++;
                     selectedItems.push(dataItem);
                   }
+
                   // 升序
                   selectedItems.sort(function (a, b) {
                     return a.value[2] - b.value[2];
                   });
+
                   // 升序取出前30会有问题
                   for (var i = 0; i < Math.min(selectedItems.length, maxBar); i++) {
                     if (selectedItems.length <= maxBar) {
@@ -334,7 +579,7 @@
 
                   myChart.setOption({
                     yAxis: {
-                      name: '当前选中区域 无形资产数量排行',
+                      name: '当前选中区域 园区数量排行',
                       data: categoryData
                     },
                     xAxis: {
@@ -361,9 +606,9 @@
                         }
                         var resultStr
                         if(typeof(params.data.value)!="undefined"&&params.data.value!=null) {
-                          resultStr = params.name+'<br/>'+ params.data.value[2]+'件无形资产<br/>'
+                          resultStr = params.name+'<br/>'+ params.data.value[3]+'个园区<br/>'+getCurrentAreaPackInvisibleAsset(timeLine[0],params.dataIndex)+'家入驻企业'
                         }else{
-                          resultStr = params.name+'<br/>'+ params.value+'件无形资产<br/>'
+                          resultStr = params.name+'<br/>'+ params.data+'个园区<br/>'+getCurrentAreaPackInvisibleAsset(timeLine[0],params.dataIndex)+'家入驻企业'
                         }
                         return resultStr
                       }
@@ -376,6 +621,7 @@
 
                   });
                 }
+
 //------------------------------
                 myChart.setOption(option);
 
